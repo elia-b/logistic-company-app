@@ -15,6 +15,8 @@ public class StepDefinition {
 	
     LogisticCompany lc = new LogisticCompany();
     Client c1 = new Client();
+    
+
 	
     @Given("a logistic company")
     public void a_logistic_company() {
@@ -24,6 +26,10 @@ public class StepDefinition {
     @Given("a client")
     public void a_client() {
         c1.unregister();
+        c1.setAddress(null);
+        c1.setContactPerson(null);
+        c1.setEmail(null);
+        c1.setName(null);
     }
 
     @Given("pass {string} as name")
@@ -63,7 +69,7 @@ public class StepDefinition {
 
 
     @Given("a registered client {string} {string} {string} {string}")
-    public void a_registered_client(String name, String email, String address, String contactPerson) {
+    public void a_registered_client(String name, String email, String contactPerson, String address ) {
         Client c2 = new Client();
         c2.setName(name);
         c2.setAddress(address);
@@ -71,5 +77,7 @@ public class StepDefinition {
         c2.setContactPerson(contactPerson);
         lc.register_new_client(c2);
     }
+    
+
     
 }

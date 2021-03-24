@@ -16,6 +16,7 @@ public class LogisticCompany {
             ) {
                 clients.add(c1);
                 c1.register();
+                
             }
         else{
             //Trow an invalid client info
@@ -29,24 +30,59 @@ public class LogisticCompany {
     private boolean checkReferencePersonValid(Client c1) {
         // further implementation can be done
         String rp = c1.getReferencePerson();
-        return true;
+        if (!(rp == null) && rp.matches("[a-zA-Z ]+")) {
+        	
+        	return true;
+        	
+        }
+        return false;
     }
 
     private boolean checkEmailValid(Client c1) {
         String email = c1.getEmail();
         // Check whether a @ is there and if it is not already taken
+        if (!(email == null) && email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$") && checkEmailTaken(email)) {
         return true;
+        }
+        return false;
     }
 
     private boolean checkAddressValid(Client c1) {
         String address = c1.getAddress();
-         // check that it is in the format Street Number City
-        return true;
+        String[] parts = address.split(" ");
+        if ( parts.length==3 ) {
+        	if (parts[1].matches("[0-9]+")) {
+        		return true;
+        	}
+        }
+        return false;
     }
 
     private boolean checkNameValid(Client c1) {
         String name = c1.getName();
-        // check that the name is unique and not already taken
-        return true;
+        if (!(name == null) && name.matches("[a-zA-Z 0-9]+") && checkNameTaken(name)) {
+        	return true;
+        }
+        return false;
+        
+    }
+    
+    private boolean checkEmailTaken(String email) {
+		for (Client c : clients) {
+			if (c.getEmail().equals(email)) {
+				return false;
+			}
+		}return true;
+    }
+    
+    
+    
+    private boolean checkNameTaken(String name) {
+		for (Client c : clients) {
+			if (c.getName().equals(name)) {
+				return false;
+			}
+		}return true;
+    	
     }
 }

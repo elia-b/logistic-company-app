@@ -1,6 +1,8 @@
 package agileProjectMainJava;
 
 public class Client {
+	private String password;
+	private boolean loggedin = false;
     private String name; 
     private String email; 
     private String address; 
@@ -51,4 +53,7 @@ public class Client {
     public void unregister(){
         this.registered = false;
     }
+    
+    
+    
 }

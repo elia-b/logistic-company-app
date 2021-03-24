@@ -22,7 +22,7 @@ Feature: Client Managment update functionalities
   @tag1
   Scenario: Successful name update
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And the client is logged-in
     When the client updates "Company1" as name
     Then the update was successful
@@ -30,14 +30,14 @@ Feature: Client Managment update functionalities
   @tag2
   Scenario: Unsuccessful name update because client not logged-in
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When the client updates "Company1" as name
     Then the update was unsuccessful
     
   @tag3  
   Scenario: Unsuccessful name update because name already taken
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And a registered client "Company1" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When the client updates "Company1" as name
     Then the update was unsuccessful
@@ -45,7 +45,7 @@ Feature: Client Managment update functionalities
   @tag4
   Scenario: Successful e-mail update 
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And the client is logged-in
     When the client updates "newwmail@gmail.com" as e-mail
     Then the update was successful
@@ -53,14 +53,14 @@ Feature: Client Managment update functionalities
   @tag5
   Scenario: Unsuccessful e-mail update because client not logged-in
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When the client updates "newwmail@gmail.com" as e-mail
     Then the update was unsuccessful
     
   @tag6
   Scenario: Unsuccessful e-mail update because invalid e-mail
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And the client is logged-in
     When the client updates "newwmailgmail.com" as e-mail
     Then the update was unsuccessful
@@ -68,7 +68,7 @@ Feature: Client Managment update functionalities
   @tag7
   Scenario: Unsuccessful e-mail update because e-mail already taken
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And a registered client "Company1" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When the client updates "newwmail@gmail.com" as e-mail
     Then the update was unsuccessful
@@ -76,7 +76,7 @@ Feature: Client Managment update functionalities
   @tag8
   Scenario: Successful reference person update
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And the client is logged-in
     When the client updates "Paul Paulson" as reference person
     Then the update was successful
@@ -84,14 +84,14 @@ Feature: Client Managment update functionalities
   @tag9
   Scenario: Unsuccessful reference person update because client not logged-in
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When the client updates "Paul Paulson" as reference person
     Then the update was unsuccessful
   
   @tag10
   Scenario: Successful address update
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And the client is logged-in
     When the client updates "Lyngby 69 RoadStreet" as address
     Then the update was successful
@@ -99,14 +99,14 @@ Feature: Client Managment update functionalities
   @tag11
   Scenario: Unsuccessful address update because client not logged-in
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When the client updates "Lyngby 69 RoadStreet" as address
     Then the update was unsuccessful
 
   @tag12
   Scenario: Unsuccessful address update because invalid address
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And the client is logged-in
     When the client updates "Lyngby 69" as address
     Then the update was unsuccessful
@@ -114,7 +114,7 @@ Feature: Client Managment update functionalities
   @tag13
   Scenario: Unsuccessful address update because invalid address
     Given a logistic company 
-    And a registered client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And the client is logged-in
     When the client updates "Lyngby RoadStreet" as address
     Then the update was unsuccessful

@@ -87,7 +87,7 @@ Feature: Client Managment registration functionalities
   @tag7
   Scenario: Unsuccessful registration of a new client by a company because of already taken e-mail
     Given a logistic company
-    And a registered client "UserCompany2" "user.company@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered client "UserCompanyy" "user.company@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And a client
     And pass "UserCompany" as name
     And pass "user.company@gmail.com" as e-mail
