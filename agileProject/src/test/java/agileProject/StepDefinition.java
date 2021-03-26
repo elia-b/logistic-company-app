@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import agileProjectMainJava.AdminApplication;
 import agileProjectMainJava.Client;
+import agileProjectMainJava.ClientApplication;
 import agileProjectMainJava.LogisticCompany;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -18,7 +19,15 @@ public class StepDefinition {
     Client c1 = new Client();
     AdminApplication aa = new AdminApplication(lc);
     
-
+    
+    Client c2 = new Client();
+    Client c5 = new Client();
+    
+    ClientApplication ca = new ClientApplication(c5,lc);
+    String email;
+    String name;
+    String rp;
+    String address;
 	
     @Given("a logistic company")
     public void a_logistic_company() {
@@ -72,13 +81,99 @@ public class StepDefinition {
 
     @Given("a registered client {string} {string} {string} {string}")
     public void a_registered_client(String name, String email, String contactPerson, String address ) {
-        Client c2 = new Client();
+        
         c2.setName(name);
         c2.setAddress(address);
         c2.setEmail(email);
         c2.setContactPerson(contactPerson);
         aa.register_new_client(c2);
     }
+    
+    @Given("a logged-in registered client {string} {string} {string} {string}")
+    public void a_logged_in_registered_client(String name, String email, String contactPerson, String address) {
+    	ca.updateName(name);
+        ca.updateAdress(address);
+        ca.updateEmail(email);
+        ca.updateContactPerson(contactPerson);
+        ca.setIDD(1234);
+        
+    }
+
+    @When("the client updates {string} as name")
+    public void the_client_updates_as_name(String string) {
+        ca.updateName(string);
+    }
+
+    @Then("the client has name {string}")
+    public void the_client_has_name(String string) {
+    	
+        for (Client c : lc.getClients()) {
+        	if (c5.getId()==c.getId()) {
+        		name = c.getName();
+        	}
+        }
+        
+        assertEquals(name,string);
+    }
+
+    
+
+    @When("the client updates {string} as e-mail")
+    public void the_client_updates_as_e_mail(String string) {
+    	ca.updateEmail(string);
+    }
+
+    @Then("the client has email {string}")
+    public void the_client_has_email(String string) {
+    	
+        for (Client c : lc.getClients()) {
+        	if (c5.getId()==c.getId()) {
+        		email = c.getEmail();
+        	}
+        }
+        assertEquals(email,string);
+    }
+
+
+
+
+
+
+    @When("the client updates {string} as reference person")
+    public void the_client_updates_as_reference_person(String string) {
+    	ca.updateContactPerson(string);
+    }
+
+    @Then("the client has reference person {string}")
+    public void the_client_has_reference_person(String string) {
+    	
+        for (Client c : lc.getClients()) {
+        	if (c5.getId()==c.getId()) {
+        		rp = c.getReferencePerson();
+        	}
+        }
+        assertEquals(rp,string);
+    }
+
+
+
+    @When("the client updates {string} as address")
+    public void the_client_updates_as_address(String string) {
+        ca.updateAdress(string);
+    }
+
+    @Then("the client has address {string}")
+    public void the_client_has_address(String string) {
+    	
+        for (Client c : lc.getClients()) {
+        	if (c5.getId()==c.getId()) {
+        		address = c.getAddress();
+        	}
+        }
+        assertEquals(address,string);
+    }
+
+
     
 
     
