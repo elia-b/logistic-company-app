@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="agileProject.CucumberTest" time="0.26" errors="0" skipped="4">
+<testsuite tests="7" failures="6" name="agileProject.CucumberTest" time="0.388" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="15.0.2+7-27"/>
     <property name="sun.boot.library.path" value="C:\Users\39327\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin"/>
-    <property name="maven.multiModuleProjectDirectory" value="C:\Users\39327\eclipse-workspace\agileProject"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\39327\git\logistic-company-app\agileProject"/>
     <property name="java.vm.vendor" value="Oracle Corporation"/>
     <property name="java.vendor.url" value="https://java.oracle.com/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="C:\Users\39327\eclipse-workspace\agileProject"/>
+    <property name="user.dir" value="C:\Users\39327\git\logistic-company-app\agileProject"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="15.0.2+7-27"/>
     <property name="os.arch" value="amd64"/>
@@ -25,7 +25,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="user.variant" value=""/>
     <property name="os.name" value="Windows 10"/>
-    <property name="classworlds.conf" value="C:\Users\39327\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf10403998009634141363.tmp"/>
+    <property name="classworlds.conf" value="C:\Users\39327\eclipse-workspace\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf9932965012160586867.tmp"/>
     <property name="sun.jnu.encoding" value="Cp1252"/>
     <property name="java.library.path" value="C:\Users\39327\.p2\pool\plugins\org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955\jre\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:/Users/39327/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955/jre/bin/server;C:/Users/39327/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.win32.x86_64_15.0.2.v20210201-0955/jre/bin;C:\Program Files (x86)\VMware\VMware Player\bin\;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0\;C:\windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\MinGW\bin;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Users\39327\AppData\Local\Microsoft\WindowsApps;C:\Users\39327\Anaconda3;C:\Users\39327\Anaconda3\Scripts;C:\Users\39327\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\39327\.dotnet\tools;C:\WINDOWS\system32;;."/>
     <property name="jdk.debug" value="release"/>
@@ -48,7 +48,7 @@
     <property name="java.vm.info" value="mixed mode"/>
     <property name="java.version" value="15.0.2"/>
     <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="C:\Users\39327\eclipse-workspace\agileProject\EMBEDDED"/>
+    <property name="maven.home" value="C:\Users\39327\git\logistic-company-app\agileProject\EMBEDDED"/>
     <property name="file.separator" value="\"/>
     <property name="java.version.date" value="2021-01-19"/>
     <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
@@ -56,21 +56,65 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="Client Managment search functionalities" name="Name search" time="0.237">
-    <skipped/>
-    <system-err>Mar 17, 2021 4:31:06 PM io.cucumber.junit.Cucumber &lt;init&gt;
-WARNING: By default Cucumber is running in --non-strict mode.
-This default will change to --strict and --non-strict will be removed.
-You can use --strict or @CucumberOptions(strict = true) to suppress this warning
-</system-err>
+  <testcase classname="Client Managment registration functionalities" name="Successful registration of a new client by a company" time="0.337"/>
+  <testcase classname="Client Managment registration functionalities" name="Unsuccessful registration of a new client by a company because of invalid e-mail" time="0.021">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ✽.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:42)
+</failure>
   </testcase>
-  <testcase classname="Client Managment search functionalities" name="Name search" time="0.005">
-    <skipped/>
+  <testcase classname="Client Managment registration functionalities" name="Unsuccessful registration of a new client by a company because of missing e-mail" time="0.005">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ✽.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:52)
+</failure>
   </testcase>
-  <testcase classname="Client Managment search functionalities" name="E-mail search" time="0.007">
-    <skipped/>
+  <testcase classname="Client Managment registration functionalities" name="Unsuccessful registration of a new client by a company because of invalid address" time="0.008">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ✽.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:63)
+</failure>
   </testcase>
-  <testcase classname="Client Managment search functionalities" name="E-mail search" time="0.011">
-    <skipped/>
+  <testcase classname="Client Managment registration functionalities" name="Unsuccessful registration of a new client by a company because of missing reference person" time="0.007">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ✽.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:73)
+</failure>
+  </testcase>
+  <testcase classname="Client Managment registration functionalities" name="Unsuccessful registration of a new client by a company because of already taken name" time="0.005">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ✽.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:85)
+</failure>
+  </testcase>
+  <testcase classname="Client Managment registration functionalities" name="Unsuccessful registration of a new client by a company because of already taken e-mail" time="0.005">
+    <failure type="java.lang.AssertionError">java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ✽.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:97)
+</failure>
   </testcase>
 </testsuite>

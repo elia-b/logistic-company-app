@@ -1,4 +1,58 @@
 -------------------------------------------------------------------------------
 Test set: agileProject.CucumberTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 4, Time elapsed: 0.664 sec
+Tests run: 7, Failures: 6, Errors: 0, Skipped: 0, Time elapsed: 0.921 sec <<< FAILURE!
+Unsuccessful registration of a new client by a company because of invalid e-mail(Client Managment registration functionalities)  Time elapsed: 0.021 sec  <<< FAILURE!
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ?.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:42)
+
+Unsuccessful registration of a new client by a company because of missing e-mail(Client Managment registration functionalities)  Time elapsed: 0.005 sec  <<< FAILURE!
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ?.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:52)
+
+Unsuccessful registration of a new client by a company because of invalid address(Client Managment registration functionalities)  Time elapsed: 0.008 sec  <<< FAILURE!
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ?.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:63)
+
+Unsuccessful registration of a new client by a company because of missing reference person(Client Managment registration functionalities)  Time elapsed: 0.007 sec  <<< FAILURE!
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ?.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:73)
+
+Unsuccessful registration of a new client by a company because of already taken name(Client Managment registration functionalities)  Time elapsed: 0.005 sec  <<< FAILURE!
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ?.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:85)
+
+Unsuccessful registration of a new client by a company because of already taken e-mail(Client Managment registration functionalities)  Time elapsed: 0.005 sec  <<< FAILURE!
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertFalse(Assert.java:65)
+	at org.junit.Assert.assertFalse(Assert.java:75)
+	at agileProject.StepDefinition.the_registration_is_unsuccessful(StepDefinition.java:61)
+	at ?.the registration is unsuccessful(file:///C:/Users/39327/git/logistic-company-app/agileProject/src/main/resources/ClientManagmentRegistration.feature:97)
+

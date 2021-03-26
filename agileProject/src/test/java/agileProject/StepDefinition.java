@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import agileProjectMainJava.AdminApplication;
 import agileProjectMainJava.Client;
 import agileProjectMainJava.LogisticCompany;
 import io.cucumber.java.en.Given;
@@ -15,6 +16,7 @@ public class StepDefinition {
 	
     LogisticCompany lc = new LogisticCompany();
     Client c1 = new Client();
+    AdminApplication aa = new AdminApplication(lc);
     
 
 	
@@ -54,7 +56,7 @@ public class StepDefinition {
 
     @When("register new client")
     public void register_new_client() {
-        lc.register_new_client(c1);
+        aa.register_new_client(c1);
     }
 
     @Then("the registration is successful")
@@ -75,7 +77,7 @@ public class StepDefinition {
         c2.setAddress(address);
         c2.setEmail(email);
         c2.setContactPerson(contactPerson);
-        lc.register_new_client(c2);
+        aa.register_new_client(c2);
     }
     
 
