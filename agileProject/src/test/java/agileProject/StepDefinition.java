@@ -23,7 +23,7 @@ public class StepDefinition {
     Client c2 = new Client();
     Client c5 = new Client();
     
-    ClientApplication ca = new ClientApplication(c5,lc);
+    ClientApplication ca;
     String email;
     String name;
     String rp;
@@ -81,7 +81,6 @@ public class StepDefinition {
 
     @Given("a registered client {string} {string} {string} {string}")
     public void a_registered_client(String name, String email, String contactPerson, String address ) {
-        
         c2.setName(name);
         c2.setAddress(address);
         c2.setEmail(email);
@@ -91,86 +90,53 @@ public class StepDefinition {
     
     @Given("a logged-in registered client {string} {string} {string} {string}")
     public void a_logged_in_registered_client(String name, String email, String contactPerson, String address) {
-    	ca.updateName(name);
-        ca.updateAdress(address);
-        ca.updateEmail(email);
-        ca.updateContactPerson(contactPerson);
-        ca.setIDD(1234);
-        
+    	c5.setName(name);
+        c5.setAddress(address);
+        c5.setEmail(email);
+        c5.setContactPerson(contactPerson);
+        aa.register_new_client(c5);
+        ca = new ClientApplication(lc.getDatabase().getIDfromClientName(c5.getName()), lc);
     }
 
     @When("the client updates {string} as name")
-    public void the_client_updates_as_name(String string) {
-        ca.updateName(string);
+    public void the_client_updates_as_name(String name) {
+        ca.updateName(name);
     }
 
     @Then("the client has name {string}")
-    public void the_client_has_name(String string) {
-    	
-        for (Client c : lc.getClients()) {
-        	if (c5.getId()==c.getId()) {
-        		name = c.getName();
-        	}
-        }
-        
-        assertEquals(name,string);
+    public void the_client_has_name(String name) {
+    	//c5 is always the logged-in client
+        assertEquals(c5.getName(),name);
     }
 
-    
-
     @When("the client updates {string} as e-mail")
-    public void the_client_updates_as_e_mail(String string) {
-    	ca.updateEmail(string);
+    public void the_client_updates_as_e_mail(String email) {
+    	ca.updateEmail(email);
     }
 
     @Then("the client has email {string}")
-    public void the_client_has_email(String string) {
-    	
-        for (Client c : lc.getClients()) {
-        	if (c5.getId()==c.getId()) {
-        		email = c.getEmail();
-        	}
-        }
-        assertEquals(email,string);
+    public void the_client_has_email(String email) {
+    	assertEquals(c5.getEmail(),email);
     }
 
-
-
-
-
-
     @When("the client updates {string} as reference person")
-    public void the_client_updates_as_reference_person(String string) {
-    	ca.updateContactPerson(string);
+    public void the_client_updates_as_reference_person(String rp) {
+    	ca.updateContactPerson(rp);
     }
 
     @Then("the client has reference person {string}")
-    public void the_client_has_reference_person(String string) {
-    	
-        for (Client c : lc.getClients()) {
-        	if (c5.getId()==c.getId()) {
-        		rp = c.getReferencePerson();
-        	}
-        }
-        assertEquals(rp,string);
-    }
-
-
+    public void the_client_has_reference_person(String rp) {
+        assertEquals(c5.getReferencePerson(), rp);
+    }	
 
     @When("the client updates {string} as address")
-    public void the_client_updates_as_address(String string) {
-        ca.updateAdress(string);
+    public void the_client_updates_as_address(String address) {
+        ca.updateAdress(address);
     }
 
     @Then("the client has address {string}")
-    public void the_client_has_address(String string) {
-    	
-        for (Client c : lc.getClients()) {
-        	if (c5.getId()==c.getId()) {
-        		address = c.getAddress();
-        	}
-        }
-        assertEquals(address,string);
+    public void the_client_has_address(String address) {
+        assertEquals(c5.getAddress(),address);
     }
 
 

@@ -6,25 +6,18 @@ import java.util.Set;
 // Create an interface for any logistic company
 public class LogisticCompany implements User{
 	
-    private Set<Client> clients = new HashSet<Client>();
-    ClientInfoChecker cic = new ClientInfoChecker(this);
-
-	public ClientInfoChecker getCic() {
-		return cic;
-	}
+    private Database clients = new Database();
+    private ClientInfoChecker cic = new ClientInfoChecker(this);
 
 	private static final String logisticCompanyUsername = "LCU";
 	private static final String logisticCompanyPassword = "123";
 	private static final String logisticCompanyEmail = "logistic.company@gmail.com";
-	public void setClients(Set<Client> clients) {
-		this.clients = clients;
-	}
-
-    public int numberOfClients(){
-        return clients.size();
-    }
 	
-    public Set<Client> getClients() {
+	public ClientInfoChecker getCic() {
+		return cic;
+	}
+	
+    public Database getDatabase() {
 		return clients;
 	}
 

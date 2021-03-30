@@ -2,100 +2,45 @@ package agileProjectMainJava;
 
 import java.util.Set;
 
-public class ClientApplication extends Application{
+public class ClientApplication {
 	
-	private Client client;
+	private int clientID;
 	private LogisticCompany lc;
-	public ClientApplication(Client user,LogisticCompany lc) {
-		super(user);
-		this.client = user;
+	public ClientApplication(int clientID,LogisticCompany lc) {
+		this.clientID = clientID;
 		this.lc=lc;
-	}
-	
-	//ONLY FOR TESTING:
-	public void setIDD(int id) {
-		for (Client c : lc.getClients()) {
-    		if (client.getName().equals(c.getName())) {
-    			c.setId(id);
-    		}
-    	}
-	}
-	
-	
+	}	
 	
 	public void updateName(String name) {
-		 if (!(name == null) && name.matches("[a-zA-Z 0-9]+") && checkNameTaken(name)) {
-	        	for (Client c : lc.getClients()) {
-	        		if (client.getName().equals(c.getName())) {
-	        			c.setName(name);
-	        		}
-	        	}
-	        }
-	        
+		 if (lc.getCic().checkNameValid(name)) {
+			 lc.getDatabase().getClientFromID(clientID).setName(name);
+	     } 
 	}
-	//Maybe create a seperate class to check validity of info for admin and client class
-	
-	private boolean checkNameTaken(String name) {
-		for (Client c : lc.getClients()) {
-			if (c.getName().equals(name)) {
-				return false;
-			}
-		}return true;
-    	
-    }
 	
 	public void updateEmail(String email) {
-		if (!(email == null) && email.matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$") && checkEmailTaken(email)) {
-			for (Client c : lc.getClients()) {
-        		if (client.getName().equals(c.getName())) {
-        			c.setEmail(email);
-        		}
-        	}
-	    }
-	        
+		if (lc.getCic().checkEmailValid(email)) {
+			 lc.getDatabase().getClientFromID(clientID).setEmail(email);
+	    } 
 	}
 	
-	private boolean checkEmailTaken(String email) {
-			for (Client c : lc.getClients()) {
-				if (c.getEmail().equals(email)) {
-					return false;
-				}
-			}return true;
-	    }
 	
 	public void updateAdress(String address) {
-		String[] parts = address.split(" ");
-        if ( parts.length==3 ) {
-        	if (parts[1].matches("[0-9]+")) {
-        		for (Client c : lc.getClients()) {
-            		if (client.getName().equals(c.getName())) {
-            			c.setAddress(address);
-            		}
-            	}
-        	}
-        }
+		if (lc.getCic().checkAddressValid(address)) {
+			 lc.getDatabase().getClientFromID(clientID).setAddress(address);
+	    } 
         
 	}
 	
 	public void updatePassword(String password) {
-		for (Client c : lc.getClients()) {
-    		if (client.getName().equals(c.getName())) {
-    			c.setPassword(password);
-    		}
-    	}
+		// maybe have minimum size, required sign or Capital letter
+		if (true) {
+			 lc.getDatabase().getClientFromID(clientID).setPassword(password);
+	    }
 	}
 	
 	public void updateContactPerson(String rp) {
-		if (!(rp == null) && rp.matches("[a-zA-Z ]+")) {
-			for (Client c : lc.getClients()) {
-        		if (client.getName().equals(c.getName())) {
-        			c.setContactPerson(rp);
-        		}
-        	}
+		if (lc.getCic().checkReferencePersonValid(rp)) {
+			 lc.getDatabase().getClientFromID(clientID).setContactPerson(rp);
 	    }
-		        	
-		        	
-		        
-		     
-			}
+	}
 }
