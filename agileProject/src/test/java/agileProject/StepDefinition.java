@@ -28,6 +28,8 @@ public class StepDefinition {
     String name;
     String rp;
     String address;
+    
+    int search;
 	
     @Given("a logistic company")
     public void a_logistic_company() {
@@ -138,6 +140,30 @@ public class StepDefinition {
     public void the_client_has_address(String address) {
         assertEquals(c5.getAddress(),address);
     }
+
+    @When("pass {string} as name search")
+    public void pass_as_name_search(String name) {
+        search = aa.searchName(name);
+    }
+
+    @Then("successful search")
+    public void successful_search() {
+        assertEquals(search,lc.getDatabase().getIDfromClientName(c2.getName()));
+    }
+
+ 
+
+    @Then("unsuccessful search")
+    public void unsuccessful_search() {
+        assertEquals(-1,search);
+    }
+
+    @When("pass {string} as e-mail search")
+    public void pass_as_e_mail_search(String email) {
+        search = aa.searchEmail(email);
+    }
+
+   
 
 
     

@@ -1,5 +1,7 @@
 package agileProjectMainJava;
 
+import java.util.Map.Entry;
+
 public class AdminApplication {
 	
 	private LogisticCompany lc;
@@ -21,9 +23,21 @@ public class AdminApplication {
     }
 	
 	
-	public Client search(String s) {
-		Client c = new Client();
-		return c;
+	public int searchEmail(String email) {
+		for (Entry<Integer, Client> entry : lc.getDatabase().entrySet()) {
+			if (entry.getValue().getEmail().equals(email)) {
+				return entry.getKey();
+			}
+			
+		}return -1;
 	}
+	public int searchName(String name) {
+		for (Entry<Integer, Client> entry : lc.getDatabase().entrySet()) {
+			if (entry.getValue().getName().equals(name)) {
+				return entry.getKey() ;
+			}
+		}return -1;
+	}
+	
 
 }
