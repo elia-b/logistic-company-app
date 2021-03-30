@@ -30,7 +30,7 @@ Feature: Client Managment update functionalities
   @tag3  
   Scenario: Unsuccessful name update because name already taken
     Given a logistic company 
-    And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a logged-in registered client "UserCompany" "newemail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And a registered client "Company1" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When the client updates "Company1" as name
     Then the client has name "UserCompany"
