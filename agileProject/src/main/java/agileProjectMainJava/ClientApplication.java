@@ -43,4 +43,12 @@ public class ClientApplication {
 			 lc.getDatabase().getClientFromID(clientID).setContactPerson(rp);
 	    }
 	}
+
+	public void registerJorney(Journey j) {
+		if (lc.getCic().checkJourneyDetails(j)) {
+			lc.getJourneys().registerJourney(j,clientID);
+			j.register();
+		}
+		
+	}
 }

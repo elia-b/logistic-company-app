@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import agileProjectMainJava.AdminApplication;
 import agileProjectMainJava.Client;
 import agileProjectMainJava.ClientApplication;
+import agileProjectMainJava.Journey;
 import agileProjectMainJava.LogisticCompany;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -30,6 +31,9 @@ public class StepDefinition {
     String address;
     
     int search;
+    
+    
+    Journey j = new Journey();
 	
     @Given("a logistic company")
     public void a_logistic_company() {
@@ -162,9 +166,34 @@ public class StepDefinition {
     public void pass_as_e_mail_search(String email) {
         search = aa.searchEmail(email);
     }
+//M2 Journey Registration
+    
 
-   
 
+
+    @When("register a Journey with {string} {string} {string} {string}")
+    public void register_a_Journey_with(String origin, String destination, String content, String company) {
+        j.setCompany(company);
+        j.setContent(content);
+        j.setDestination(destination);
+        j.setOrigin(origin);
+        ca.registerJorney(j);
+
+    }
+
+    @Then("the journey registration was succesful")
+    public void the_journey_registration_was_succesful() {
+        assertTrue(j.getStatus());
+    }
+
+    
+
+    @Then("the journey registration was unsuccesful")
+    public void the_journey_registration_was_unsuccesful() {
+        assertFalse(j.getStatus());
+    }
+
+    
 
     
 

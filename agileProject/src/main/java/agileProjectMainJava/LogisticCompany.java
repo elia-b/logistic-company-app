@@ -7,6 +7,7 @@ import java.util.Set;
 public class LogisticCompany implements User{
 	
     private Database clients = new Database();
+    private JourneyDatabase journeys = new JourneyDatabase();
     private ClientInfoChecker cic = new ClientInfoChecker(this);
 
 	private static final String logisticCompanyUsername = "LCU";
@@ -20,6 +21,9 @@ public class LogisticCompany implements User{
     public Database getDatabase() {
 		return clients;
 	}
+    public JourneyDatabase getJourneys() {
+    	return journeys;
+    }
 
 	public String getPassword() {
 		return logisticCompanyPassword;
