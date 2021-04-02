@@ -71,4 +71,33 @@ public class ClientInfoChecker {
 		}return true;
     	
     }
+    
+    
+    //Implement!
+    public boolean checkJourneyDetails(Journey j) {
+    	if(checkOrigin(j.getOrigin())&& checkDestination(j.getDestination())) {
+    		return true;
+    	}
+    	return false;
+    } 
+    
+    private boolean checkOrigin(String origin) {
+    	 // further implementation can be done
+        if (!(origin == null) && origin.matches("[a-zA-Z ]+")) {
+        	
+        	return true;
+        	
+        }
+        return false;
+    }
+    private boolean checkDestination(String destination) {
+   	 // further implementation can be done
+       if (!(destination == null) && destination.matches("[a-zA-Z ]+")) {
+       	
+       	return true;
+       	
+       }
+       return false;
+   }
+    
 }
