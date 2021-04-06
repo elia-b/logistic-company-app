@@ -7,35 +7,25 @@ public class Journey {
 	//Maybe add something for the current position
 	private String origin;
 	private String destination;
-	
-	private String company;
+	private int clientid;
 	private ArrayList<Container> containers = new ArrayList<Container>();
 	
-	private boolean registered = false;
-	
-	public void addContainer(Container c) {
-		containers.add(c);
+	public int getClientid() {
+		return clientid;
 	}
 	
 	
-	public void register() {
-		registered = true;
-	}
-	
-	public boolean getStatus() {
-		return registered;
-	}
-	
-	public void setOrigin(String origin) {
+
+
+	public Journey(String origin, String destination, int clientid,ArrayList<Container> containerList) {
+		super();
 		this.origin = origin;
-	}
-	public void setDestination(String destination) {
 		this.destination = destination;
+		this.clientid = clientid;
+		this.containers = containerList;
+		
 	}
-	
-	public void setCompany(String company) {
-		this.company = company;
-	}
+
 	
 	public String getOrigin() {
 		return this.origin;
@@ -44,8 +34,6 @@ public class Journey {
 		return this.destination;
 	}
 	
-	public String getCompany() {
-		return this.company;
-	}
+
 	
 }

@@ -9,6 +9,16 @@ public class LogisticCompany implements User{
     private Database clients = new Database();
     private JourneyDatabase journeys = new JourneyDatabase();
     private ClientInfoChecker cic = new ClientInfoChecker(this);
+    private ContainerDatabase containers = new ContainerDatabase();
+    
+    
+	public ContainerDatabase getContainers() {
+		return containers;
+	}
+
+	public void setContainers(ContainerDatabase containers) {
+		this.containers = containers;
+	}
 
 	private static final String logisticCompanyUsername = "LCU";
 	private static final String logisticCompanyPassword = "123";

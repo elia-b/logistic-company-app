@@ -38,6 +38,9 @@ public class AdminApplication {
 			}
 		}return -1;
 	}
+	public void registerContainer(String location) {
+		lc.getContainers().registerContainer(new Container(location));
+	}
 	
 
 }

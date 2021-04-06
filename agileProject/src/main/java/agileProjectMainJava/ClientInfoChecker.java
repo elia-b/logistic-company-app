@@ -74,8 +74,8 @@ public class ClientInfoChecker {
     
     
     //Implement!
-    public boolean checkJourneyDetails(Journey j) {
-    	if(checkOrigin(j.getOrigin())&& checkDestination(j.getDestination())) {
+    public boolean checkJourneyDetails(String origin, String destination, String content) {
+    	if(checkOrigin(origin)&& checkDestination(destination)) {
     		return true;
     	}
     	return false;

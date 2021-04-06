@@ -23,17 +23,17 @@ public class StepDefinition {
     
     Client c2 = new Client();
     Client c5 = new Client();
-    
+    int search;
     ClientApplication ca;
     String email;
     String name;
     String rp;
     String address;
     
-    int search;
+
     
     
-    Journey j = new Journey();
+
 	
     @Given("a logistic company")
     public void a_logistic_company() {
@@ -172,30 +172,39 @@ public class StepDefinition {
 
 
 
-    @When("register a Journey with {string} {string} {string} {string}")
-    public void register_a_Journey_with(String origin, String destination, String company) {
-        j.setCompany(company);
+    @When("register a Journey with {string} {string} {string} {int}")
+    public void register_a_Journey_with(String origin, String destination, String content, int number) {
+        ca.registerJourney(origin, destination, content, number);
         
-        j.setDestination(destination);
-        j.setOrigin(origin);
-        ca.registerJorney(j);
 
     }
 
     @Then("the journey registration was succesful")
     public void the_journey_registration_was_succesful() {
-        assertTrue(j.getStatus());
+    	
+    	
+        assertTrue(lc.getJourneys().size()==1);
     }
 
     
 
     @Then("the journey registration was unsuccesful")
     public void the_journey_registration_was_unsuccesful() {
-        assertFalse(j.getStatus());
+        assertTrue(lc.getJourneys().size()==0);
     }
 
-    
+    @Given("{int} containers at {string}")
+    public void containers_at(Integer numberOfContainers, String location) {
+        for (int i = 0;i<numberOfContainers;i++) {
+        	aa.registerContainer(location);
+        }
+        
+    	
+    }
 
+  
+
+   
     
 
     
