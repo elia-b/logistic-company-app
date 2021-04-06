@@ -12,7 +12,7 @@ public class ApplicationLogIn {
 		if ((username.equals(lc.getEmail()) || username.equals(lc.getUsername())) && password.equals(lc.getPassword())) {
 			//Admin Mode
 		} else {
-			for (Client c : lc.getClients()) {
+			for (Client c : lc.getDatabase()) {
 				if ((username.equals(c.getEmail()) || username.equals(c.getUsername())) && password.equals(c.getPassword())){
 					//Costumer Mode
 				} else {

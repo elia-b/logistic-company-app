@@ -24,17 +24,27 @@ Feature: Journey Registrations
   Scenario: Succesful Joruney Registration
     Given a logistic company
     And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
-    When register a Journey with "Hamburg" "Copenhagen" "Google" 
+    And 3 containers at "Hamburg"
+    When register a Journey with "Hamburg" "Copenhagen" "banana" 3
     Then the journey registration was succesful
 
   @tag2
   Scenario Outline: Unsuccesful Journey Registration
     Given a logistic company
     And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
-    When register a Journey with <origin> <destination>  <Company> 
+    And 2 containers at <origin>
+    When register a Journey with <origin> <destination> <Content> 2
     Then the journey registration was unsuccesful
 
     Examples: 
-      | origin       | destination      | Company  |
-      | "135235"     |     "Copenhagen" | "Google" |
-      | "Copenhagen" |     "7"          | "Google" |
+      | origin       | destination      | Content  |
+      | "135235"     |     "Copenhagen" | "apple" |
+      | "Copenhagen" |     "7"          | "beer" |
+
+  @tag3
+  Scenario: Unsuccesful Journey Registration not enough Containers
+  	Given a logistic company
+    And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And 2 containers at "Hamburg"
+    When register a Journey with "Hamburg" "Copenhagen" "banana" 3
+    Then the journey registration was unsuccesful
