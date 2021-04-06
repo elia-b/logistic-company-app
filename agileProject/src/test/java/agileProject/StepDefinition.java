@@ -124,6 +124,7 @@ public class StepDefinition {
     public void the_client_has_email(String email) {
     	assertEquals(c5.getEmail(),email);
     }
+    
 
     @When("the client updates {string} as reference person")
     public void the_client_updates_as_reference_person(String rp) {
@@ -172,9 +173,9 @@ public class StepDefinition {
 
 
     @When("register a Journey with {string} {string} {string} {string}")
-    public void register_a_Journey_with(String origin, String destination, String content, String company) {
+    public void register_a_Journey_with(String origin, String destination, String company) {
         j.setCompany(company);
-        j.setContent(content);
+        
         j.setDestination(destination);
         j.setOrigin(origin);
         ca.registerJorney(j);
