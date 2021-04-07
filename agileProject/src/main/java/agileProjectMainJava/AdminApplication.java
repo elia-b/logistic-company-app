@@ -1,5 +1,6 @@
 package agileProjectMainJava;
 
+import java.util.ArrayList;
 import java.util.Map.Entry;
 
 public class AdminApplication {
@@ -40,6 +41,26 @@ public class AdminApplication {
 	}
 	public void registerContainer(String location) {
 		lc.getContainers().registerValue(new Container(location));
+	}
+	
+	public void updateJourney(int journeyid, String newlocation) {
+		if (lc.getCic().checkDestination(newlocation)) {
+		ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
+		for (int i = 0; i<containers.size();i++) {
+			containers.get(i).setLocation(newlocation);
+		}
+		}else {
+			//Error Message
+		}
+		
+	}
+	
+	public void finishJourney(int journeyid) {
+		ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
+		for (int i = 0; i<containers.size();i++) {
+			containers.get(i).endJourney();
+			containers.get(i).setContent("empty");
+		}
 	}
 	
 

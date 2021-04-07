@@ -90,7 +90,7 @@ public class ClientInfoChecker {
         }
         return false;
     }
-    private boolean checkDestination(String destination) {
+    public boolean checkDestination(String destination) {
    	 // further implementation can be done
        if (!(destination == null) && destination.matches("[a-zA-Z ]+")) {
        	

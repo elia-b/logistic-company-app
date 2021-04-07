@@ -196,11 +196,38 @@ public class StepDefinition {
     @Given("{int} containers at {string}")
     public void containers_at(Integer numberOfContainers, String location) {
         for (int i = 0;i<numberOfContainers;i++) {
-        	aa.registerValue(location);
+        	aa.registerContainer(location);
         }
         
     	
     }
+    
+    @Given("a registered Journey with {string} {string} {string} {int}")
+    public void a_registered_Journey_with(String origin, String destination, String content, int number) {
+    	for (int i = 0;i<number;i++) {
+        	aa.registerContainer(origin);
+        }
+    	c5.setName("UserCompany");
+        c5.setAddress("Lyngby 69 RoadStreet");
+        c5.setEmail("newwmail@gmail.com");
+        c5.setContactPerson("Paul Paulson");
+        aa.register_new_client(c5);
+        ca = new ClientApplication(lc.getDatabase().getIDfromClientName(c5.getName()), lc);
+    	ca.registerJourney(origin, destination, content, number);
+    }
+
+    @When("updating the Journey to {string}")
+    public void updating_the_Journey_to(String newlocation) {
+        aa.updateJourney(0, newlocation);
+    }
+
+    @Then("the containers in the journey have {string}")
+    public void the_containers_in_the_journey_have(String location) {
+        assertTrue(location.equals(lc.getJourneys().getValueFromID(0).getContainers().get(0).getLocation()));
+    }
+
+   
+
 
   
 

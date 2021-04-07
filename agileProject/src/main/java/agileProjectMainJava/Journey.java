@@ -25,6 +25,9 @@ public class Journey {
 		this.containers = containerList;
 		
 	}
+	public ArrayList<Container> getContainers(){
+		return containers;
+	}
 
 	
 	public String getOrigin() {

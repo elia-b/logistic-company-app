@@ -19,23 +19,15 @@
 @tag
 Feature: Journey update by logistics Company
 
-  @tag1
-  Scenario: Title of your scenario
-    Given I want to write a step with precondition
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
 
-  @tag2
-  Scenario Outline: Title of your scenario outline
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
+  @tag1
+   Scenario Outline: Journey Update
+    Given a logistic company
+    And a registered Journey with <origin> "Hamburg" "banana" 2
+    When updating the Journey to <newlocation>
+    Then the containers in the journey have <location>
 
     Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
+      | origin  	|	 newlocation | location |
+      | "Lisboa"	|     "Roma" 	 | "Roma" 	|
+      | "Roma" 		|     "123123" | "Roma"   |
