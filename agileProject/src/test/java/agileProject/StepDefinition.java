@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+
 import agileProjectMainJava.AdminApplication;
 import agileProjectMainJava.Client;
 import agileProjectMainJava.ClientApplication;
@@ -31,7 +33,7 @@ public class StepDefinition {
     String address;
     
 
-    
+    ArrayList<Integer> results;
     
 
 	
@@ -225,7 +227,35 @@ public class StepDefinition {
     public void the_containers_in_the_journey_have(String location) {
         assertTrue(location.equals(lc.getJourneys().getValueFromID(0).getContainers().get(0).getLocation()));
     }
+ 
+    @When("filtering the Journey by Origin {string}")
+    public void filtering_the_Journey_by_Origin(String origin) {
+        results = ca.filterJourneysbyOrigin(origin);
+    }
 
+    @Then("the resulting JourneyID is {int}")
+    public void the_resulting_JourneyID_is(Integer id) {
+        assertTrue(results.get(0)==id);
+    }
+
+
+    @When("filtering the Journey by Destination {string}")
+    public void filtering_the_Journey_by_Destination(String destination) {
+    	results = ca.filterJourneysbyDestination(destination);
+    }
+
+
+    @When("filtering the Journey by Content {string}")
+    public void filtering_the_Journey_by_Content(String content) {
+    	results = ca.filterJourneysbyContent(content);
+    }
+
+  
+
+    @Then("the filtering results in nothing")
+    public void the_filtering_results_in_nothing() {
+        assertTrue(results.isEmpty());
+    }
    
 
 
