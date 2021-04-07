@@ -196,7 +196,7 @@ public class StepDefinition {
     @Given("{int} containers at {string}")
     public void containers_at(Integer numberOfContainers, String location) {
         for (int i = 0;i<numberOfContainers;i++) {
-        	aa.registerContainer(location);
+        	aa.registerValue(location);
         }
         
     	

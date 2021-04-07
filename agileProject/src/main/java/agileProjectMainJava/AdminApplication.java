@@ -13,7 +13,7 @@ public class AdminApplication {
 	public void register_new_client(Client c1) {
         //maybe return a boolean as registerState
         if (lc.getCic().checkAllInfo(c1)) {
-                lc.getDatabase().registerClient(c1);;
+                lc.getDatabase().registerValue(c1);;
                 c1.register();
                 
             }
@@ -39,7 +39,7 @@ public class AdminApplication {
 		}return -1;
 	}
 	public void registerContainer(String location) {
-		lc.getContainers().registerContainer(new Container(location));
+		lc.getContainers().registerValue(new Container(location));
 	}
 	
 

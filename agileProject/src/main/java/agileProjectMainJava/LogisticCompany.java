@@ -6,7 +6,7 @@ import java.util.Set;
 // Create an interface for any logistic company
 public class LogisticCompany implements User{
 	
-    private Database clients = new Database();
+    private ClientDatabase clients = new ClientDatabase();
     private JourneyDatabase journeys = new JourneyDatabase();
     private ClientInfoChecker cic = new ClientInfoChecker(this);
     private ContainerDatabase containers = new ContainerDatabase();
@@ -28,7 +28,7 @@ public class LogisticCompany implements User{
 		return cic;
 	}
 	
-    public Database getDatabase() {
+    public ClientDatabase getDatabase() {
 		return clients;
 	}
     public JourneyDatabase getJourneys() {
