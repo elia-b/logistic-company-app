@@ -14,20 +14,20 @@ public class ClientApplication {
 	
 	public void updateName(String name) {
 		 if (lc.getCic().checkNameValid(name)) {
-			 lc.getDatabase().getClientFromID(clientID).setName(name);
+			 lc.getDatabase().getValueFromID(clientID).setName(name);
 	     } 
 	}
 	
 	public void updateEmail(String email) {
 		if (lc.getCic().checkEmailValid(email)) {
-			 lc.getDatabase().getClientFromID(clientID).setEmail(email);
+			 lc.getDatabase().getValueFromID(clientID).setEmail(email);
 	    } 
 	}
 	
 	
 	public void updateAdress(String address) {
 		if (lc.getCic().checkAddressValid(address)) {
-			 lc.getDatabase().getClientFromID(clientID).setAddress(address);
+			 lc.getDatabase().getValueFromID(clientID).setAddress(address);
 	    } 
         
 	}
@@ -35,13 +35,13 @@ public class ClientApplication {
 	public void updatePassword(String password) {
 		// maybe have minimum size, required sign or Capital letter
 		if (true) {
-			 lc.getDatabase().getClientFromID(clientID).setPassword(password);
+			 lc.getDatabase().getValueFromID(clientID).setPassword(password);
 	    }
 	}
 	
 	public void updateContactPerson(String rp) {
 		if (lc.getCic().checkReferencePersonValid(rp)) {
-			 lc.getDatabase().getClientFromID(clientID).setContactPerson(rp);
+			 lc.getDatabase().getValueFromID(clientID).setContactPerson(rp);
 	    }
 	}
 	
@@ -53,10 +53,10 @@ public class ClientApplication {
 				int Cid = lc.getContainers().getIDfromContainerLocation(origin);
 				
 				if (Cid != -1) {
-					lc.getContainers().getContainerFromID(Cid).startJourney();
-					lc.getContainers().getContainerFromID(Cid).setContent(content);
+					lc.getContainers().getValueFromID(Cid).startJourney();
+					lc.getContainers().getValueFromID(Cid).setContent(content);
 					
-					containerList.add(lc.getContainers().getContainerFromID(Cid));
+					containerList.add(lc.getContainers().getValueFromID(Cid));
 					
 				}else {
 					enoughContainers = false;
@@ -71,7 +71,7 @@ public class ClientApplication {
 				}
 				//ERROR MESSAGE!
 			}else {
-				lc.getJourneys().registerJourney(new Journey(origin,destination,this.clientID,containerList));
+				lc.getJourneys().registerValue(new Journey(origin,destination,this.clientID,containerList));
 			}
 			
 			
