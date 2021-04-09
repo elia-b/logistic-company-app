@@ -60,6 +60,7 @@ public class AdminApplication {
 		for (int i = 0; i<containers.size();i++) {
 			containers.get(i).endJourney();
 			containers.get(i).setContent("empty");
+			containers.get(i).setLocation(lc.getJourneys().getValueFromID(journeyid).getDestination());
 		}
 	}
 	
