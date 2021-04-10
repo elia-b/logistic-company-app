@@ -3,6 +3,7 @@ package agileProjectMainJava;
 public class ApplicationLogIn {
 
 	private LogisticCompany lc;
+	private Application app;
 	
 	public ApplicationLogIn(LogisticCompany lc){
 		this.lc = lc;
@@ -10,15 +11,23 @@ public class ApplicationLogIn {
 	
 	public void logIn(String username, String password) {
 		if ((username.equals(lc.getEmail()) || username.equals(lc.getUsername())) && password.equals(lc.getPassword())) {
-			//Admin Mode
+			app = new AdminApplication(lc);
 		} else {
-			for (Client c : lc.getDatabase()) {
-				if ((username.equals(c.getEmail()) || username.equals(c.getUsername())) && password.equals(c.getPassword())){
-					//Costumer Mode
+			int clientID = lc.getDatabase().getIDfromClientName(username);
+			if (clientID != -1){
+				if(lc.getDatabase().getValueFromID(clientID).getPassword().equals(password)){
+					app = new ClientApplication(clientID, lc);
 				} else {
-					// unsuccessful login
+					// invalid password
 				}
+				
+			} else {
+				//invalid company username
 			}
 		}
+	}
+
+	public Application getapp(){
+		return app;
 	}
 }

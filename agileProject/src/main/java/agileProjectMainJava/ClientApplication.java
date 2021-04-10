@@ -1,9 +1,8 @@
 package agileProjectMainJava;
 
 import java.util.ArrayList;
-import java.util.Set;
 
-public class ClientApplication {
+public class ClientApplication extends Application{
 	
 	private int clientID;
 	private LogisticCompany lc;
@@ -44,6 +43,38 @@ public class ClientApplication {
 			 lc.getDatabase().getValueFromID(clientID).setContactPerson(rp);
 	    }
 	}
+	public ArrayList<Integer> filterJourneysbyContent(String content) {
+		ArrayList<Integer> results = new ArrayList<Integer>();
+		for (int i = 0;i<lc.getJourneys().size();i++) {
+			
+			if (lc.getJourneys().getValueFromID(i).getClientid()==clientID && 
+					lc.getJourneys().getValueFromID(i).getContainers().get(0).getContent().equals(content)) {
+				results.add(i);
+			}
+		}return results;
+	}
+	public ArrayList<Integer> filterJourneysbyDestination(String destination) {
+		ArrayList<Integer> results = new ArrayList<Integer>();
+		for (int i = 0;i<lc.getJourneys().size();i++) {
+			
+			if (lc.getJourneys().getValueFromID(i).getClientid()==clientID && 
+					lc.getJourneys().getValueFromID(i).getDestination().equals(destination)) {
+				results.add(i);
+			}
+		}return results;
+	}
+	public ArrayList<Integer> filterJourneysbyOrigin(String origin) {
+		ArrayList<Integer> results = new ArrayList<Integer>();
+		for (int i = 0;i<lc.getJourneys().size();i++) {
+			
+			if (lc.getJourneys().getValueFromID(i).getClientid()==clientID && 
+					lc.getJourneys().getValueFromID(i).getOrigin().equals(origin)) {
+				results.add(i);
+			}
+		}return results;
+	}
+	
+	
 	
 	public void registerJourney(String origin,String destination, String content, int containers) {
 		if (lc.getCic().checkJourneyDetails(origin,destination,content)) {

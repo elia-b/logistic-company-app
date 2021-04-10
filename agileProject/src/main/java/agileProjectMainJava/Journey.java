@@ -13,9 +13,6 @@ public class Journey {
 	public int getClientid() {
 		return clientid;
 	}
-	
-	
-
 
 	public Journey(String origin, String destination, int clientid,ArrayList<Container> containerList) {
 		super();
@@ -24,6 +21,9 @@ public class Journey {
 		this.clientid = clientid;
 		this.containers = containerList;
 		
+	}
+	public ArrayList<Container> getContainers(){
+		return containers;
 	}
 
 	
