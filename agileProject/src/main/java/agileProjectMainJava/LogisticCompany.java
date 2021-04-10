@@ -13,9 +13,6 @@ public class LogisticCompany implements User{
 		return containers;
 	}
 
-	public void setContainers(ContainerDatabase containers) {
-		this.containers = containers;
-	}
 
 	private static final String logisticCompanyUsername = "LCU";
 	private static final String logisticCompanyPassword = "123";

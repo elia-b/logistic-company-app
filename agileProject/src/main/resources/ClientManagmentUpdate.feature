@@ -95,3 +95,12 @@ Feature: Client Managment update functionalities
 
     When the client updates "Lyngby RoadStreet" as address
     Then the client has address "Lyngby 69 RoadStreet"
+    
+  @tag14
+  Scenario: Successful password update
+    Given a logistic company 
+    And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    When the client updates "123456789" as password
+    Then the client has password "123456789"
+    
+  

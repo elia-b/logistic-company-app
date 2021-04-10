@@ -30,13 +30,11 @@ public class StepDefinition {
     String name;
     String rp;
     String address;
-<<<<<<< Updated upstream
     
 
     ArrayList<Integer> results;
     
-=======
->>>>>>> Stashed changes
+
 
 	
     @Given("a logistic company")
@@ -160,12 +158,23 @@ public class StepDefinition {
     public void the_client_updates_as_address(String address) {
         ca.updateAdress(address);
     }
-
+ 
     @Then("the client has address {string}")
     public void the_client_has_address(String address) {
         assertEquals(c5.getAddress(),address);
     }
+    
+    @When("the client updates {string} as password")
+    public void the_client_updates_as_password(String password) {
+        ca.updatePassword(password);
+    }
 
+    @Then("the client has password {string}")
+    public void the_client_has_password(String password) {
+    	 assertEquals(c5.getPassword(),password);
+    }
+
+    
     @When("pass {string} as name search")
     public void pass_as_name_search(String name) {
         al.logIn(lc.getUsername(), lc.getPassword());
@@ -225,17 +234,12 @@ public class StepDefinition {
 
     @Given("{int} containers at {string}")
     public void containers_at(Integer numberOfContainers, String location) {
-<<<<<<< Updated upstream
-        for (int i = 0;i<numberOfContainers;i++) {
-        	aa.registerContainer(location);
-=======
         al.logIn(lc.getUsername(), lc.getPassword());
         if (al.getapp() instanceof AdminApplication){
             AdminApplication aa = (AdminApplication) al.getapp();
             for (int i = 0;i<numberOfContainers;i++) {
                 aa.registerContainer(location);
             }
->>>>>>> Stashed changes
         }
         
         
@@ -244,21 +248,29 @@ public class StepDefinition {
     
     @Given("a registered Journey with {string} {string} {string} {int}")
     public void a_registered_Journey_with(String origin, String destination, String content, int number) {
-    	for (int i = 0;i<number;i++) {
-        	aa.registerContainer(origin);
-        }
-    	c5.setName("UserCompany");
-        c5.setAddress("Lyngby 69 RoadStreet");
-        c5.setEmail("newwmail@gmail.com");
-        c5.setContactPerson("Paul Paulson");
-        aa.register_new_client(c5);
-        ca = new ClientApplication(lc.getDatabase().getIDfromClientName(c5.getName()), lc);
-    	ca.registerJourney(origin, destination, content, number);
+    	 al.logIn(lc.getUsername(), lc.getPassword());
+         if (al.getapp() instanceof AdminApplication){
+             AdminApplication aa = (AdminApplication) al.getapp();
+	    	for (int i = 0;i<number;i++) {
+	        	aa.registerContainer(origin);
+	        }
+	    	c5.setName("UserCompany");
+	        c5.setAddress("Lyngby 69 RoadStreet");
+	        c5.setEmail("newwmail@gmail.com");
+	        c5.setContactPerson("Paul Paulson");
+	        aa.register_new_client(c5);
+	        ca = new ClientApplication(lc.getDatabase().getIDfromClientName(c5.getName()), lc);
+	    	ca.registerJourney(origin, destination, content, number);
+         }
     }
 
     @When("updating the Journey to {string}")
     public void updating_the_Journey_to(String newlocation) {
-        aa.updateJourney(0, newlocation);
+    	 al.logIn(lc.getUsername(), lc.getPassword());
+         if (al.getapp() instanceof AdminApplication){
+             AdminApplication aa = (AdminApplication) al.getapp();
+             aa.updateJourney(0, newlocation);
+         }
     }
 
     @Then("the containers in the journey have {string}")
@@ -295,6 +307,14 @@ public class StepDefinition {
         assertTrue(results.isEmpty());
     }
    
+    @When("updating the Journey as finished")
+    public void updating_the_Journey_as_finished() {
+    	 al.logIn(lc.getUsername(), lc.getPassword());
+         if (al.getapp() instanceof AdminApplication){
+             AdminApplication aa = (AdminApplication) al.getapp();
+             aa.finishJourney(0);
+         }
+    }
 
 
     
