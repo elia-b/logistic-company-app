@@ -13,9 +13,6 @@ public class Journey {
 	public int getClientid() {
 		return clientid;
 	}
-	
-	
-
 
 	public Journey(String origin, String destination, int clientid,ArrayList<Container> containerList) {
 		super();

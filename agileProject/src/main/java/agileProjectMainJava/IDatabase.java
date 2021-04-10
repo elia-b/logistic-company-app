@@ -7,7 +7,7 @@ import java.util.Set;
 
 public abstract class IDatabase<C>{
     
-    Map<Integer, C> data = new HashMap();
+    private Map<Integer, C> data = new HashMap();
     
     
     public C getValueFromID(int id) {

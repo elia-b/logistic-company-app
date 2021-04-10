@@ -3,17 +3,18 @@ package agileProjectMainJava;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-public class AdminApplication {
+public class AdminApplication  extends Application{
 	
 	private LogisticCompany lc;
 	
-	public AdminApplication(LogisticCompany lc) {
+	public AdminApplication(LogisticCompany lc){
 		this.lc = lc;
 	}
 	
 	public void register_new_client(Client c1) {
         //maybe return a boolean as registerState
         if (lc.getCic().checkAllInfo(c1)) {
+				c1.setPassword(generatePassword());
                 lc.getDatabase().registerValue(c1);;
                 c1.register();
                 
@@ -23,7 +24,12 @@ public class AdminApplication {
         }
     }
 	
-	
+	private String generatePassword() {
+		//for now it does not randomly generate the password, 
+		//but at some point it would be nice
+		return "12345Password";
+	}
+
 	public int searchEmail(String email) {
 		for (Entry<Integer, Client> entry : lc.getDatabase().entrySet()) {
 			if (entry.getValue().getEmail().equals(email)) {

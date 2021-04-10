@@ -1,8 +1,5 @@
 package agileProjectMainJava;
 
-import java.util.HashSet;
-import java.util.Set;
-
 // Create an interface for any logistic company
 public class LogisticCompany implements User{
 	
