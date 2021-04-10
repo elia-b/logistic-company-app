@@ -70,5 +70,17 @@ public class AdminApplication  extends Application{
 		}
 	}
 	
-
+	public void updateStatus(int containerid,float humidity,float temp,float press,String date) {
+		if (lc.getCic().checkDate(date)) {
+			lc.getContainers().getValueFromID(containerid).getStatus().add(new ContainerStatus(date,temp,press,humidity));
+			
+			
+		}else {
+			//Error Message
+		}
+	}
+	
+	
+	
+	
 }

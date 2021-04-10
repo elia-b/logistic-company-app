@@ -99,5 +99,12 @@ public class ClientInfoChecker {
        }
        return false;
    }
+//Implement more
+	public boolean checkDate(String date) {
+		if (date.length()==16) {
+			return true;
+		}
+		return false;
+	}
     
 }

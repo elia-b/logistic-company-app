@@ -11,6 +11,7 @@ import agileProjectMainJava.AdminApplication;
 import agileProjectMainJava.ApplicationLogIn;
 import agileProjectMainJava.Client;
 import agileProjectMainJava.ClientApplication;
+import agileProjectMainJava.ContainerStatus;
 import agileProjectMainJava.Journey;
 import agileProjectMainJava.LogisticCompany;
 import io.cucumber.java.en.Given;
@@ -30,11 +31,11 @@ public class StepDefinition {
     String name;
     String rp;
     String address;
-    
+    ArrayList<ContainerStatus> resultsStatus;
 
     ArrayList<Integer> results;
     
-
+    
 
 	
     @Given("a logistic company")
@@ -316,6 +317,68 @@ public class StepDefinition {
          }
     }
 
+    @When("updating the Status to {float} {float} {float} at {string}")
+    public void updating_the_Status_to_at(float hum, float temp, float press, String time) {
+    	 al.logIn(lc.getUsername(), lc.getPassword());
+         if (al.getapp() instanceof AdminApplication){
+             AdminApplication aa = (AdminApplication) al.getapp();
+             aa.updateStatus(0, hum, temp, press, time);
+         }
+    }
 
+
+    @Then("the container measurements are updated successfully")
+    public void the_container_measurements_are_updated_successfully() {
+        assertFalse(lc.getJourneys().getValueFromID(0).getContainers().get(0).getStatus().isEmpty());
+    }
+
+
+    @Then("the container measurements are updated unsuccessfully")
+    public void the_container_measurements_are_updated_unsuccessfully() {
+    	assertTrue(lc.getJourneys().getValueFromID(0).getContainers().get(0).getStatus().isEmpty());
+    }
+
+    @When("the client requests the latest status from journey")
+    public void the_client_requests_the_latest_status_from_journey() {
+        resultsStatus = ca.getLatestStatus(0);
+    }
+
+    @Then("the client sees container status {float} {float} {float} at {string}")
+    public void the_client_sees_container_status_at(float hum, float temp, float press, String time) {
+        assertTrue(hum == resultsStatus.get(0).getHumidity());
+        assertTrue(press == resultsStatus.get(0).getPressure());
+        assertTrue(temp == resultsStatus.get(0).getTemperature());
+    }
+
+
+    @Then("the client doesnt see status")
+    public void the_client_doesnt_see_status() {
+    	System.out.println(lc.getDatabase().getValueFromID(0).getName());
+    	System.out.println(lc.getDatabase().getValueFromID(1).getName());
+        assertTrue(resultsStatus.isEmpty());
+    }
+
+    @When("the client requests the status at {string} for journey")
+    public void the_client_requests_the_status_at_for_journey(String date) {
+        resultsStatus=ca.getclosestStatus(0, date);
+    }
+    
+    @Given("a new logged-in registered client {string} {string} {string} {string}")
+    public void a_new_logged_in_registered_client(String name, String email, String contactPerson, String address) {
+    	c2.setName(name);
+        c2.setAddress(address);
+        c2.setEmail(email);
+        c2.setContactPerson(contactPerson);
+        al.logIn(lc.getUsername(), lc.getPassword());
+        if (al.getapp() instanceof AdminApplication){
+            AdminApplication aa = (AdminApplication) al.getapp();
+            aa.register_new_client(c2);
+        }
+        al.logIn(c2.getUsername(), c2.getPassword());
+        if (al.getapp() instanceof ClientApplication){
+            ca = (ClientApplication) al.getapp();
+        }
+    }
+	
     
 }

@@ -37,7 +37,7 @@ public class ClientApplication extends Application{
 			 lc.getDatabase().getValueFromID(clientID).setPassword(password);
 	    }
 	}
-	
+ 	
 	public void updateContactPerson(String rp) {
 		if (lc.getCic().checkReferencePersonValid(rp)) {
 			 lc.getDatabase().getValueFromID(clientID).setContactPerson(rp);
@@ -110,4 +110,44 @@ public class ClientApplication extends Application{
 		}
 		
 	}
+	
+	public ArrayList<ContainerStatus> getLatestStatus(int journeyid) {
+		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
+		if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
+			for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
+				results.add(c.getStatus().get(c.getStatus().size()-1));
+			}
+		}
+		return results;
+	}
+	
+	public ArrayList<ContainerStatus> getclosestStatus(int journeyid,String date){
+		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
+		
+		int count = 0;
+		int index = 0;
+		if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
+			
+			
+			
+			
+			for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
+				int diff = c.getStatus().get(0).getDifference(date);
+				count = 0;
+				index = 0;
+				for (ContainerStatus cs : c.getStatus()) {
+					
+					if (diff>cs.getDifference(date)) {
+						diff = cs.getDifference(date);
+						index = count;
+					}
+					count++;
+				}
+				results.add(c.getStatus().get(index));
+			}
+		}
+		return results;
+	}
+	
+	
 }
