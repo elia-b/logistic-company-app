@@ -1,4 +1,4 @@
-package agileProjectMainJava;
+package application.model;
 
 public class ContainerStatus {
 	private Date date;
@@ -24,7 +24,7 @@ public class ContainerStatus {
 		this.pressure = pressure;
 		this.humidity = humidity;
 	}
-	 
+	  
 	
 	private Date convertDate(String date) {
 		String[] splitdate = date.split(":",5);

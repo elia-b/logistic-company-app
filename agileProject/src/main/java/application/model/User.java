@@ -1,4 +1,4 @@
-package agileProjectMainJava;
+package application.model;
 
 public interface User {
 	

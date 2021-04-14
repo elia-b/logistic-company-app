@@ -1,4 +1,4 @@
-package agileProjectMainJava;
+package application.model;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ public class Container {
 		return status;
 	}
 	
-	
+	 
 
 	public Container(String location) {
 		content = "empty";

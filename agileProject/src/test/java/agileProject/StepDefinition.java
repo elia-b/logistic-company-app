@@ -7,13 +7,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import agileProjectMainJava.AdminApplication;
-import agileProjectMainJava.ApplicationLogIn;
-import agileProjectMainJava.Client;
-import agileProjectMainJava.ClientApplication;
-import agileProjectMainJava.ContainerStatus;
-import agileProjectMainJava.Journey;
-import agileProjectMainJava.LogisticCompany;
+import application.controller.AdminApplication;
+import application.controller.ApplicationLogIn;
+import application.controller.ClientApplication;
+import application.model.Client;
+import application.model.ContainerStatus;
+import application.model.Journey;
+import application.model.LogisticCompany;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

@@ -1,28 +1,40 @@
-package agileProjectMainJava;
+package application.controller;
 
 import java.util.ArrayList;
 import java.util.Map.Entry;
 
-public class AdminApplication  extends Application{
+import application.model.Client;
+import application.model.Container;
+import application.model.ContainerStatus;
+import application.model.LogisticCompany;
+import application.view.AdminApplicationView;
+
+public class AdminApplication {
 	
 	private LogisticCompany lc;
 	
+	
 	public AdminApplication(LogisticCompany lc){
+		
 		this.lc = lc;
 	}
 	
-	public void register_new_client(Client c1) {
+	public String register_new_client(Client c1) {
         //maybe return a boolean as registerState
+		
         if (lc.getCic().checkAllInfo(c1)) {
 				c1.setPassword(generatePassword());
                 lc.getDatabase().registerValue(c1);;
                 c1.register();
-                
+                return "Registration Successful";
             }
         else{
-            //Throw an invalid client info
+            return "Invalid Info";
         }
     }
+	public void getClientReport() {
+		System.out.print(lc.getReport().getClientReport().getClientapp());
+	}
 	
 	private String generatePassword() {
 		//for now it does not randomly generate the password, 
@@ -45,29 +57,35 @@ public class AdminApplication  extends Application{
 			}
 		}return -1;
 	}
-	public void registerContainer(String location) {
-		lc.getContainers().registerValue(new Container(location));
-	}
 	
-	public void updateJourney(int journeyid, String newlocation) {
+	//Maybe check location
+	public String registerContainer(String location) {
+		lc.getContainers().registerValue(new Container(location));
+		return "Container registered";
+		
+	}
+	//Check if id exists
+	public String updateJourney(int journeyid, String newlocation) {
 		if (lc.getCic().checkDestination(newlocation)) {
 		ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
 		for (int i = 0; i<containers.size();i++) {
 			containers.get(i).setLocation(newlocation);
 		}
+		return "Successful Journey Update";
 		}else {
-			//Error Message
+			return "Unsuccessful Journey Update";
 		}
 		
 	}
-	
-	public void finishJourney(int journeyid) {
+	//Check if id exists
+	public String finishJourney(int journeyid) {
 		ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
 		for (int i = 0; i<containers.size();i++) {
 			containers.get(i).endJourney();
 			containers.get(i).setContent("empty");
 			containers.get(i).setLocation(lc.getJourneys().getValueFromID(journeyid).getDestination());
 		}
+		return "Journey finished";
 	}
 	
 	public void updateStatus(int containerid,float humidity,float temp,float press,String date) {
@@ -79,8 +97,8 @@ public class AdminApplication  extends Application{
 			//Error Message
 		}
 	}
+
 	
-	
-	
+
 	
 }

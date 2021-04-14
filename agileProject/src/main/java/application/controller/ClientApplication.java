@@ -1,49 +1,68 @@
-package agileProjectMainJava;
+package application.controller;
 
 import java.util.ArrayList;
 
-public class ClientApplication extends Application{
+import application.model.Container;
+import application.model.ContainerStatus;
+import application.model.Journey;
+import application.model.LogisticCompany;
+import application.view.ClientApplicationView;
+
+public class ClientApplication{
+	
 	
 	private int clientID;
 	private LogisticCompany lc;
 	public ClientApplication(int clientID,LogisticCompany lc) {
 		this.clientID = clientID;
 		this.lc=lc;
+		
 	}	
 	
 	public void updateName(String name) {
+		 lc.getReport().getClientReport().increaseUpdateName();
 		 if (lc.getCic().checkNameValid(name)) {
 			 lc.getDatabase().getValueFromID(clientID).setName(name);
+			
 	     } 
 	}
 	
 	public void updateEmail(String email) {
+		lc.getReport().getClientReport().increaseUpdateEmail();
 		if (lc.getCic().checkEmailValid(email)) {
 			 lc.getDatabase().getValueFromID(clientID).setEmail(email);
+			
 	    } 
 	}
 	
 	
 	public void updateAdress(String address) {
+		lc.getReport().getClientReport().increaseUpdateAdress();
 		if (lc.getCic().checkAddressValid(address)) {
 			 lc.getDatabase().getValueFromID(clientID).setAddress(address);
+			 
 	    } 
         
 	}
 	
 	public void updatePassword(String password) {
+		lc.getReport().getClientReport().increaseUpdatePassword();
 		// maybe have minimum size, required sign or Capital letter
 		if (true) {
 			 lc.getDatabase().getValueFromID(clientID).setPassword(password);
+			 
 	    }
 	}
  	
 	public void updateContactPerson(String rp) {
+		lc.getReport().getClientReport().increaseUpdateContactPerson();
 		if (lc.getCic().checkReferencePersonValid(rp)) {
 			 lc.getDatabase().getValueFromID(clientID).setContactPerson(rp);
+			 
 	    }
 	}
 	public ArrayList<Integer> filterJourneysbyContent(String content) {
+		lc.getReport().getClientReport().increaseFilterJourneysbyContent();
 		ArrayList<Integer> results = new ArrayList<Integer>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
@@ -54,6 +73,7 @@ public class ClientApplication extends Application{
 		}return results;
 	}
 	public ArrayList<Integer> filterJourneysbyDestination(String destination) {
+		lc.getReport().getClientReport().increaseFilterJourneysbyDestination();
 		ArrayList<Integer> results = new ArrayList<Integer>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
@@ -64,6 +84,7 @@ public class ClientApplication extends Application{
 		}return results;
 	}
 	public ArrayList<Integer> filterJourneysbyOrigin(String origin) {
+		lc.getReport().getClientReport().increaseFilterJourneysbyOrigin();
 		ArrayList<Integer> results = new ArrayList<Integer>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
@@ -77,6 +98,7 @@ public class ClientApplication extends Application{
 	
 	
 	public void registerJourney(String origin,String destination, String content, int containers) {
+		lc.getReport().getClientReport().increaseRegisterjourney();
 		if (lc.getCic().checkJourneyDetails(origin,destination,content)) {
 			ArrayList<Container> containerList = new ArrayList<Container>();
 			boolean enoughContainers = true;
@@ -112,6 +134,7 @@ public class ClientApplication extends Application{
 	}
 	
 	public ArrayList<ContainerStatus> getLatestStatus(int journeyid) {
+		lc.getReport().getClientReport().increaseGetLatestStatus();
 		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
 		if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
 			for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
@@ -122,6 +145,7 @@ public class ClientApplication extends Application{
 	}
 	
 	public ArrayList<ContainerStatus> getclosestStatus(int journeyid,String date){
+		lc.getReport().getClientReport().increaseGetClosestStatus();
 		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
 		
 		int count = 0;
@@ -148,6 +172,10 @@ public class ClientApplication extends Application{
 		}
 		return results;
 	}
+
+	
+
+	
 	
 	
 }

@@ -1,4 +1,4 @@
-package agileProjectMainJava;
+package application.model;
 
 import java.util.ArrayList;
 

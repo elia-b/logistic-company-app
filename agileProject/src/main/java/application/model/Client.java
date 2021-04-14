@@ -1,4 +1,4 @@
-package agileProjectMainJava;
+package application.model;
 
 public class Client implements User{
 	private String password;
@@ -8,12 +8,12 @@ public class Client implements User{
     private String contactPerson;
     private boolean registered = false;
 
-    // // public Client (String name, String email, String address, String contactPerson){
-    // //     this.name = name;
-    // //     this.email = email;
-    // //     this.address = address;
-    // //     this.contactPerson = contactPerson;
-    // // }
+      public Client (String name, String email, String address, String contactPerson){
+          this.name = name;
+          this.email = email;
+          this.address = address;
+          this.contactPerson = contactPerson;
+      }
 
     public void setName(String name){
         this.name = name;
