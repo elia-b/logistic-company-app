@@ -2,6 +2,7 @@ package application.controller;
 
 import javax.swing.JOptionPane;
 
+import application.model.AdminApplication;
 import application.model.Client;
 import application.model.LogisticCompany;
 import application.view.AdminApplicationView;
@@ -99,7 +100,21 @@ public class AdminController {
 	}
 
 	public void updateStatus() {
-		// TODO Auto-generated method stub
+		String id = JOptionPane.showInputDialog("Please insert the Container ID: ");
+		int idi = Integer.valueOf(id);
+		String hum = JOptionPane.showInputDialog("Please insert the Humidity level: ");
+		float fhum = Float.valueOf(hum);
+		String temp = JOptionPane.showInputDialog("Please insert the Temperature: ");
+		float ftemp = Float.valueOf(temp);
+		String press = JOptionPane.showInputDialog("Please insert the Pressure: ");
+		float fpress = Float.valueOf(press);
+		String date = JOptionPane.showInputDialog("Please insert the Date: ");
+		String message = app.updateStatus(idi, fhum, ftemp, fpress, date);
+		if (message.equals("Successful Update")) {
+			view.showSuccess(message);
+		}else {
+			view.showError(message);
+		}
 		
 	}
 	

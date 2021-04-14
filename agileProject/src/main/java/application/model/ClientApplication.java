@@ -1,12 +1,6 @@
-package application.controller;
+package application.model;
 
 import java.util.ArrayList;
-
-import application.model.Container;
-import application.model.ContainerStatus;
-import application.model.Journey;
-import application.model.LogisticCompany;
-import application.view.ClientApplicationView;
 
 public class ClientApplication{
 	
@@ -19,48 +13,61 @@ public class ClientApplication{
 		
 	}	
 	
-	public void updateName(String name) {
+	public String updateName(String name) {
 		 lc.getReport().getClientReport().increaseUpdateName();
 		 if (lc.getCic().checkNameValid(name)) {
 			 lc.getDatabase().getValueFromID(clientID).setName(name);
-			
-	     } 
+			 return "Successful Update";
+	     } else {
+			return "Unsuccessful Update";
+		 }
 	}
 	
-	public void updateEmail(String email) {
+	public String updateEmail(String email) {
 		lc.getReport().getClientReport().increaseUpdateEmail();
 		if (lc.getCic().checkEmailValid(email)) {
 			 lc.getDatabase().getValueFromID(clientID).setEmail(email);
 			
-	    } 
+			return "Successful Update";
+		} else {
+			return "Unsuccessful Update";
+		} 
 	}
 	
 	
-	public void updateAdress(String address) {
+	public String updateAdress(String address) {
 		lc.getReport().getClientReport().increaseUpdateAdress();
 		if (lc.getCic().checkAddressValid(address)) {
 			 lc.getDatabase().getValueFromID(clientID).setAddress(address);
-			 
-	    } 
+			 return "Successful Update";
+	    } else {
+			return "Unsuccessful Update";
+		}
         
 	}
 	
-	public void updatePassword(String password) {
+	public String updatePassword(String password) {
 		lc.getReport().getClientReport().increaseUpdatePassword();
 		// maybe have minimum size, required sign or Capital letter
 		if (true) {
 			 lc.getDatabase().getValueFromID(clientID).setPassword(password);
-			 
-	    }
+			return "Successful Update";
+		} else {
+			return "Unsuccessful Update";
+		}
 	}
  	
-	public void updateContactPerson(String rp) {
+	public String updateContactPerson(String rp) {
 		lc.getReport().getClientReport().increaseUpdateContactPerson();
 		if (lc.getCic().checkReferencePersonValid(rp)) {
 			 lc.getDatabase().getValueFromID(clientID).setContactPerson(rp);
 			 
-	    }
+			return "Successful Update";
+		} else {
+			return "Unsuccessful Update";
+		}
 	}
+
 	public ArrayList<Integer> filterJourneysbyContent(String content) {
 		lc.getReport().getClientReport().increaseFilterJourneysbyContent();
 		ArrayList<Integer> results = new ArrayList<Integer>();
@@ -97,7 +104,7 @@ public class ClientApplication{
 	
 	
 	
-	public void registerJourney(String origin,String destination, String content, int containers) {
+	public String registerJourney(String origin,String destination, String content, int containers) {
 		lc.getReport().getClientReport().increaseRegisterjourney();
 		if (lc.getCic().checkJourneyDetails(origin,destination,content)) {
 			ArrayList<Container> containerList = new ArrayList<Container>();
@@ -122,17 +129,20 @@ public class ClientApplication{
 					containerList.get(i).setContent("empty");
 				
 				}
-				//ERROR MESSAGE!
+				return "Not enough containers";
 			}else {
 				lc.getJourneys().registerValue(new Journey(origin,destination,this.clientID,containerList));
+				return "Successful Registration";
 			}
 			
 			
 			
 		}
+		return "Invalid Info";
 		
 	}
 	
+	//check that the journey ID exists
 	public ArrayList<ContainerStatus> getLatestStatus(int journeyid) {
 		lc.getReport().getClientReport().increaseGetLatestStatus();
 		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
@@ -144,6 +154,7 @@ public class ClientApplication{
 		return results;
 	}
 	
+	//check that the journey ID exists
 	public ArrayList<ContainerStatus> getclosestStatus(int journeyid,String date){
 		lc.getReport().getClientReport().increaseGetClosestStatus();
 		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();

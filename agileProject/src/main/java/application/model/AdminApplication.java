@@ -1,13 +1,7 @@
-package application.controller;
+package application.model;
 
 import java.util.ArrayList;
 import java.util.Map.Entry;
-
-import application.model.Client;
-import application.model.Container;
-import application.model.ContainerStatus;
-import application.model.LogisticCompany;
-import application.view.AdminApplicationView;
 
 public class AdminApplication {
 	
@@ -88,13 +82,17 @@ public class AdminApplication {
 		return "Journey finished";
 	}
 	
-	public void updateStatus(int containerid,float humidity,float temp,float press,String date) {
+	public String updateStatus(int containerid,float humidity,float temp,float press,String date) {
 		if (lc.getCic().checkDate(date)) {
-			lc.getContainers().getValueFromID(containerid).getStatus().add(new ContainerStatus(date,temp,press,humidity));
-			
+			if (lc.getContainers().getValueFromID(containerid) != null) {
+				lc.getContainers().getValueFromID(containerid).getStatus().add(new ContainerStatus(date,temp,press,humidity));
+				return "Successful Update";
+			} else {
+				return "Invalid Container ID";
+			}
 			
 		}else {
-			//Error Message
+			return "Invalid Date";
 		}
 	}
 

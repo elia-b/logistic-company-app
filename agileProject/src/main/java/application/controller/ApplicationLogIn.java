@@ -1,7 +1,6 @@
 package application.controller;
 
 import application.model.LogisticCompany;
-import application.model.User;
 import application.view.LoginView;
 
 public class ApplicationLogIn {

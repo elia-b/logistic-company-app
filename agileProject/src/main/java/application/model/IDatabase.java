@@ -11,7 +11,12 @@ public abstract class IDatabase<C>{
     
     
     public C getValueFromID(int id) {
-        return data.get(id);
+        if (data.containsKey(id)){
+            return data.get(id);
+        }
+        else {
+            return null;
+        }
     }
     
     public void registerValue(C c) {

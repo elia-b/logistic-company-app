@@ -1,6 +1,5 @@
 package application.controller;
 
-import application.model.LogisticCompany;
 
 public class ApplicationController {
 	
@@ -15,7 +14,7 @@ public class ApplicationController {
 	}
 
 	public void clientapplication(int clientID) {
-		ClientController clientcontroller = new ClientController(clientID);
+		ClientController clientcontroller = new ClientController(clientID, this);
 		clientcontroller.display();
 	}
 
