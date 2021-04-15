@@ -74,7 +74,7 @@ public class ClientApplication{
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
 			if (lc.getJourneys().getValueFromID(i).getClientid()==clientID && 
-					lc.getJourneys().getValueFromID(i).getContainers().get(0).getContent().equals(content)) {
+					lc.getJourneys().getValueFromID(i).getContent().equals(content)) {
 				results.add(i);
 			}
 		}return results;
@@ -131,7 +131,7 @@ public class ClientApplication{
 				}
 				return "Not enough containers";
 			}else {
-				lc.getJourneys().registerValue(new Journey(origin,destination,this.clientID,containerList));
+				lc.getJourneys().registerValue(new Journey(content,origin,destination,this.clientID,containerList));
 				return "Successful Registration";
 			}
 			
