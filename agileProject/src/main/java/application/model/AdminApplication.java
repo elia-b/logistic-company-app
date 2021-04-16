@@ -75,7 +75,6 @@ public class AdminApplication {
 		ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
 		for (int i = 0; i<containers.size();i++) {
 			containers.get(i).endJourney();
-			containers.get(i).setContent("empty");
 			containers.get(i).setLocation(lc.getJourneys().getValueFromID(journeyid).getDestination());
 		}
 		return "Journey finished";
@@ -84,7 +83,9 @@ public class AdminApplication {
 	public String updateStatus(int containerid,float humidity,float temp,float press,String date) {
 		if (lc.getCic().checkDate(date)) {
 			if (lc.getContainers().getValueFromID(containerid) != null) {
-				lc.getContainers().getValueFromID(containerid).getStatus().add(new ContainerStatus(date,temp,press,humidity));
+				ContainerStatus cs = new ContainerStatus(date,temp,press,humidity);
+				lc.getContainers().getValueFromID(containerid).getStatus().add(cs);
+				lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys().get(lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys().size() - 1).getStatus().add(cs);
 				return "Successful Update";
 			} else {
 				return "Invalid Container ID";

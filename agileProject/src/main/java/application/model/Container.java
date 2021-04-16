@@ -2,10 +2,11 @@ package application.model;
 
 import java.util.ArrayList;
 
-public class Container {
+public class Container implements IData{
 	private String content;
 	private String location;
 	private boolean OnJourney;
+	private int id;
 	private ArrayList<ContainerStatus> status = new ArrayList<ContainerStatus>();
 	
 	public ArrayList<ContainerStatus> getStatus() {
@@ -44,9 +45,26 @@ public class Container {
 	
 	public void endJourney() {
 		OnJourney = false;
+		content = "empty";
+		status = new ArrayList<ContainerStatus>();
 	}
 	
 	public boolean getOnJourney() {
 		return OnJourney;
+	}
+
+
+
+	@Override
+	public int getID() {
+		return id;
+	}
+
+
+
+	@Override
+	public void setID(int id) {
+		this.id = id;
+		
 	}
 }

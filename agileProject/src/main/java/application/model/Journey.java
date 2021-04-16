@@ -2,7 +2,7 @@ package application.model;
 
 import java.util.ArrayList;
 
-public class Journey {
+public class Journey implements IData{
 	
 	//Maybe add something for the current position
 	private String origin;
@@ -10,6 +10,7 @@ public class Journey {
 	private int clientid;
 	private String content;
 	private int numberOfContainers;
+	private int id;
 	private ArrayList<Container> containers = new ArrayList<Container>();
 	
 	public int getClientid() {
@@ -47,6 +48,17 @@ public class Journey {
 
 	public String getContent() {
 		return content;
+	}
+
+	@Override
+	public int getID() {
+		return id;
+	}
+
+	@Override
+	public void setID(int id) {
+		this.id = id;
+		
 	}
 	
 

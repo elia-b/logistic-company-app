@@ -6,8 +6,11 @@ public class LogisticCompany implements User{
 	private UsageReport report = new UsageReport();
     private ClientDatabase clients = new ClientDatabase();
     private JourneyDatabase journeys = new JourneyDatabase();
-    private ClientInfoChecker cic = new ClientInfoChecker(this);
+    private ContainerHistoryDatabase containersHistory = new ContainerHistoryDatabase();
     private ContainerDatabase containers = new ContainerDatabase();
+
+	private ClientInfoChecker cic = new ClientInfoChecker(this);
+
     //This will be used for singleton pattern
     private static LogisticCompany lc = new LogisticCompany();
     
@@ -20,6 +23,10 @@ public class LogisticCompany implements User{
     
 	public ContainerDatabase getContainers() {
 		return containers;
+	}
+
+	public ContainerHistoryDatabase getContainersHistory() {
+		return containersHistory;
 	}
 
 

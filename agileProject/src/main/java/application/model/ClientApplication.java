@@ -134,6 +134,9 @@ public class ClientApplication{
 				j.setContainers(containerList);
 				j.setClientID(this.clientID);
 				lc.getJourneys().registerValue(j);
+				for (Container c : containerList) {
+					lc.getContainersHistory().getValueFromID(c.getID()).getContainerJourneys().add(new ContainerJourneyHistory(j.getID()));
+				}
 				return "Successful Registration";
 			}
 			

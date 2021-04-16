@@ -1,6 +1,6 @@
 package application.model;
 
-public class Client implements User{
+public class Client implements User, IData{
 	private String password;
     private String name; 
     private String email; 
@@ -14,14 +14,6 @@ public class Client implements User{
           this.address = address;
           this.contactPerson = contactPerson;
       }
-
-    public void setCLientID(int clientID){
-        this.clientID = clientID;
-    }
-
-    public int getClientID(){
-        return this.clientID;
-    }
 
     public void setName(String name){
         this.name = name;
@@ -58,6 +50,17 @@ public class Client implements User{
 	public void setPassword(String password) {
 		this.password= password;
 	}
+
+    @Override
+    public int getID() {
+        return this.clientID;
+    }
+
+    @Override
+    public void setID(int id) {
+        this.clientID = id;
+        
+    }
 	
     
     
