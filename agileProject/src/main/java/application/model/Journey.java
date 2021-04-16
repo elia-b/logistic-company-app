@@ -22,6 +22,7 @@ public class Journey implements IData{
 		this.origin = origin;
 		this.destination = destination;
 		this.numberOfContainers = numberOfContainers;
+		this.content = content;
 	}
 
 	public ArrayList<Container> getContainers(){

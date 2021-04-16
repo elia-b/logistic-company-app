@@ -46,10 +46,11 @@ public class ClientApplication{
         
 	}
 	
+	
 	public String updatePassword(String password) {
 		lc.getReport().getClientReport().increaseUpdatePassword();
 		// maybe have minimum size, required sign or Capital letter
-		if (true) {
+		if (lc.getCic().checkPassword(password)) {
 			 lc.getDatabase().getValueFromID(clientID).setPassword(password);
 			return "Successful Update";
 		} else {
@@ -147,46 +148,55 @@ public class ClientApplication{
 		
 	}
 	
-	//check that the journey ID exists
+	
 	public ArrayList<ContainerStatus> getLatestStatus(int journeyid) {
-		lc.getReport().getClientReport().increaseGetLatestStatus();
 		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
-		if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
-			for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
-				results.add(c.getStatus().get(c.getStatus().size()-1));
+		if (lc.getJourneys().containsKey(journeyid)) {
+			lc.getReport().getClientReport().increaseGetLatestStatus();
+			
+			if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
+				for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
+					if (c.getStatus().size()>0) {
+						results.add(c.getStatus().get(c.getStatus().size()-1));
+					}
+					
+				}
 			}
-		}
-		return results;
+			return results;
+		}return results;
+		
 	}
 	
-	//check that the journey ID exists
+	
 	public ArrayList<ContainerStatus> getclosestStatus(int journeyid,String date){
 		lc.getReport().getClientReport().increaseGetClosestStatus();
 		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
-		
-		int count = 0;
-		int index = 0;
-		if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
-			
-			
-			
-			
-			for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
-				int diff = c.getStatus().get(0).getDifference(date);
-				count = 0;
-				index = 0;
-				for (ContainerStatus cs : c.getStatus()) {
-					
-					if (diff>cs.getDifference(date)) {
-						diff = cs.getDifference(date);
-						index = count;
+		if (lc.getJourneys().containsKey(journeyid)&&lc.getCic().checkDate(date)) {
+			int count = 0;
+			int index = 0;
+			if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
+				
+				
+				
+				
+				for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
+					int diff = c.getStatus().get(0).getDifference(date);
+					count = 0;
+					index = 0;
+					for (ContainerStatus cs : c.getStatus()) {
+						
+						if (diff>cs.getDifference(date)) {
+							diff = cs.getDifference(date);
+							index = count;
+						}
+						count++;
 					}
-					count++;
+					results.add(c.getStatus().get(index));
 				}
-				results.add(c.getStatus().get(index));
 			}
-		}
-		return results;
+			return results;
+		}return results;
+		
 	}
 
 	

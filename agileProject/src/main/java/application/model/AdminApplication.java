@@ -14,7 +14,7 @@ public class AdminApplication {
 	}
 	
 	public String register_new_client(Client c1) {
-        //maybe return a boolean as registerState
+        
 		
         if (lc.getCic().checkAllInfo(c1)) {
 				c1.setPassword(generatePassword());
@@ -32,7 +32,7 @@ public class AdminApplication {
 	private String generatePassword() {
 		//for now it does not randomly generate the password, 
 		//but at some point it would be nice
-		return "12345Password";
+		return "123";
 	}
 
 	public int searchEmail(String email) {
@@ -51,33 +51,43 @@ public class AdminApplication {
 		}return -1;
 	}
 	
-	//Maybe check location
+	
 	public String registerContainer(Container C) {
-		lc.getContainers().registerValue(C);
-		return "Container registered";
+		if (lc.getCic().checkLocation(C.getLocation())) {
+			lc.getContainers().registerValue(C);
+			lc.getContainersHistory().registerValue(new ContainerHistory());
+			return "Container registered";
+		}return "Location invalid";
+		
 		
 	}
-	//Check if id exists
+	
 	public String updateJourney(int journeyid, String newlocation) {
-		if (lc.getCic().checkDestination(newlocation)) {
-		ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
-		for (int i = 0; i<containers.size();i++) {
-			containers.get(i).setLocation(newlocation);
-		}
-		return "Successful Journey Update";
-		}else {
-			return "Unsuccessful Journey Update";
-		}
+		if (lc.getJourneys().containsKey(journeyid)) {
+			if (lc.getCic().checkLocation(newlocation)) {
+				ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
+				for (int i = 0; i<containers.size();i++) {
+					containers.get(i).setLocation(newlocation);
+				}
+				return "Successful Journey Update";
+				}else {
+					return "Unsuccessful Journey Update";
+				}
+		}return "Journey not found";
+		
 		
 	}
-	//Check if id exists
+	
 	public String finishJourney(int journeyid) {
-		ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
-		for (int i = 0; i<containers.size();i++) {
-			containers.get(i).endJourney();
-			containers.get(i).setLocation(lc.getJourneys().getValueFromID(journeyid).getDestination());
-		}
-		return "Journey finished";
+		if (lc.getJourneys().containsKey(journeyid)){
+			ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
+			for (int i = 0; i<containers.size();i++) {
+				containers.get(i).endJourney();
+				containers.get(i).setLocation(lc.getJourneys().getValueFromID(journeyid).getDestination());
+			}
+			return "Journey finished";
+		}return "Journey not found";
+		
 	}
 	
 	public String updateStatus(int containerid,float humidity,float temp,float press,String date) {
@@ -96,7 +106,35 @@ public class AdminApplication {
 		}
 	}
 
-	
+	public ArrayList<ContainerJourneyHistory> searchContainerHistory(int containerid) throws Exception {
+        if (lc.getContainersHistory().containsKey(containerid)){
+                return lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys();
+            }
+        throw new Exception("There is no container with that ID in the database");
+    }
+   
+    public ArrayList<Integer> getJourneyIDsfromContainerHistory(int containerid) throws Exception{
+        ArrayList<Integer> journeys = new ArrayList<Integer>();
+        if (lc.getContainersHistory().containsKey(containerid)){
+        for (ContainerJourneyHistory i : lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys()) {
+            journeys.add(i.getJourneyId());
+        }
+        return journeys;
+        }
+        throw new Exception("That container ID is not in the database");
+    }
+   
+    public ArrayList<ContainerStatus> getStatusesFromContainerHistory(int containerid, int journeyid) throws Exception{
+        if (lc.getContainersHistory().containsKey(containerid)){
+            for (ContainerJourneyHistory i : lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys()) {
+                if (i.getJourneyId() == journeyid) {
+                    return i.getStatus();
+                }
+            throw new Exception("Journey ID not in history for this container");
+            }
+        }
+        throw new Exception("That container ID is not in the database");
+    }
 
 	
 }

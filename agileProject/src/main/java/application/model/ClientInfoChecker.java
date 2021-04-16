@@ -26,6 +26,14 @@ public class ClientInfoChecker {
         }
         return false;
     }
+	public boolean checkLocation(String l) {
+		if (!(l == null) && l.matches("[a-zA-Z ]+")) {
+        	
+        	return true;
+        	
+        }
+        return false;
+	}
 
     public boolean checkEmailValid(String email) {
         // Check whether a @ is there and if it is not already taken
@@ -105,6 +113,12 @@ public class ClientInfoChecker {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean checkPassword(String p) {
+		if (p.length()<3) {
+			return false;
+		}return true;
 	}
     
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public abstract class IDatabase<C>{
+public abstract class IDatabase<C extends IData>{
     
     private Map<Integer, C> data = new HashMap();
     
@@ -20,10 +20,12 @@ public abstract class IDatabase<C>{
     }
     
     public void registerValue(C c) {
+    	c.setID(data.size());
         data.put(data.size(), c);
     }
     
     public Set<Entry<Integer, C>> entrySet() {
+    	
         return data.entrySet();
     }
     

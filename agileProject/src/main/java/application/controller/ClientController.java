@@ -168,7 +168,7 @@ public class ClientController {
 			}
 			view.showSuccess(message);
 		} else {
-			view.showSuccess("No Container found");
+			view.showSuccess("ERROR 404");
 		}
     }
 
@@ -186,7 +186,7 @@ public class ClientController {
 			}
 			view.showSuccess(message);
 		} else {
-			view.showSuccess("No Container found");
+			view.showSuccess("ERROR 404");
 		}
     }
 
