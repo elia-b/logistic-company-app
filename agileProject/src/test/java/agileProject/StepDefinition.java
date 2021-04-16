@@ -12,6 +12,7 @@ import application.controller.ApplicationLogIn;
 import application.model.AdminApplication;
 import application.model.Client;
 import application.model.ClientApplication;
+import application.model.Container;
 import application.model.ContainerStatus;
 import application.model.Journey;
 import application.model.LogisticCompany;
@@ -41,6 +42,8 @@ public class StepDefinition {
     ArrayList<Integer> results;
 
     int intResult;
+    
+    Container C;
     
     
 
@@ -194,7 +197,8 @@ public class StepDefinition {
 
     @Given("{int} containers at {string}")
     public void containers_at(Integer numberOfContainers, String location) {
-        aa.registerContainer(location);
+    	C = new Container(location);
+        aa.registerContainer(C);
     }
     
     @Given("a registered Journey with {string} {string} {string} {int}")

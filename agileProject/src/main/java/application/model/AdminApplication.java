@@ -52,8 +52,8 @@ public class AdminApplication {
 	}
 	
 	//Maybe check location
-	public String registerContainer(String location) {
-		lc.getContainers().registerValue(new Container(location));
+	public String registerContainer(Container C) {
+		lc.getContainers().registerValue(C);
 		return "Container registered";
 		
 	}

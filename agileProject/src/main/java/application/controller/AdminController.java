@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import application.model.AdminApplication;
 import application.model.Client;
+import application.model.Container;
 import application.model.LogisticCompany;
 import application.view.AdminApplicationView;
 
@@ -78,7 +79,8 @@ public class AdminController {
 
 	public void registerContainer() {
 		String location = JOptionPane.showInputDialog("Please insert the Location: ");
-		String message = app.registerContainer(location);
+		Container C = new Container(location);
+		String message = app.registerContainer(C);
 		if (message.equals("Container registered")) {
 			view.showSuccess(message);
 		}else {

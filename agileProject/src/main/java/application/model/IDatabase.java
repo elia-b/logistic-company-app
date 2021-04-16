@@ -27,6 +27,8 @@ public abstract class IDatabase<C>{
         return data.entrySet();
     }
     
-    
+    public Boolean containsKey(int i) {
+    	return data.containsKey(i);
+    }
 }
 
