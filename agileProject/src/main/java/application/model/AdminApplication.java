@@ -19,7 +19,6 @@ public class AdminApplication {
         if (lc.getCic().checkAllInfo(c1)) {
 				c1.setPassword(generatePassword());
                 lc.getDatabase().registerValue(c1);;
-                c1.register();
                 return "Registration Successful";
             }
         else{

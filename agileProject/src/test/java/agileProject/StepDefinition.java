@@ -7,10 +7,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import application.controller.AdminApplication;
+
 import application.controller.ApplicationLogIn;
-import application.controller.ClientApplication;
+import application.model.AdminApplication;
 import application.model.Client;
+import application.model.ClientApplication;
 import application.model.ContainerStatus;
 import application.model.Journey;
 import application.model.LogisticCompany;
@@ -20,20 +21,26 @@ import io.cucumber.java.en.When;
 
 public class StepDefinition {
 	
-    LogisticCompany lc = new LogisticCompany();
-    Client c1 = new Client();
-    ApplicationLogIn al = new ApplicationLogIn(lc);
-    Client c2 = new Client();
-    Client c5 = new Client();
-    int search;
+    LogisticCompany lc = LogisticCompany.GetInstance();
+    //c1 is always the new client
+    Client c1;
+    //c2 is always the already registered client
+    Client c2;
+    //c3 is always the logged-in and registered client
+    Client c3;
+
+    Journey j;
+
+    String response;
+
+    AdminApplication aa = new AdminApplication(lc);
     ClientApplication ca;
-    String email;
-    String name;
-    String rp;
-    String address;
+
     ArrayList<ContainerStatus> resultsStatus;
 
     ArrayList<Integer> results;
+
+    int intResult;
     
     
 
@@ -43,52 +50,24 @@ public class StepDefinition {
         assertNotEquals(null, lc);
     }
     
-    @Given("a client")
-    public void a_client() {
-        c1.unregister();
-        c1.setAddress(null);
-        c1.setContactPerson(null);
-        c1.setEmail(null);
-        c1.setName(null);
-    }
-
-    @Given("pass {string} as name")
-    public void pass_as_name(String name) {
-        c1.setName(name);
-    }
-
-    @Given("pass {string} as e-mail")
-    public void pass_as_e_mail(String email) {
-        c1.setEmail(email);
-    }
-
-    @Given("pass {string} as reference person")
-    public void pass_as_reference_person(String contactPerson) {
-        c1.setContactPerson(contactPerson);
-    }
-
-    @Given("pass {string} as address")
-    public void pass_as_address(String address) {
-        c1.setAddress(address);
+    @Given("a client {string} {string} {string} {string}")
+    public void a_client(String name, String email, String contactPerson, String address) {
+        c1 = new Client(name, email, address, contactPerson);
     }
 
     @When("register new client")
     public void register_new_client() {
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            aa.register_new_client(c1);
-        }
+        aa.register_new_client(c1);
     }
 
     @Then("the registration is successful")
     public void the_registration_is_successful() {
-        assertTrue(c1.getRegistered());
+        assertFalse(lc.getDatabase().getIDfromClientName(c1.getName()) == -1);
     }
 
     @Then("the registration is unsuccessful")
     public void the_registration_is_unsuccessful() {
-        assertFalse(c1.getRegistered());
+        assertTrue(lc.getDatabase().getIDfromClientName(c1.getName()) == -1);
     }
 
 
@@ -98,29 +77,18 @@ public class StepDefinition {
         c2.setAddress(address);
         c2.setEmail(email);
         c2.setContactPerson(contactPerson);
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            aa.register_new_client(c2);
+        aa.register_new_client(c2);
         }
     }
     
     @Given("a logged-in registered client {string} {string} {string} {string}")
     public void a_logged_in_registered_client(String name, String email, String contactPerson, String address) {
-    	c5.setName(name);
-        c5.setAddress(address);
-        c5.setEmail(email);
-        c5.setContactPerson(contactPerson);
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            aa.register_new_client(c5);
-        }
-        al.logIn(c5.getUsername(), c5.getPassword());
-        if (al.getapp() instanceof ClientApplication){
-            ca = (ClientApplication) al.getapp();
-        }
-        
+    	c3.setName(name);
+        c3.setAddress(address);
+        c3.setEmail(email);
+        c3.setContactPerson(contactPerson);
+        aa.register_new_client(c3);
+        ca = new ClientApplication(lc.getDatabase().getIDfromClientName(c3.getName()), lc);
     }
 
     @When("the client updates {string} as name")
@@ -130,8 +98,7 @@ public class StepDefinition {
 
     @Then("the client has name {string}")
     public void the_client_has_name(String name) {
-    	//c5 is always the logged-in client
-        assertEquals(c5.getName(),name);
+        assertEquals(c3.getName(),name);
     }
 
     @When("the client updates {string} as e-mail")
@@ -141,7 +108,7 @@ public class StepDefinition {
 
     @Then("the client has email {string}")
     public void the_client_has_email(String email) {
-    	assertEquals(c5.getEmail(),email);
+    	assertEquals(c3.getEmail(),email);
     }
     
 
@@ -152,7 +119,7 @@ public class StepDefinition {
 
     @Then("the client has reference person {string}")
     public void the_client_has_reference_person(String rp) {
-        assertEquals(c5.getReferencePerson(), rp);
+        assertEquals(c3.getReferencePerson(), rp);
     }	
 
     @When("the client updates {string} as address")
@@ -162,7 +129,7 @@ public class StepDefinition {
  
     @Then("the client has address {string}")
     public void the_client_has_address(String address) {
-        assertEquals(c5.getAddress(),address);
+        assertEquals(c3.getAddress(),address);
     }
     
     @When("the client updates {string} as password")
@@ -172,106 +139,72 @@ public class StepDefinition {
 
     @Then("the client has password {string}")
     public void the_client_has_password(String password) {
-    	 assertEquals(c5.getPassword(),password);
+    	 assertEquals(c3.getPassword(),password);
     }
 
     
     @When("pass {string} as name search")
     public void pass_as_name_search(String name) {
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            search = aa.searchName(name);
-        }
+        intResult = aa.searchName(name);
         
     }
 
     @Then("successful search")
     public void successful_search() {
-        assertEquals(search,lc.getDatabase().getIDfromClientName(c2.getName()));
+        assertEquals(intResult, lc.getDatabase().getIDfromClientName(c2.getName()));
     }
 
  
 
     @Then("unsuccessful search")
     public void unsuccessful_search() {
-        assertEquals(-1,search);
+        assertEquals(-1, intResult);
     }
 
     @When("pass {string} as e-mail search")
     public void pass_as_e_mail_search(String email) {
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            search = aa.searchEmail(email);
-        }
-        
+        intResult = aa.searchEmail(email);
     }
+
+
 //M2 Journey Registration
-    
 
-
-
-    @When("register a Journey with {string} {string} {string} {int}")
-    public void register_a_Journey_with(String origin, String destination, String content, int number) {
-        ca.registerJourney(origin, destination, content, number);
-        
+    @Given("a Journey with {string} {string} {string} {int}")
+    public void a_Journey_with(String origin, String destination, String content, int number) {
+        j = new Journey(origin, destination, content, number);
 
     }
 
+    @When("register a Journey")
+    public void register_a_Journey() {
+        ca.registerJourney(j);
+
+    }
+
+    //size is not SOLID
     @Then("the journey registration was succesful")
     public void the_journey_registration_was_succesful() {
-    	
-    	
-        assertTrue(lc.getJourneys().size()==1);
+        assertTrue(lc.getJourneys().size() == 1);
     }
-
-    
 
     @Then("the journey registration was unsuccesful")
     public void the_journey_registration_was_unsuccesful() {
-        assertTrue(lc.getJourneys().size()==0);
+        assertTrue(lc.getJourneys().size() == 0);
     }
 
     @Given("{int} containers at {string}")
     public void containers_at(Integer numberOfContainers, String location) {
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            for (int i = 0;i<numberOfContainers;i++) {
-                aa.registerContainer(location);
-            }
-        }
-        
-        
-    	
+        aa.registerContainer(location);
     }
     
     @Given("a registered Journey with {string} {string} {string} {int}")
     public void a_registered_Journey_with(String origin, String destination, String content, int number) {
-    	 al.logIn(lc.getUsername(), lc.getPassword());
-         if (al.getapp() instanceof AdminApplication){
-             AdminApplication aa = (AdminApplication) al.getapp();
-	    	for (int i = 0;i<number;i++) {
-	        	aa.registerContainer(origin);
-	        }
-	    	c5.setName("UserCompany");
-	        c5.setAddress("Lyngby 69 RoadStreet");
-	        c5.setEmail("newwmail@gmail.com");
-	        c5.setContactPerson("Paul Paulson");
-	        aa.register_new_client(c5);
-	        ca = new ClientApplication(lc.getDatabase().getIDfromClientName(c5.getName()), lc);
-	    	ca.registerJourney(origin, destination, content, number);
-         }
+        ca.registerJourney(origin, destination, content, number);
     }
 
     @When("updating the Journey to {string}")
     public void updating_the_Journey_to(String newlocation) {
-    	 al.logIn(lc.getUsername(), lc.getPassword());
-         if (al.getapp() instanceof AdminApplication){
-             AdminApplication aa = (AdminApplication) al.getapp();
-             aa.updateJourney(0, newlocation);
-         }
+        aa.updateJourney(0, newlocation);
     }
 
     @Then("the containers in the journey have {string}")
@@ -286,7 +219,7 @@ public class StepDefinition {
 
     @Then("the resulting JourneyID is {int}")
     public void the_resulting_JourneyID_is(Integer id) {
-        assertTrue(results.get(0)==id);
+        assertTrue(results.get(0) == id);
     }
 
 
@@ -310,20 +243,12 @@ public class StepDefinition {
    
     @When("updating the Journey as finished")
     public void updating_the_Journey_as_finished() {
-    	 al.logIn(lc.getUsername(), lc.getPassword());
-         if (al.getapp() instanceof AdminApplication){
-             AdminApplication aa = (AdminApplication) al.getapp();
-             aa.finishJourney(0);
-         }
+        aa.finishJourney(0);
     }
 
     @When("updating the Status to {float} {float} {float} at {string}")
     public void updating_the_Status_to_at(float hum, float temp, float press, String time) {
-    	 al.logIn(lc.getUsername(), lc.getPassword());
-         if (al.getapp() instanceof AdminApplication){
-             AdminApplication aa = (AdminApplication) al.getapp();
-             aa.updateStatus(0, hum, temp, press, time);
-         }
+        aa.updateStatus(0, hum, temp, press, time);
     }
 
 

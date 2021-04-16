@@ -47,7 +47,7 @@ public class LogisticCompany implements User{
 		return logisticCompanyPassword;
 	}
 
-	public String getUsername() {
+	public String getName() {
 		return logisticCompanyUsername;
 	}
 

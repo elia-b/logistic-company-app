@@ -17,7 +17,7 @@ public class ApplicationLogIn {
 	
 	
 	public void logIn(String username, String password) {
-		if ((username.equals(lc.getEmail()) || username.equals(lc.getUsername())) && password.equals(lc.getPassword())) {
+		if ((username.equals(lc.getEmail()) || username.equals(lc.getName())) && password.equals(lc.getPassword())) {
 			application.adminapplication();
 			view.setVisible(false);
 			

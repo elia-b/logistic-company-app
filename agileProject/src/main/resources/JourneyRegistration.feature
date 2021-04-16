@@ -25,7 +25,8 @@ Feature: Journey Registrations
     Given a logistic company
     And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And 3 containers at "Hamburg"
-    When register a Journey with "Hamburg" "Copenhagen" "banana" 3
+    And a Journey with "Hamburg" "Copenhagen" "banana" 3
+    When register a Journey
     Then the journey registration was succesful
 
   @tag2
@@ -33,7 +34,8 @@ Feature: Journey Registrations
     Given a logistic company
     And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And 2 containers at <origin>
-    When register a Journey with <origin> <destination> <Content> 2
+    And a Journey with <origin> <destination> <Content> 2
+    When register a Journey
     Then the journey registration was unsuccesful
 
     Examples: 
@@ -46,5 +48,6 @@ Feature: Journey Registrations
   	Given a logistic company
     And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And 2 containers at "Hamburg"
-    When register a Journey with "Hamburg" "Copenhagen" "banana" 3
+    And a Journey with "Hamburg" "Copenhagen" "banana" 3
+    When register a Journey
     Then the journey registration was unsuccesful

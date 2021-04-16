@@ -6,7 +6,7 @@ public class Client implements User{
     private String email; 
     private String address;
     private String contactPerson;
-    private boolean registered = false;
+    private int clientID;
 
       public Client (String name, String email, String address, String contactPerson){
           this.name = name;
@@ -14,6 +14,14 @@ public class Client implements User{
           this.address = address;
           this.contactPerson = contactPerson;
       }
+
+    public void setCLientID(int clientID){
+        this.clientID = clientID;
+    }
+
+    public int getClientID(){
+        return this.clientID;
+    }
 
     public void setName(String name){
         this.name = name;
@@ -41,17 +49,6 @@ public class Client implements User{
         return this.contactPerson;
     }
 
-    public boolean getRegistered(){
-        return this.registered;
-    }
-
-    public void register(){
-        this.registered = true;
-    }
-
-    public void unregister(){
-        this.registered = false;
-    }
 	public String getPassword() {
 		return password;
 	}

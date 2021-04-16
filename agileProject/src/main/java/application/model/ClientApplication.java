@@ -104,17 +104,17 @@ public class ClientApplication{
 	
 	
 	
-	public String registerJourney(String origin,String destination, String content, int containers) {
+	public String registerJourney(Journey j) {
 		lc.getReport().getClientReport().increaseRegisterjourney();
-		if (lc.getCic().checkJourneyDetails(origin,destination,content)) {
+		if (lc.getCic().checkJourneyDetails(j.getOrigin(),j.getDestination(),j.getContent())) {
 			ArrayList<Container> containerList = new ArrayList<Container>();
 			boolean enoughContainers = true;
-			for (int i = 0; i<containers; i++) {
-				int Cid = lc.getContainers().getIDfromContainerLocation(origin);
+			for (int i = 0; i< j.getNOfContainers(); i++) {
+				int Cid = lc.getContainers().getIDfromContainerLocation(j.getOrigin());
 				
 				if (Cid != -1) {
 					lc.getContainers().getValueFromID(Cid).startJourney();
-					lc.getContainers().getValueFromID(Cid).setContent(content);
+					lc.getContainers().getValueFromID(Cid).setContent(j.getContent());
 					
 					containerList.add(lc.getContainers().getValueFromID(Cid));
 					
@@ -131,7 +131,9 @@ public class ClientApplication{
 				}
 				return "Not enough containers";
 			}else {
-				lc.getJourneys().registerValue(new Journey(content,origin,destination,this.clientID,containerList));
+				j.setContainers(containerList);
+				j.setClientID(this.clientID);
+				lc.getJourneys().registerValue(j);
 				return "Successful Registration";
 			}
 			

@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import application.model.ClientApplication;
 import application.model.ContainerStatus;
+import application.model.Journey;
 import application.model.LogisticCompany;
 import application.view.ClientApplicationView;
 
@@ -145,7 +146,8 @@ public class ClientController {
 		String content = JOptionPane.showInputDialog("Please insert the Content:");
 		String containers = JOptionPane.showInputDialog("Please insert the Number of Contatiners:");
 		int icont = Integer.valueOf(containers);
-		String message = app.registerJourney(origin, destination, content, icont);
+		Journey j = new Journey(content, origin, destination, icont);
+		String message = app.registerJourney(j);
 		if (message.equals("Successful Registration")) {
 			view.showSuccess(message);
 		}else {
