@@ -1,19 +1,28 @@
 package application.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Client implements User, IData{
 	private String password;
     private String name; 
     private String email; 
     private String address;
     private String contactPerson;
+    @Id
     private int clientID;
+    
+    public Client() {
+    	
+    }
 
-      public Client (String name, String email, String address, String contactPerson){
-          this.name = name;
-          this.email = email;
-          this.address = address;
-          this.contactPerson = contactPerson;
-      }
+	  public Client (String name, String email, String address, String contactPerson){
+	      this.name = name;
+	      this.email = email;
+	      this.address = address;
+	      this.contactPerson = contactPerson;
+	  }
 
     public void setName(String name){
         this.name = name;

@@ -3,34 +3,27 @@ package application.model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
+
 import java.util.Set;
 
-public abstract class IDatabase<C extends IData>{
-    
-    private Map<Integer, C> data = new HashMap();
+public  interface IDatabase<C extends IData>{
     
     
-    public C getValueFromID(int id) {
-        if (data.containsKey(id)){
-            return data.get(id);
-        }
-        else {
-            return null;
-        }
-    }
+    public C getValueFromID(int id);
     
-    public void registerValue(C c) {
-    	c.setID(data.size());
-        data.put(data.size(), c);
-    }
+    public void registerValue(C c);
     
-    public Set<Entry<Integer, C>> entrySet() {
-    	
-        return data.entrySet();
-    }
+    public Set<Entry<Integer, C>> entrySet();
     
-    public Boolean containsKey(int i) {
-    	return data.containsKey(i);
-    }
+    public Boolean containsKey(int i);
+    
+    public int size();
 }
 
