@@ -20,80 +20,31 @@
 Feature: Client Managment registration functionalities
 
   @tag1
-  Scenario: Successful registration of a new client by a company
+  Scenario Outline: Registration of a new client by a company
     Given a logistic company
-    And a client
-    And pass "UserCompany" as name
-    And pass "user.company@gmail.com" as e-mail
-    And pass "Paul Paulson" as reference person
-    And pass "Lyngby 69 RoadStreet" as address
+    And a client <name> <email> <contactperson> <address>
     When register new client
-    Then the registration is successful
+    Then the registration is <status>
+
+    Examples: 
+      | name              |       email                 | contactperson  |address                 | status       |
+      | "UserCompany"     |  "user.company@gmail.com"   | "Paul Paulson" | "Lyngby 69 RoadStreet" | successful   |
+      | "UserCompany"     |  "user.companygmail.com"    | "Paul Paulson" | "Lyngby 69 RoadStreet" | unsuccessful |
+      | "UserCompany"     |  "user.company@gmail.com"   | "Paul Paulson" | "Lyngby 69"            | unsuccessful |
+
     
   @tag2
-  Scenario: Unsuccessful registration of a new client by a company because of invalid e-mail
-    Given a logistic company
-    And a client
-    And pass "UserCompany" as name
-    And pass "user.companygmail.com" as e-mail
-    And pass "Paul Paulson" as reference person
-    And pass "Lyngby 69 RoadStreet" as address
-    When register new client
-    Then the registration is unsuccessful
-  
-  @tag3
-  Scenario: Unsuccessful registration of a new client by a company because of missing e-mail
-    Given a logistic company
-    And a client
-    And pass "UserCompany" as name
-    And pass "Paul Paulson" as reference person
-    And pass "Lyngby 69 RoadStreet" as address
-    When register new client
-    Then the registration is unsuccessful
-    
-  @tag4
-  Scenario: Unsuccessful registration of a new client by a company because of invalid address
-    Given a logistic company
-    And a client
-    And pass "UserCompany" as name
-    And pass "user.company@gmail.com" as e-mail
-    And pass "Paul Paulson" as reference person
-    And pass "Lyngby 69" as address
-    When register new client
-    Then the registration is unsuccessful
-  
-  @tag5
-  Scenario: Unsuccessful registration of a new client by a company because of missing reference person
-    Given a logistic company
-    And a client
-    And pass "UserCompany" as name
-    And pass "user.company@gmail.com" as e-mail
-    And pass "Lyngby 69 RoadStreet" as address
-    When register new client
-    Then the registration is unsuccessful
-    
-  @tag6
   Scenario: Unsuccessful registration of a new client by a company because of already taken name
     Given a logistic company
     And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
-    And a client
-    And pass "UserCompany" as name
-    And pass "user.company@gmail.com" as e-mail
-    And pass "Paul Paulson" as reference person
-    And pass "Lyngby 69 RoadStreet" as address
-    When register new client
+    And a client "UserCompany" "user.company@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     Then the registration is unsuccessful
     
-  @tag7
+  @tag3
   Scenario: Unsuccessful registration of a new client by a company because of already taken e-mail
     Given a logistic company
-    And a registered client "UserCompanyy" "user.company@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
-    And a client
-    And pass "UserCompany" as name
-    And pass "user.company@gmail.com" as e-mail
-    And pass "Paul Paulson" as reference person
-    And pass "Lyngby 69 RoadStreet" as address
-    When register new client
+    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a client "NewUserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     Then the registration is unsuccessful
     
     

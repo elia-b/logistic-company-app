@@ -1,5 +1,8 @@
 package application.model;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class ContainerStatus {
 	private Date date;
 	private float temperature;
@@ -28,18 +31,14 @@ public class ContainerStatus {
 	
 	private Date convertDate(String date) {
 		String[] splitdate = date.split(":",5);
-		return new Date(Integer.parseInt(splitdate[0]),Integer.parseInt(splitdate[1]),Integer.parseInt(splitdate[2]),Integer.parseInt(splitdate[3]),Integer.parseInt(splitdate[4]));	
+		Calendar c = Calendar.getInstance();
+    	c.set(Integer.parseInt(splitdate[0]),Integer.parseInt(splitdate[1]),Integer.parseInt(splitdate[2]),Integer.parseInt(splitdate[3]),Integer.parseInt(splitdate[4]));	
+		return c.getTime();
 	}
 	
-	public int getDifference(String requestedDate) {
+	public long getDifference(String requestedDate) {
 		Date rDate = convertDate(requestedDate);
-		int diff = 0;
-		diff = diff + (rDate.getYear()-date.getYear())*15768000;
-		diff = diff + (rDate.getMonth()-date.getMonth())*43200;
-		diff = diff + (rDate.getDay()-date.getDay())*1440;
-		diff = diff + (rDate.getHour()-date.getHour())*60;
-		diff = diff + (rDate.getMinutes()-date.getMinutes());
-		
+		long diff = rDate.getTime() - date.getTime();
 		return Math.abs(diff);
 	}
 	

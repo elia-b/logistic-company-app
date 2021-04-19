@@ -180,14 +180,14 @@ public class ClientApplication{
 				
 				
 				for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
-					int diff = c.getStatus().get(0).getDifference(date);
+					long diff = c.getStatus().get(0).getDifference(date);
 					count = 0;
 					index = 0;
 					for (ContainerStatus cs : c.getStatus()) {
 						
 						if (diff>cs.getDifference(date)) {
 							diff = cs.getDifference(date);
-							index = count;
+				 			index = count;
 						}
 						count++;
 					}
@@ -198,10 +198,4 @@ public class ClientApplication{
 		}return results;
 		
 	}
-
-	
-
-	
-	
-	
 }

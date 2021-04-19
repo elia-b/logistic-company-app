@@ -135,6 +135,4 @@ public class AdminApplication {
         }
         throw new Exception("That container ID is not in the database");
     }
-
-	
 }

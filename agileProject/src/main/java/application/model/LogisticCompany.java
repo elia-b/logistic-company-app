@@ -8,6 +8,7 @@ public class LogisticCompany implements User{
     private JourneyDatabase journeys = new JourneyDatabase();
     private ContainerHistoryDatabase containersHistory = new ContainerHistoryDatabase();
     private ContainerDatabase containers = new ContainerDatabase();
+	private LocationDatabase locationDatabase = new LocationDatabase();
 
 	private ClientInfoChecker cic = new ClientInfoChecker(this);
 
@@ -21,6 +22,9 @@ public class LogisticCompany implements User{
     private LogisticCompany(){
 	}
     
+	public LocationDatabase getLocationDatabase() {
+		return locationDatabase;
+	}
 	public ContainerDatabase getContainers() {
 		return containers;
 	}
