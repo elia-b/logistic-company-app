@@ -1,24 +1,29 @@
 package application.model;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+
+
+@Entity
 public class Container implements IData{
 	private String content;
 	private String location;
-	private boolean OnJourney;
-	private int id;
-	private ArrayList<ContainerStatus> status = new ArrayList<ContainerStatus>();
-	
-	public ArrayList<ContainerStatus> getStatus() {
-		return status;
-	}
-	
+	private int journeyID;
+
+
+	@Id
+	private int containerId;
 	 
 
 	public Container(String location) {
 		content = "empty";
 		this.location = location;
-		OnJourney = false;
+		journeyID = -1;
+	}
+	
+	public int getJourneyID() {
+		return journeyID;
 	}
 	
 	public String getLocation() {
@@ -29,42 +34,39 @@ public class Container implements IData{
 		this.location = location;
 	}
  
-	
-
 	public String getContent() {
 		return content;
 	}
 
-	public void setContent(String content) {
+	public void startJourney(String content, int journeyID) {
+		this.journeyID = journeyID;
 		this.content = content;
-	}
-	public void startJourney() {
-		OnJourney = true;
 		
 	}
 	
 	public void endJourney() {
-		OnJourney = false;
+		this.journeyID = -1;
 		content = "empty";
-		status = new ArrayList<ContainerStatus>();
 	}
 	
 	public boolean getOnJourney() {
-		return OnJourney;
+		if (journeyID == -1) {
+			return false;
+		}else {
+			return true;
+		}
 	}
-
 
 
 	@Override
 	public int getID() {
-		return id;
+		return containerId;
 	}
-
 
 
 	@Override
 	public void setID(int id) {
-		this.id = id;
+		this.containerId = id;
 		
 	}
 }

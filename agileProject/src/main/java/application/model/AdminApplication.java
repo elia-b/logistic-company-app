@@ -1,6 +1,7 @@
 package application.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 
 public class AdminApplication {
@@ -25,6 +26,7 @@ public class AdminApplication {
             return "Invalid Info";
         }
     }
+	
 	public void getClientReport() {
 		System.out.print(lc.getReport().getClientReport().getClientapp());
 	}
@@ -55,7 +57,6 @@ public class AdminApplication {
 	public String registerContainer(Container C) {
 		if (lc.getCic().checkLocation(C.getLocation())) {
 			lc.getContainers().registerValue(C);
-			lc.getContainersHistory().registerValue(new ContainerHistory());
 			return "Container registered";
 		}return "Location invalid";
 		
@@ -65,9 +66,9 @@ public class AdminApplication {
 	public String updateJourney(int journeyid, String newlocation) {
 		if (lc.getJourneys().containsKey(journeyid)) {
 			if (lc.getCic().checkLocation(newlocation)) {
-				ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
-				for (int i = 0; i<containers.size();i++) {
-					containers.get(i).setLocation(newlocation);
+				List<Container> containers = lc.getContainers().containerOnJourney(journeyid);
+				for (Container c : containers) {
+					lc.getContainers().changeLocation(c.getID(), newlocation);
 				}
 				return "Successful Journey Update";
 				}else {
@@ -80,10 +81,11 @@ public class AdminApplication {
 	
 	public String finishJourney(int journeyid) {
 		if (lc.getJourneys().containsKey(journeyid)){
-			ArrayList<Container> containers = lc.getJourneys().getValueFromID(journeyid).getContainers();
-			for (int i = 0; i<containers.size();i++) {
-				containers.get(i).endJourney();
-				containers.get(i).setLocation(lc.getJourneys().getValueFromID(journeyid).getDestination());
+			List<Container> containers = lc.getContainers().containerOnJourney(journeyid);
+			String newlocation = lc.getJourneys().getValueFromID(journeyid).getDestination();
+			for (Container c : containers) {
+				lc.getContainers().changeFinishJourney(c.getID());
+				lc.getContainers().changeLocation(c.getID(), newlocation);
 			}
 			return "Journey finished";
 		}return "Journey not found";
@@ -93,9 +95,9 @@ public class AdminApplication {
 	public String updateStatus(int containerid,float humidity,float temp,float press,String date) {
 		if (lc.getCic().checkDate(date)) {
 			if (lc.getContainers().getValueFromID(containerid) != null) {
-				ContainerStatus cs = new ContainerStatus(date,temp,press,humidity);
-				lc.getContainers().getValueFromID(containerid).getStatus().add(cs);
-				lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys().get(lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys().size() - 1).getStatus().add(cs);
+				int jId = lc.getContainers().getValueFromID(containerid).getJourneyID();
+				ContainerStatus cs = new ContainerStatus(date,temp,press,humidity, jId, containerid );
+				lc.getContainersHistory().registerValue(cs);
 				return "Successful Update";
 			} else {
 				return "Invalid Container ID";
@@ -106,9 +108,9 @@ public class AdminApplication {
 		}
 	}
 
-	public ArrayList<ContainerJourneyHistory> searchContainerHistory(int containerid) throws Exception {
+	public List<ContainerStatus> searchContainerHistory(int containerid) throws Exception {
         if (lc.getContainersHistory().containsKey(containerid)){
-                return lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys();
+                return lc.getContainersHistory().getContainerStatusfromContainer(containerid);
             }
         throw new Exception("There is no container with that ID in the database");
     }
@@ -116,22 +118,20 @@ public class AdminApplication {
     public ArrayList<Integer> getJourneyIDsfromContainerHistory(int containerid) throws Exception{
         ArrayList<Integer> journeys = new ArrayList<Integer>();
         if (lc.getContainersHistory().containsKey(containerid)){
-        for (ContainerJourneyHistory i : lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys()) {
-            journeys.add(i.getJourneyId());
-        }
+	        for (ContainerStatus cs : lc.getContainersHistory().getContainerStatusfromContainer(containerid)) {
+	        	if (!journeys.contains(cs.getJourneyId())) {
+	        		journeys.add(cs.getJourneyId());
+	        	}
+	            
+	        }
         return journeys;
         }
         throw new Exception("That container ID is not in the database");
     }
    
-    public ArrayList<ContainerStatus> getStatusesFromContainerHistory(int containerid, int journeyid) throws Exception{
+    public List<ContainerStatus> getStatusesFromContainerHistory(int containerid, int journeyid) throws Exception{
         if (lc.getContainersHistory().containsKey(containerid)){
-            for (ContainerJourneyHistory i : lc.getContainersHistory().getValueFromID(containerid).getContainerJourneys()) {
-                if (i.getJourneyId() == journeyid) {
-                    return i.getStatus();
-                }
-            throw new Exception("Journey ID not in history for this container");
-            }
+        	return lc.getContainersHistory().getContainerStatusfromJourney(journeyid, containerid);
         }
         throw new Exception("That container ID is not in the database");
     }

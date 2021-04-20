@@ -1,6 +1,7 @@
 package application.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientApplication{
 	
@@ -16,7 +17,7 @@ public class ClientApplication{
 	public String updateName(String name) {
 		 lc.getReport().getClientReport().increaseUpdateName();
 		 if (lc.getCic().checkNameValid(name)) {
-			 lc.getDatabase().getValueFromID(clientID).setName(name);
+			 lc.getDatabase().changeName(clientID, name);
 			 return "Successful Update";
 	     } else {
 			return "Unsuccessful Update";
@@ -26,7 +27,7 @@ public class ClientApplication{
 	public String updateEmail(String email) {
 		lc.getReport().getClientReport().increaseUpdateEmail();
 		if (lc.getCic().checkEmailValid(email)) {
-			 lc.getDatabase().getValueFromID(clientID).setEmail(email);
+			 lc.getDatabase().changeEmail(clientID, email);
 			
 			return "Successful Update";
 		} else {
@@ -38,7 +39,7 @@ public class ClientApplication{
 	public String updateAdress(String address) {
 		lc.getReport().getClientReport().increaseUpdateAdress();
 		if (lc.getCic().checkAddressValid(address)) {
-			 lc.getDatabase().getValueFromID(clientID).setAddress(address);
+			 lc.getDatabase().changeAddress(clientID, address);
 			 return "Successful Update";
 	    } else {
 			return "Unsuccessful Update";
@@ -51,7 +52,7 @@ public class ClientApplication{
 		lc.getReport().getClientReport().increaseUpdatePassword();
 		// maybe have minimum size, required sign or Capital letter
 		if (lc.getCic().checkPassword(password)) {
-			 lc.getDatabase().getValueFromID(clientID).setPassword(password);
+			 lc.getDatabase().changePassword(clientID, password);
 			return "Successful Update";
 		} else {
 			return "Unsuccessful Update";
@@ -61,7 +62,7 @@ public class ClientApplication{
 	public String updateContactPerson(String rp) {
 		lc.getReport().getClientReport().increaseUpdateContactPerson();
 		if (lc.getCic().checkReferencePersonValid(rp)) {
-			 lc.getDatabase().getValueFromID(clientID).setContactPerson(rp);
+			 lc.getDatabase().changeContactPerson(clientID, rp);
 			 
 			return "Successful Update";
 		} else {
@@ -91,6 +92,7 @@ public class ClientApplication{
 			}
 		}return results;
 	}
+	
 	public ArrayList<Integer> filterJourneysbyOrigin(String origin) {
 		lc.getReport().getClientReport().increaseFilterJourneysbyOrigin();
 		ArrayList<Integer> results = new ArrayList<Integer>();
@@ -110,12 +112,12 @@ public class ClientApplication{
 		if (lc.getCic().checkJourneyDetails(j.getOrigin(),j.getDestination(),j.getContent())) {
 			ArrayList<Container> containerList = new ArrayList<Container>();
 			boolean enoughContainers = true;
+			int jid = lc.getJourneys().size();
 			for (int i = 0; i< j.getNOfContainers(); i++) {
 				int Cid = lc.getContainers().getIDfromContainerLocation(j.getOrigin());
 				
-				if (Cid != -1) {
-					lc.getContainers().getValueFromID(Cid).startJourney();
-					lc.getContainers().getValueFromID(Cid).setContent(j.getContent());
+				if (Cid != -1 && !lc.getContainers().getValueFromID(Cid).getOnJourney()) {
+					lc.getContainers().changeStartJourney(Cid,jid,j.getContent());
 					
 					containerList.add(lc.getContainers().getValueFromID(Cid));
 					
@@ -125,19 +127,13 @@ public class ClientApplication{
 				
 			}
 			if (!enoughContainers) {
-				for (int i = 0; i<containerList.size(); i++) {
-					containerList.get(i).endJourney();
-					containerList.get(i).setContent("empty");
+				for (Container c : containerList) {
+					lc.getContainers().changeFinishJourney(c.getID());
 				
 				}
 				return "Not enough containers";
 			}else {
-				j.setContainers(containerList);
-				j.setClientID(this.clientID);
 				lc.getJourneys().registerValue(j);
-				for (Container c : containerList) {
-					lc.getContainersHistory().getValueFromID(c.getID()).getContainerJourneys().add(new ContainerJourneyHistory(j.getID()));
-				}
 				return "Successful Registration";
 			}
 			
@@ -155,10 +151,13 @@ public class ClientApplication{
 			lc.getReport().getClientReport().increaseGetLatestStatus();
 			
 			if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
-				for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
-					if (c.getStatus().size()>0) {
-						results.add(c.getStatus().get(c.getStatus().size()-1));
+				for (Container c : lc.getContainers().containerOnJourney(journeyid)) {
+					List<ContainerStatus> lcs = lc.getContainersHistory().getContainerStatusfromJourney(journeyid, c.getID());
+					// if we have time we can check the most recent one, using date
+					if(lcs.size() > 0) {
+						results.add(lcs.get(lcs.size() - 1));
 					}
+					
 					
 				}
 			}
@@ -175,23 +174,25 @@ public class ClientApplication{
 			int count = 0;
 			int index = 0;
 			if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
+
 				
-				
-				
-				
-				for (Container c : lc.getJourneys().getValueFromID(journeyid).getContainers()) {
-					long diff = c.getStatus().get(0).getDifference(date);
-					count = 0;
-					index = 0;
-					for (ContainerStatus cs : c.getStatus()) {
-						
-						if (diff>cs.getDifference(date)) {
-							diff = cs.getDifference(date);
-				 			index = count;
+				for (Container c : lc.getContainers().containerOnJourney(journeyid)) {
+					List<ContainerStatus> lcs = lc.getContainersHistory().getContainerStatusfromJourney(journeyid, c.getID());
+					if(lcs.size() > 0) {
+						long diff = lcs.get(0).getDifference(date);
+						count = 0;
+						index = 0;
+						for (ContainerStatus cs : lcs) {
+							
+							if (diff>cs.getDifference(date)) {
+								diff = cs.getDifference(date);
+					 			index = count;
+							}
+							count++;
 						}
-						count++;
+
+						results.add(lcs.get(index));
 					}
-					results.add(c.getStatus().get(index));
 				}
 			}
 			return results;

@@ -100,8 +100,37 @@ public class ClientDatabase implements IDatabase<Client> {
 	}
 	
 	public void changeName(int clientId, String newName) {
+		session.beginTransaction();
 		Client c = (Client) session.get(Client.class, clientId); 
 		c.setName(newName);
+		session.saveOrUpdate(c);
+		session.getTransaction().commit();
+	}
+	public void changeEmail(int clientId, String newEmail) {
+		session.beginTransaction();
+		Client c = (Client) session.get(Client.class, clientId); 
+		c.setEmail(newEmail);
+		session.saveOrUpdate(c);
+		session.getTransaction().commit();
+	}
+	public void changePassword(int clientId, String newPassword) {
+		session.beginTransaction();
+		Client c = (Client) session.get(Client.class, clientId); 
+		c.setPassword(newPassword);
+		session.saveOrUpdate(c);
+		session.getTransaction().commit();
+	}
+	public void changeContactPerson(int clientId, String newContactPerson) {
+		session.beginTransaction();
+		Client c = (Client) session.get(Client.class, clientId); 
+		c.setContactPerson(newContactPerson);
+		session.saveOrUpdate(c);
+		session.getTransaction().commit();
+	}
+	public void changeAddress(int clientId, String newAddress) {
+		session.beginTransaction();
+		Client c = (Client) session.get(Client.class, clientId); 
+		c.setAddress(newAddress);
 		session.saveOrUpdate(c);
 		session.getTransaction().commit();
 	}

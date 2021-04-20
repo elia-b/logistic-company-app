@@ -17,6 +17,7 @@ public class DataBaseMainTest {
 		cb.registerValue(c1);
 		cb.registerValue(c);
 		Client c3 = cb.getValueFromID(0);
+		cb.changeName(0, "I am new");
 		System.out.println(c3.getName());
 		System.out.println( cb.getIDfromClientName("Paul"));
 		

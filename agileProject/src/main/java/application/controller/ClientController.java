@@ -14,7 +14,7 @@ public class ClientController {
 	private ClientApplicationView view;
 	private ClientApplication app;
 	private ApplicationController controller;
-	int clientid;
+	private int clientid;
 
 	public ClientController(int clientid, ApplicationController controller) {
 		view = new ClientApplicationView(this);
@@ -146,7 +146,7 @@ public class ClientController {
 		String content = JOptionPane.showInputDialog("Please insert the Content:");
 		String containers = JOptionPane.showInputDialog("Please insert the Number of Contatiners:");
 		int icont = Integer.valueOf(containers);
-		Journey j = new Journey(content, origin, destination, icont);
+		Journey j = new Journey(content, origin, destination, icont, clientid);
 		String message = app.registerJourney(j);
 		if (message.equals("Successful Registration")) {
 			view.showSuccess(message);
