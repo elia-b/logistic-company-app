@@ -98,6 +98,13 @@ public class ClientDatabase implements IDatabase<Client> {
         session.getTransaction().commit();
         return al.size();
 	}
+	
+	public void changeName(int clientId, String newName) {
+		Client c = (Client) session.get(Client.class, clientId); 
+		c.setName(newName);
+		session.saveOrUpdate(c);
+		session.getTransaction().commit();
+	}
 
 
 }
