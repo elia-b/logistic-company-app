@@ -3,12 +3,30 @@ package application.model;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ContainerStatus {
-	private Date date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+public class ContainerStatus implements IData{
+	private long date;
 	private float temperature;
 	private float pressure;
 	private float humidity;
-	public Date getDate() {
+	@Id
+	private int csId;
+	private int journeyId;
+	private int containerId;
+	
+	public int getJourneyId() {
+		return journeyId;
+	}
+
+	public int getContainerId() {
+		return containerId;
+	}
+	
+	public long getDate() {
 		return date;
 	}
 	public float getTemperature() {
@@ -20,26 +38,40 @@ public class ContainerStatus {
 	public float getHumidity() {
 		return humidity;
 	}
-	public ContainerStatus(String date, float temperature, float pressure, float humidity) {
+	
+	public ContainerStatus(String date, float temperature, float pressure, float humidity, int journeyId, int containerId) {
 		super();
 		this.date = convertDate(date);
 		this.temperature = temperature;
 		this.pressure = pressure;
 		this.humidity = humidity;
+		this.journeyId = journeyId;
+		this.containerId = containerId;
 	}
 	  
 	
-	private Date convertDate(String date) {
+	private long convertDate(String date) {
 		String[] splitdate = date.split(":",5);
 		Calendar c = Calendar.getInstance();
     	c.set(Integer.parseInt(splitdate[0]),Integer.parseInt(splitdate[1]),Integer.parseInt(splitdate[2]),Integer.parseInt(splitdate[3]),Integer.parseInt(splitdate[4]));	
-		return c.getTime();
+		return c.getTime().getTime();
 	}
 	
 	public long getDifference(String requestedDate) {
-		Date rDate = convertDate(requestedDate);
-		long diff = rDate.getTime() - date.getTime();
+		long rDate = convertDate(requestedDate);
+		long diff = rDate - date;
 		return Math.abs(diff);
+	}
+
+	@Override
+	public int getID() {
+		return this.csId;
+	}
+
+	@Override
+	public void setID(int id) {
+		this.csId = id;
+		
 	}
 	
 }

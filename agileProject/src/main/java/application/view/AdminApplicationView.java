@@ -97,6 +97,38 @@ public class AdminApplicationView extends JFrame{
 				
 			}
 		});
+		JButton addLocation = new JButton("Register New Location");
+		addLocation.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.addNewLocation();
+				
+			}
+		});
+		JButton getJourneyOfContainer = new JButton("Get Journeys Of Container");
+		getJourneyOfContainer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.getJourneysOfContainer();
+				
+			}
+		});
+		JButton getContainerStatus = new JButton("Get All Contanier Status");
+		getContainerStatus.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.getContainerHistory();
+				
+			}
+		});
+		JButton getContainerStatusInJourney = new JButton("Get All Contanier Status from Journey");
+		getContainerStatusInJourney.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				controller.getContainerHistoryfromJourney();
+				
+			}
+		});
 		
 		
 		
@@ -109,6 +141,10 @@ public class AdminApplicationView extends JFrame{
 		this.add(btnupdateJourney);
 		this.add(btnsearchName);
 		this.add(btnNew);
+		this.add(addLocation);
+		this.add(getJourneyOfContainer);
+		this.add(getContainerStatus);
+		this.add(getContainerStatusInJourney);
 		this.add(btnlogOut);
 		this.pack();
 		

@@ -13,7 +13,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 import java.util.Set;
 
-public  interface IDatabase<C extends IData>{
+public interface IDatabase<C extends IData>{
     
     
     public C getValueFromID(int id);

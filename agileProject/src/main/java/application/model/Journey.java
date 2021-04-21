@@ -1,7 +1,9 @@
 package application.model;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Journey implements IData{
 	
 	//Maybe add something for the current position
@@ -10,39 +12,34 @@ public class Journey implements IData{
 	private int clientid;
 	private String content;
 	private int numberOfContainers;
-	private int id;
-	private ArrayList<Container> containers = new ArrayList<Container>();
+	@Id
+	private int journeyId;
 	
 	public int getClientid() {
 		return clientid;
 	}
+	
+	public Journey() {
+		
+	}
 
-	public Journey(String content,String origin, String destination, int numberOfContainers) {
+	public Journey(String content,String origin, String destination, int numberOfContainers, int clientid) {
 		super();
 		this.origin = origin;
 		this.destination = destination;
 		this.numberOfContainers = numberOfContainers;
 		this.content = content;
-	}
-
-	public ArrayList<Container> getContainers(){
-		return containers;
-	}
-
-	public void setContainers(ArrayList<Container> cl){
-		containers = cl;
+		this.clientid = clientid;
 	}
 
 	public int getNOfContainers() {
 		return this.numberOfContainers;
 	}
-	public void setClientID(int clientid) {
-		this.clientid = clientid;
-	}
 	
 	public String getOrigin() {
 		return this.origin;
 	}
+	
 	public String getDestination() {
 		return this.destination;
 	}
@@ -53,15 +50,13 @@ public class Journey implements IData{
 
 	@Override
 	public int getID() {
-		return id;
+		return journeyId;
 	}
 
 	@Override
 	public void setID(int id) {
-		this.id = id;
+		this.journeyId = id;
 		
 	}
-	
-
 	
 }

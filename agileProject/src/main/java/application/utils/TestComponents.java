@@ -14,10 +14,10 @@ public class TestComponents {
 
         //Add Components
         
-        /* LocationPicker obj1 = LogisticCompany.GetInstance().getLocationDatabase().getLocationPicker();
-        frmMainMenu.add(obj1); */
-        TimeNDatePicker obj2 = new TimeNDatePicker();
-        frmMainMenu.add(obj2);
+        LocationPicker obj1 = LogisticCompany.GetInstance().getLocationDatabase().getLocationPicker();
+        frmMainMenu.add(obj1);
+        //TimeNDatePicker obj2 = new TimeNDatePicker();
+        //frmMainMenu.add(obj2);
         frmMainMenu.pack();
         frmMainMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
