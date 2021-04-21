@@ -11,7 +11,7 @@ public class DataBaseMainTest {
 	
 	public static void main(String[] args) {
 		
-		Client c = new Client("Paul", "Address 23 asd", "paul@paul.com", "soadkas");
+		Client c = new Client("Oskar", "Address 23 asd", "paul@paul.com", "soadkas");
 		Client c1 = new Client("Paul2", "Address 23 asd", "paul2@paul.com", "soadkas");
 		ClientDatabase cb = new ClientDatabase();
 		cb.registerValue(c1);
