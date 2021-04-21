@@ -13,16 +13,22 @@ import application.view.AddContainerInput;
 import application.view.AddLocationInput;
 import application.view.AdminApplicationView;
 import application.view.RegisterClientInput;
+import application.view.SearchEmailInput;
 import application.view.SearchNameInput;
+import application.view.UpdateJourneyInput;
 
 public class AdminController {
 	private AdminApplicationView view;
 	private AdminApplication app;
 	private ApplicationController controller;
+	
+	
 	private RegisterClientInput input;
 	private AddLocationInput locationInput;
 	private AddContainerInput containerInput;
 	private SearchNameInput nameInput;
+	private SearchEmailInput emailInput;
+	private UpdateJourneyInput updateJourneyInput;
 	
 	public AdminController(ApplicationController controller) {
 		view = new AdminApplicationView(this);
@@ -58,26 +64,16 @@ public class AdminController {
 	}
 
 	public void searchEmail() {
-		String Email = JOptionPane.showInputDialog("Please insert the Email:");
-		int message = app.searchEmail(Email);
-		if (message>-1) {
-			view.showSuccess("Client's ID is: " + message);
-		}else {
-			view.showError("No Client with that Email");
-		}
+		emailInput = new SearchEmailInput(this);
+		emailInput.setVisible(true);
+		
 		
 	}
 
 	public void updateJourney() {
-		String id = JOptionPane.showInputDialog("Please insert the Journey ID: ");
-		int idi = Integer.valueOf(id);
-		String newloc = JOptionPane.showInputDialog("Please insert the new Location: ");
-		String message = app.updateJourney(idi, newloc);
-		if (message.equals("Successful Journey Update")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		updateJourneyInput = new UpdateJourneyInput(this);
+		updateJourneyInput.setVisible(true);
+	
 		
 	}
 
