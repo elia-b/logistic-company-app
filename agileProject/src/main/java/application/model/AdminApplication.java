@@ -135,4 +135,14 @@ public class AdminApplication {
         }
         throw new Exception("That container ID is not in the database");
     }
+    
+    public String addLocation(String location){
+    	if(lc.getCic().checkLocation(location)) {
+    		lc.getLocationDatabase().addLocation(location);
+    		return "Location Added";
+    	}
+    	else {
+    		return "Location not Valid";
+    	}
+    }
 }

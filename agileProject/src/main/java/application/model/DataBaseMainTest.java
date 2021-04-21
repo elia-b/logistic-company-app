@@ -14,8 +14,16 @@ public class DataBaseMainTest {
 		Client c = new Client("Paul", "Address 23 asd", "paul@paul.com", "soadkas");
 		Client c1 = new Client("Paul2", "Address 23 asd", "paul2@paul.com", "soadkas");
 		ClientDatabase cb = new ClientDatabase();
+		JourneyDatabase jb = new JourneyDatabase();
+		ContainerDatabase conb = new ContainerDatabase();
 		cb.registerValue(c1);
 		cb.registerValue(c);
+		Container clon1 = new Container("LONDON");
+		Container clon2 = new Container("LONDON");
+		conb.registerValue(clon1);
+		conb.registerValue(clon2);
+		Journey j1 = new Journey("fish","LONDON", "PARIS", 2, cb.getIDfromClientName("Paul"));
+		jb.registerValue(j1);
 		Client c3 = cb.getValueFromID(0);
 		cb.changeName(0, "I am new");
 		System.out.println(c3.getName());

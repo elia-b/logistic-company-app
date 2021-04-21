@@ -3,10 +3,13 @@ package application.utils;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import application.model.LocationS;
 
 
 public class LocationPicker extends JPanel {
@@ -23,10 +26,10 @@ public class LocationPicker extends JPanel {
     	add(combo);
     }
 
-    public void updateCombo(ArrayList<String> locations){
+    public void updateCombo(List<LocationS> locations){
         combo.removeAllItems();
-        for(String l : locations) {
-    		combo.addItem(l);
+        for(LocationS l : locations) {
+    		combo.addItem(l.getName());
     	}
     }
 

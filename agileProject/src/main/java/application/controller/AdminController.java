@@ -1,10 +1,13 @@
 package application.controller;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import application.model.AdminApplication;
 import application.model.Client;
 import application.model.Container;
+import application.model.ContainerStatus;
 import application.model.LogisticCompany;
 import application.view.AdminApplicationView;
 
@@ -119,6 +122,73 @@ public class AdminController {
 		}
 		
 	}
+	
+	public void addNewLocation() {
+		String location = JOptionPane.showInputDialog("Please insert new Location: ");
+		String message = app.addLocation(location);
+		if (message.equals("Location Added")) {
+			view.showSuccess(message);
+		}else {
+			view.showError(message);
+		}
+		
+	}
+	
+	public void getContainerHistory() {
+		String id = JOptionPane.showInputDialog("Please insert the Container ID: ");
+		int idi = Integer.valueOf(id);
+		
+		String message = "";
+		try {
+			ArrayList<ContainerStatus> arraylist = (ArrayList<ContainerStatus>) app.searchContainerHistory(idi);
+			for (int i = 0; i < arraylist.size(); i++){
+				message = message + "ContainerStatus "+ i + " date:" + arraylist.get(i).getDate();
+			}
+			view.showSuccess(message);
+		}
+		catch (Exception e) {
+			view.showError("ERROR 404");
+		}
+
+	}
+	
+	public void getContainerHistoryfromJourney() {
+		String id = JOptionPane.showInputDialog("Please insert the Container ID: ");
+		int idi = Integer.valueOf(id);
+		String id2 = JOptionPane.showInputDialog("Please insert the Journey ID: ");
+		int idi2 = Integer.valueOf(id);
+		String message = "";
+		try {
+			ArrayList<ContainerStatus> arraylist = (ArrayList<ContainerStatus>) app.getStatusesFromContainerHistory(idi, idi2);
+			for (int i = 0; i < arraylist.size(); i++){
+				message = message + "ContainerStatus "+ i + " date:" + arraylist.get(i).getDate();
+			}
+			view.showSuccess(message);
+		}
+		catch (Exception e) {
+			view.showError("ERROR 404");
+		}
+
+	}
+
+	public void getJourneysOfContainer() {
+		String id = JOptionPane.showInputDialog("Please insert the Container ID: ");
+		int idi = Integer.valueOf(id);
+		
+		String message = "";
+		try {
+			ArrayList<Integer> arraylist = (ArrayList<Integer>) app.getJourneyIDsfromContainerHistory(idi);
+			for (int i = 0; i < arraylist.size(); i++){
+				message = message + "Journey  "+  arraylist.get(i);
+			}
+			view.showSuccess(message);
+		}
+		catch (Exception e) {
+			view.showError("ERROR 404");
+		}
+
+	}
+	
 	
 	public void logOut() {
 		view.setVisible(false);

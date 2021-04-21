@@ -25,6 +25,7 @@ public class ContainerDatabase implements IDatabase<Container> {
 	
 	private Session session = sf.openSession();
 	
+	//CHange the return type
 	public int getIDfromContainerLocation(String location) {
 		
 		session.beginTransaction();

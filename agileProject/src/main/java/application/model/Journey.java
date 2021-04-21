@@ -18,6 +18,10 @@ public class Journey implements IData{
 	public int getClientid() {
 		return clientid;
 	}
+	
+	public Journey() {
+		
+	}
 
 	public Journey(String content,String origin, String destination, int numberOfContainers, int clientid) {
 		super();

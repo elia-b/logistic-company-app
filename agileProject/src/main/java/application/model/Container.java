@@ -14,7 +14,10 @@ public class Container implements IData{
 
 	@Id
 	private int containerId;
-	 
+	
+	public Container() {
+		
+	}
 
 	public Container(String location) {
 		content = "empty";
