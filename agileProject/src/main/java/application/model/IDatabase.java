@@ -1,6 +1,8 @@
 package application.model;
 
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -10,6 +12,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+
+
 
 import java.util.Set;
 
@@ -25,5 +29,7 @@ public interface IDatabase<C extends IData>{
     public Boolean containsKey(int i);
     
     public int size();
+    
+    public List<C> getAll();
 }
 

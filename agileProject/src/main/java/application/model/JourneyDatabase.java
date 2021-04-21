@@ -85,6 +85,13 @@ public class JourneyDatabase implements IDatabase<Journey>{
         session.getTransaction().commit();
         return al.size();
 	}
+	public List<Journey> getAll() {
+		session.beginTransaction();
+        Query query = session.createQuery("from Journey");           
+        List<Journey> al = query.list();
+        session.getTransaction().commit();
+        return al;
+	}
 	
 	
 	

@@ -105,6 +105,13 @@ public class LocationDatabase implements IDatabase<LocationS>{
         session.getTransaction().commit();
         return al.size();
 	}
+	public List<LocationS> getAll() {
+		session.beginTransaction();
+        Query query = session.createQuery("from LocationS");           
+        List<LocationS> al = query.list();
+        session.getTransaction().commit();
+        return al;
+	}
 
 
 }

@@ -135,5 +135,14 @@ public class ClientDatabase implements IDatabase<Client> {
 		session.getTransaction().commit();
 	}
 
+	@Override
+	public List<Client> getAll() {
+		session.beginTransaction();
+        Query query = session.createQuery("from Client");           
+        List<Client> al = query.list();
+        session.getTransaction().commit();
+        return al;
+	}
+
 
 }

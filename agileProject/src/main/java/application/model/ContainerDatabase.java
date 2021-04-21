@@ -135,6 +135,14 @@ public class ContainerDatabase implements IDatabase<Container> {
 		session.getTransaction().commit();
         return al;
 	}
+	
+	public List<Container> getAll() {
+		session.beginTransaction();
+        Query query = session.createQuery("from Container");           
+        List<Container> al = query.list();
+        session.getTransaction().commit();
+        return al;
+	}
 }
 	
     

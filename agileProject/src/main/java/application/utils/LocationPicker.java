@@ -15,14 +15,12 @@ import application.model.LocationS;
 public class LocationPicker extends JPanel {
 	
 	// The font should be changed
-	private JLabel y = new JLabel("LOCATION");
 	private JComboBox combo = new JComboBox();
 	
 
     public LocationPicker() {
-    	this.setPreferredSize(new Dimension(450,75));
+    	this.setPreferredSize(new Dimension(200,30));
         setLayout(new FlowLayout());
-    	add(y);
     	add(combo);
     }
 

@@ -9,12 +9,20 @@ import application.model.Client;
 import application.model.Container;
 import application.model.ContainerStatus;
 import application.model.LogisticCompany;
+import application.view.AddContainerInput;
+import application.view.AddLocationInput;
 import application.view.AdminApplicationView;
+import application.view.RegisterClientInput;
+import application.view.SearchNameInput;
 
 public class AdminController {
 	private AdminApplicationView view;
 	private AdminApplication app;
 	private ApplicationController controller;
+	private RegisterClientInput input;
+	private AddLocationInput locationInput;
+	private AddContainerInput containerInput;
+	private SearchNameInput nameInput;
 	
 	public AdminController(ApplicationController controller) {
 		view = new AdminApplicationView(this);
@@ -27,33 +35,26 @@ public class AdminController {
 		view.setVisible(true);
 		
 	}
-
+	public AdminApplication getApp() {
+		return app;
+	}
+	public AdminApplicationView getView() {
+		return view;
+	}
 	
 
 	public void registerClient() {
-		String Name = JOptionPane.showInputDialog("Please insert the ClientName:");
-		String email = JOptionPane.showInputDialog("Please insert the email:");
-		String address = JOptionPane.showInputDialog("Please insert the address:");
-		String contact = JOptionPane.showInputDialog("Please insert the contact:");
-		Client client = new Client(Name,email,address,contact);
+		input = new RegisterClientInput(this);
+		input.setVisible(true);
+	
 		
-		String message = app.register_new_client(client);
-		if (message.equals("Registration Successful")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
 		
 	}
 
 	public void searchName() {
-		String Name = JOptionPane.showInputDialog("Please insert the ClientName:");
-		int message = app.searchName(Name);
-		if (message>-1) {
-			view.showSuccess("Client's ID is: " + message);
-		}else {
-			view.showError("No Client with that Name");
-		}
+		nameInput = new SearchNameInput(this);
+		nameInput.setVisible(true);
+		
 	}
 
 	public void searchEmail() {
@@ -81,14 +82,10 @@ public class AdminController {
 	}
 
 	public void registerContainer() {
-		String location = JOptionPane.showInputDialog("Please insert the Location: ");
-		Container C = new Container(location);
-		String message = app.registerContainer(C);
-		if (message.equals("Container registered")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		containerInput = new AddContainerInput(this);
+		containerInput.setVisible(true);
+		
+		
 		
 	}
 
@@ -124,13 +121,9 @@ public class AdminController {
 	}
 	
 	public void addNewLocation() {
-		String location = JOptionPane.showInputDialog("Please insert new Location: ");
-		String message = app.addLocation(location);
-		if (message.equals("Location Added")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		locationInput = new AddLocationInput(this);
+		locationInput.setVisible(true);
+		
 		
 	}
 	

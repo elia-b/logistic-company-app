@@ -106,6 +106,12 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 		session.getTransaction().commit();
         return al;
 	}
-
+	public List<ContainerStatus> getAll() {
+		session.beginTransaction();
+        Query query = session.createQuery("from ContainerStatus");           
+        List<ContainerStatus> al = query.list();
+        session.getTransaction().commit();
+        return al;
+	}
 
 }
