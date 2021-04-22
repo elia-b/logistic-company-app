@@ -1,4 +1,4 @@
-package application.view;
+package application.view.admin_inputs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -14,14 +14,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import application.controller.AdminController;
 import application.model.Client;
-import application.model.ClientTable;
 import application.model.LogisticCompany;
+import application.model.tablemodel.ClientTable;
 
-public class SearchEmailInput extends JFrame{
+public class SearchNameInput extends JFrame{
 	private  JPanel mainPanel;
     private  JButton Button;
     private  JPanel inputPanel;
@@ -33,7 +34,7 @@ public class SearchEmailInput extends JFrame{
     
     private AdminController controller;
 
-    public SearchEmailInput(AdminController controller) {
+    public SearchNameInput(AdminController controller) {
         
     	this.controller=controller;
     	
@@ -42,7 +43,7 @@ public class SearchEmailInput extends JFrame{
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Search Email");
+        Button.setText("Search Name");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -52,7 +53,7 @@ public class SearchEmailInput extends JFrame{
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("Email");
+        label1.setText("Name");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -79,7 +80,7 @@ public class SearchEmailInput extends JFrame{
         inputPanel.add(textField1, gbc);
 
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setResizable(false);
         this.pack();
@@ -89,20 +90,21 @@ public class SearchEmailInput extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
  
-            	int message = controller.getApp().searchEmail(textField1.getText());
+            	int message = controller.getApp().searchName(textField1.getText());
         		if (message>-1) {
         			List<Client> clients = new ArrayList<Client>();
-        			clients.add(LogisticCompany.GetInstance().getDatabase().getValueFromID(message));
+        			clients.add(LogisticCompany.GetInstance().getClientDatabase().getValueFromID(message));
         			table = new ClientTable(clients);
         			controller.getView().setTableModel(table);
         			
         		
         		}else {
-        			controller.getView().showError("No Client with that Email");
+        			controller.getView().showError("No Client with that Name");
         		}
         		jframe.dispose();
         		
             }
         });
     }
+    
 }

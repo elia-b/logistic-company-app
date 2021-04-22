@@ -1,4 +1,4 @@
-package application.view;
+package application.view.admin_inputs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,28 +13,30 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import application.controller.AdminController;
 import application.model.Client;
-import application.model.ClientTable;
+import application.model.ContainerStatus;
 import application.model.LogisticCompany;
+import application.model.tablemodel.ClientTable;
+import application.model.tablemodel.ContainerStatusTable;
 
-public class SearchNameInput extends JFrame{
+public class GetContainerHistoryInput extends JFrame{
 	private  JPanel mainPanel;
     private  JButton Button;
     private  JPanel inputPanel;
     private final JTextField textField1;
-    private ClientTable table;
+    private ContainerStatusTable table;
 
     private JFrame jframe;
 
     
     private AdminController controller;
 
-    public SearchNameInput(AdminController controller) {
+    public GetContainerHistoryInput(AdminController controller) {
         
     	this.controller=controller;
     	
@@ -43,7 +45,7 @@ public class SearchNameInput extends JFrame{
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Search Name");
+        Button.setText("Show Container History");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -53,7 +55,7 @@ public class SearchNameInput extends JFrame{
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("Name");
+        label1.setText("Container ID");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -80,7 +82,7 @@ public class SearchNameInput extends JFrame{
         inputPanel.add(textField1, gbc);
 
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setResizable(false);
         this.pack();
@@ -89,20 +91,17 @@ public class SearchNameInput extends JFrame{
         Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
- 
-            	int message = controller.getApp().searchName(textField1.getText());
-        		if (message>-1) {
-        			List<Client> clients = new ArrayList<Client>();
-        			clients.add(LogisticCompany.GetInstance().getDatabase().getValueFromID(message));
-        			table = new ClientTable(clients);
+
+        		try {
+        			List<ContainerStatus> arraylist = (List<ContainerStatus>) controller.getApp().searchContainerHistory(Integer.valueOf(textField1.getText()));
+        			table = new ContainerStatusTable(arraylist);
         			controller.getView().setTableModel(table);
-        			
-        		
-        		}else {
-        			controller.getView().showError("No Client with that Name");
         		}
-        		jframe.dispose();
+        		catch (Exception err) {
+        			controller.getView().showError(err.getMessage());
+        		}
         		
+            	jframe.dispose();
             }
         });
     }

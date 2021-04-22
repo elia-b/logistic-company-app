@@ -1,9 +1,11 @@
-package application.model;
+package application.model.tablemodel;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import application.model.ContainerStatus;
 
 public class ContainerStatusTable extends AbstractTableModel {
 	int size;

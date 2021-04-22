@@ -1,12 +1,12 @@
-package application.view;
+package application.view.admin_inputs;
 
 import javax.swing.*;
 
 import application.controller.AdminController;
 import application.controller.ClientController;
 import application.model.Client;
-import application.model.ClientTable;
 import application.model.LogisticCompany;
+import application.model.tablemodel.ClientTable;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -153,7 +153,7 @@ public class RegisterClientInput extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         inputPanel.add(textField4, gbc);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setResizable(false);
         this.pack();
@@ -169,7 +169,7 @@ public class RegisterClientInput extends JFrame {
         		if (message.equals("Registration Successful")) {
         			controller.getView().showSuccess(message);
         			
-        			 List<Client> clients = LogisticCompany.GetInstance().getDatabase().getAll();
+        			 List<Client> clients = LogisticCompany.GetInstance().getClientDatabase().getAll();
         		     controller.getView().setTableModel(new ClientTable(clients));
         			
         			

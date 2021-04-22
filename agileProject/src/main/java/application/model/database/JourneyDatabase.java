@@ -1,4 +1,4 @@
-package application.model;
+package application.model.database;
 
 import java.util.Map.Entry;
 
@@ -9,6 +9,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+
+import application.model.Journey;
 
 import java.util.AbstractMap;
 import java.util.HashSet;
@@ -91,6 +93,16 @@ public class JourneyDatabase implements IDatabase<Journey>{
         List<Journey> al = query.list();
         session.getTransaction().commit();
         return al;
+	}
+
+	public List<Journey> getMyJourneys(int clientid) {
+		session.beginTransaction();
+		Query q = session.createQuery("from Journey where clientid = :id");
+		q.setParameter("id", clientid);
+		List<Journey> al = q.list();
+		session.getTransaction().commit();
+		return al;
+		
 	}
 	
 	

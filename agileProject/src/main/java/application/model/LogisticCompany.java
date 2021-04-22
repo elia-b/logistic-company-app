@@ -1,5 +1,11 @@
 package application.model;
 
+import application.model.database.ClientDatabase;
+import application.model.database.ContainerDatabase;
+import application.model.database.ContainerHistoryDatabase;
+import application.model.database.JourneyDatabase;
+import application.model.database.LocationDatabase;
+
 // Create an interface for any logistic company
 public class LogisticCompany implements User{
 	
@@ -10,7 +16,7 @@ public class LogisticCompany implements User{
     private ContainerDatabase containers = new ContainerDatabase();
 	private LocationDatabase locationDatabase = new LocationDatabase();
 
-	private ClientInfoChecker cic = new ClientInfoChecker(this);
+	private InputInfoChecker cic = new InputInfoChecker(this);
 
     //This will be used for singleton pattern
     private static LogisticCompany lc = new LogisticCompany();
@@ -43,11 +49,11 @@ public class LogisticCompany implements User{
 	private static final String logisticCompanyPassword = "123";
 	private static final String logisticCompanyEmail = "logistic.company@gmail.com";
 	
-	public ClientInfoChecker getCic() {
+	public InputInfoChecker getCic() {
 		return cic;
 	}
 	
-    public ClientDatabase getDatabase() {
+    public ClientDatabase getClientDatabase() {
 		return clients;
 	}
     public JourneyDatabase getJourneys() {

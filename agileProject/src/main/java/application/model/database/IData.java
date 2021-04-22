@@ -1,4 +1,4 @@
-package application.model;
+package application.model.database;
 
 public interface IData {
     public int getID();

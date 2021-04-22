@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import application.model.database.IData;
+
 @Entity
 public class ContainerStatus implements IData{
 	private long date;

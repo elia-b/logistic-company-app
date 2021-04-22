@@ -1,4 +1,4 @@
-package application.model;
+package application.model.database;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
+import application.model.LocationS;
 import application.utils.LocationPicker;
 
 public class LocationDatabase implements IDatabase<LocationS>{
@@ -27,8 +28,10 @@ public class LocationDatabase implements IDatabase<LocationS>{
 	private Session session = sf.openSession();
 	
     LocationPicker lp = new LocationPicker();
+    LocationPicker lp2 = new LocationPicker();
     
     public LocationDatabase(){
+    	initialisePickers();
     }
 
 
@@ -39,10 +42,15 @@ public class LocationDatabase implements IDatabase<LocationS>{
 		List<LocationS> al =  q.list();
 		session.getTransaction().commit();
         lp.updateCombo(al);
+        lp2.updateCombo(al);
     }
 
     public LocationPicker getLocationPicker(){
         return lp;
+    }
+    
+    public LocationPicker getLocationPicker2(){
+        return lp2;
     }
 
 	@Override
@@ -111,6 +119,15 @@ public class LocationDatabase implements IDatabase<LocationS>{
         List<LocationS> al = query.list();
         session.getTransaction().commit();
         return al;
+	}
+	
+	public void initialisePickers() {
+		session.beginTransaction();
+        Query query = session.createQuery("from LocationS");           
+        List<LocationS> al = query.list();
+        session.getTransaction().commit();
+        lp.updateCombo(al);
+        lp2.updateCombo(al);
 	}
 
 

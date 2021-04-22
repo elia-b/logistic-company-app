@@ -1,4 +1,4 @@
-package application.view;
+package application.view.admin_inputs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -19,8 +19,8 @@ import javax.swing.JTextField;
 
 import application.controller.AdminController;
 import application.model.Client;
-import application.model.ClientTable;
 import application.model.LogisticCompany;
+import application.model.tablemodel.ClientTable;
 import application.utils.TimeNDatePicker;
 
 public class UpdateStatusInput extends JFrame {
@@ -188,7 +188,7 @@ public class UpdateStatusInput extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         inputPanel.add(tnd, gbc);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setResizable(false);
         this.pack();

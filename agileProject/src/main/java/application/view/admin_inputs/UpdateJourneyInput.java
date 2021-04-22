@@ -1,4 +1,4 @@
-package application.view;
+package application.view.admin_inputs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,29 +13,27 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import application.controller.AdminController;
 import application.model.Client;
-import application.model.ClientTable;
 import application.model.LogisticCompany;
+import application.model.tablemodel.ClientTable;
+import application.utils.LocationPicker;
 
-public class FinishJourneyInput extends JFrame{
+public class UpdateJourneyInput extends JFrame{
 	private  JPanel mainPanel;
     private  JButton Button;
     private  JPanel inputPanel;
     private final JTextField textField1;
-    private ClientTable table;
+
 
     private JFrame jframe;
-
     
     private AdminController controller;
 
-    public FinishJourneyInput(AdminController controller) {
+    public UpdateJourneyInput(AdminController controller) {
         
     	this.controller=controller;
     	
@@ -44,7 +42,7 @@ public class FinishJourneyInput extends JFrame{
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Finish Journey");
+        Button.setText("Update Journey");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -80,8 +78,39 @@ public class FinishJourneyInput extends JFrame{
         gbc.fill = GridBagConstraints.HORIZONTAL;
         inputPanel.add(textField1, gbc);
 
+        
+        
+        //label 2
+        final JLabel label2 = new JLabel();
+        label2.setRequestFocusEnabled(false);
+        label2.setText("Location");
+        gbc = new GridBagConstraints();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        inputPanel.add(label2, gbc);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //horizontal spacer row 1
+        final JPanel spacer2 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        inputPanel.add(spacer2, gbc);
+
+        //textfield label 1
+        LocationPicker comboloc = LogisticCompany.GetInstance().getLocationDatabase().getLocationPicker();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        inputPanel.add(comboloc, gbc);
+
+
+        
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setResizable(false);
         this.pack();
@@ -90,23 +119,27 @@ public class FinishJourneyInput extends JFrame{
         Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	try {
-            		int idi = Integer.valueOf(textField1.getText());
-            		String message = controller.getApp().finishJourney(idi);
-            		if (message.equals("Journey finished")) {
+           
+            	
+        		try {
+        			String message = controller.getApp().updateJourney((Integer.valueOf(textField1.getText())), comboloc.getSelectedLocation());
+            		if (message.equals("Successful Journey Update")) {
             			controller.getView().showSuccess(message);
+            			
             		}else {
             			controller.getView().showError(message);
             		}
-            	}
+        		}
         		catch (NumberFormatException err) {
         			controller.getView().showError("Expected a Number");
         		}
+            	
+        		jframe.dispose();
         		
-            	jframe.dispose();
             }
         });
     }
     
+    
+    
 }
-

@@ -1,4 +1,4 @@
-package application.model;
+package application.model.database;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -13,6 +13,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+
+import application.model.ContainerStatus;
 
 import java.util.Set;
 

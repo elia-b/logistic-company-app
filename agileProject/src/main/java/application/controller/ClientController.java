@@ -2,6 +2,7 @@ package application.controller;
 
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.JOptionPane;
 
 import application.model.ClientApplication;
@@ -9,12 +10,30 @@ import application.model.ContainerStatus;
 import application.model.Journey;
 import application.model.LogisticCompany;
 import application.view.ClientApplicationView;
+import application.view.client_inputs.RegisterJourneyInput;
 
 public class ClientController {
 	private ClientApplicationView view;
 	private ClientApplication app;
 	private ApplicationController controller;
+	private RegisterJourneyInput registerJourneyInput;
+	public ClientApplicationView getView() {
+		return view;
+	}
+
+
+
+	public ClientApplication getApp() {
+		return app;
+	}
+
 	private int clientid;
+
+	public int getClientid() {
+		return clientid;
+	}
+
+
 
 	public ClientController(int clientid, ApplicationController controller) {
 		view = new ClientApplicationView(this);
@@ -141,18 +160,8 @@ public class ClientController {
 
 
     public void register_journey() {
-		String origin = JOptionPane.showInputDialog("Please insert the Origin:");
-		String destination = JOptionPane.showInputDialog("Please insert the Destination:");
-		String content = JOptionPane.showInputDialog("Please insert the Content:");
-		String containers = JOptionPane.showInputDialog("Please insert the Number of Contatiners:");
-		int icont = Integer.valueOf(containers);
-		Journey j = new Journey(content, origin, destination, icont, clientid);
-		String message = app.registerJourney(j);
-		if (message.equals("Successful Registration")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+    	registerJourneyInput = new RegisterJourneyInput(this);
+    	registerJourneyInput.setVisible(true);
     }
 
 
@@ -194,6 +203,7 @@ public class ClientController {
 		view.setVisible(false);
 		controller.login();
 	}
+
 
 
 

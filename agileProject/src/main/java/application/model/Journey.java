@@ -3,6 +3,8 @@ package application.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import application.model.database.IData;
+
 @Entity
 public class Journey implements IData{
 	

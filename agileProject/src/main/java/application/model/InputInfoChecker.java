@@ -2,11 +2,11 @@ package application.model;
 
 import java.util.Map.Entry;
 
-public class ClientInfoChecker {
+public class InputInfoChecker {
 	
 	LogisticCompany lc;
 	
-	public ClientInfoChecker(LogisticCompany logisticCompany) {
+	public InputInfoChecker(LogisticCompany logisticCompany) {
 		this.lc = logisticCompany;
 	}
 	
@@ -62,7 +62,7 @@ public class ClientInfoChecker {
     }
     
     private boolean checkEmailTaken(String email) {
-		for (Entry<Integer, Client> entry : lc.getDatabase().entrySet()) {
+		for (Entry<Integer, Client> entry : lc.getClientDatabase().entrySet()) {
 			if (entry.getValue().getEmail().equals(email)) {
 				return false;
 			}
@@ -72,7 +72,7 @@ public class ClientInfoChecker {
     
     
     private boolean checkNameTaken(String name) {
-		for (Entry<Integer, Client> entry : lc.getDatabase().entrySet()) {
+		for (Entry<Integer, Client> entry : lc.getClientDatabase().entrySet()) {
 			if (entry.getValue().getName().equals(name)) {
 				return false;
 			}

@@ -1,4 +1,4 @@
-package application.model;
+package application.model.database;
 
 import java.util.Map.Entry;
 
@@ -9,6 +9,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+
+import application.model.Container;
 
 import java.util.AbstractMap;
 import java.util.HashSet;
@@ -26,16 +28,18 @@ public class ContainerDatabase implements IDatabase<Container> {
 	private Session session = sf.openSession();
 	
 	//CHange the return type
-	public int getIDfromContainerLocation(String location) {
+	public int getIDfromEmptyContainerLocation(String location) {
 		
 		session.beginTransaction();
-		Query q = session.createQuery("from Container where location = :location");
+		Query q = session.createQuery("from Container where location = :location and content = :empty");
 		q.setParameter("location", location);
-		Container c = (Container) q.uniqueResult();
+		q.setParameter("empty", "empty");
+		List<Container> ls = q.list();
 		session.getTransaction().commit();
-		if(c == null) {
+		if(ls.size() < 0) {
 			return -1;
 		} else {
+			Container c = ls.get(0);
 			return c.getID();
 		}
 	}

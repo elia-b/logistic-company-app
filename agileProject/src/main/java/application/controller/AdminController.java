@@ -1,24 +1,21 @@
 package application.controller;
 
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 import application.model.AdminApplication;
-import application.model.Client;
-import application.model.Container;
-import application.model.ContainerStatus;
 import application.model.LogisticCompany;
-import application.view.AddContainerInput;
-import application.view.AddLocationInput;
+
 import application.view.AdminApplicationView;
-import application.view.FinishJourneyInput;
-import application.view.GetContainerHistoryInput;
-import application.view.RegisterClientInput;
-import application.view.SearchEmailInput;
-import application.view.SearchNameInput;
-import application.view.UpdateJourneyInput;
-import application.view.UpdateStatusInput;
+import application.view.admin_inputs.AddContainerInput;
+import application.view.admin_inputs.AddLocationInput;
+import application.view.admin_inputs.ContainerHistoryFromJourneyInput;
+import application.view.admin_inputs.FinishJourneyInput;
+import application.view.admin_inputs.GetContainerHistoryInput;
+import application.view.admin_inputs.JourneysOfContainerInput;
+import application.view.admin_inputs.RegisterClientInput;
+import application.view.admin_inputs.SearchEmailInput;
+import application.view.admin_inputs.SearchNameInput;
+import application.view.admin_inputs.UpdateJourneyInput;
+import application.view.admin_inputs.UpdateStatusInput;
 
 public class AdminController {
 	private AdminApplicationView view;
@@ -35,6 +32,8 @@ public class AdminController {
 	private FinishJourneyInput finishjourneyInput;
 	private UpdateStatusInput updateStatusInput;
 	private GetContainerHistoryInput getContainerHistoryInput;
+	private ContainerHistoryFromJourneyInput containerHistoryFromJourneyInput;
+	private JourneysOfContainerInput journeysOfContainerInput;
 	
 	public AdminController(ApplicationController controller) {
 		view = new AdminApplicationView(this);
@@ -113,43 +112,18 @@ public class AdminController {
 	public void getContainerHistory() {
 		getContainerHistoryInput = new GetContainerHistoryInput(this);
 		getContainerHistoryInput.setVisible(true);
+		
 
 	}
 	
 	public void getContainerHistoryfromJourney() {
-		String id = JOptionPane.showInputDialog("Please insert the Container ID: ");
-		int idi = Integer.valueOf(id);
-		String id2 = JOptionPane.showInputDialog("Please insert the Journey ID: ");
-		int idi2 = Integer.valueOf(id);
-		String message = "";
-		try {
-			ArrayList<ContainerStatus> arraylist = (ArrayList<ContainerStatus>) app.getStatusesFromContainerHistory(idi, idi2);
-			for (int i = 0; i < arraylist.size(); i++){
-				message = message + "ContainerStatus "+ i + " date:" + arraylist.get(i).getDate();
-			}
-			view.showSuccess(message);
-		}
-		catch (Exception e) {
-			view.showError("ERROR 404");
-		}
-
+		containerHistoryFromJourneyInput = new ContainerHistoryFromJourneyInput(this);
+		containerHistoryFromJourneyInput.setVisible(true);
 	}
 
 	public void getJourneysOfContainer() {
-		String id = JOptionPane.showInputDialog("Please insert the Container ID: ");
-		int idi = Integer.valueOf(id);
-		
-		String message = "";
-		try {
-			ArrayList<Integer> arraylist = (ArrayList<Integer>) app.getJourneyIDsfromContainerHistory(idi);
-			for (int i = 0; i < arraylist.size(); i++){
-				message = message + "Journey  "+  arraylist.get(i);
-			}
-			view.showSuccess(message);
-		}
-		catch (Exception e) {
-			view.showError("ERROR 404");
-		}
+		journeysOfContainerInput = new JourneysOfContainerInput(this);
+		journeysOfContainerInput.setVisible(true);
 
 	}
 	

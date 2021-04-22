@@ -17,7 +17,7 @@ public class ClientApplication{
 	public String updateName(String name) {
 		 lc.getReport().getClientReport().increaseUpdateName();
 		 if (lc.getCic().checkNameValid(name)) {
-			 lc.getDatabase().changeName(clientID, name);
+			 lc.getClientDatabase().changeName(clientID, name);
 			 return "Successful Update";
 	     } else {
 			return "Unsuccessful Update";
@@ -27,7 +27,7 @@ public class ClientApplication{
 	public String updateEmail(String email) {
 		lc.getReport().getClientReport().increaseUpdateEmail();
 		if (lc.getCic().checkEmailValid(email)) {
-			 lc.getDatabase().changeEmail(clientID, email);
+			 lc.getClientDatabase().changeEmail(clientID, email);
 			
 			return "Successful Update";
 		} else {
@@ -39,7 +39,7 @@ public class ClientApplication{
 	public String updateAdress(String address) {
 		lc.getReport().getClientReport().increaseUpdateAdress();
 		if (lc.getCic().checkAddressValid(address)) {
-			 lc.getDatabase().changeAddress(clientID, address);
+			 lc.getClientDatabase().changeAddress(clientID, address);
 			 return "Successful Update";
 	    } else {
 			return "Unsuccessful Update";
@@ -52,7 +52,7 @@ public class ClientApplication{
 		lc.getReport().getClientReport().increaseUpdatePassword();
 		// maybe have minimum size, required sign or Capital letter
 		if (lc.getCic().checkPassword(password)) {
-			 lc.getDatabase().changePassword(clientID, password);
+			 lc.getClientDatabase().changePassword(clientID, password);
 			return "Successful Update";
 		} else {
 			return "Unsuccessful Update";
@@ -62,7 +62,7 @@ public class ClientApplication{
 	public String updateContactPerson(String rp) {
 		lc.getReport().getClientReport().increaseUpdateContactPerson();
 		if (lc.getCic().checkReferencePersonValid(rp)) {
-			 lc.getDatabase().changeContactPerson(clientID, rp);
+			 lc.getClientDatabase().changeContactPerson(clientID, rp);
 			 
 			return "Successful Update";
 		} else {
@@ -113,16 +113,15 @@ public class ClientApplication{
 			ArrayList<Container> containerList = new ArrayList<Container>();
 			boolean enoughContainers = true;
 			int jid = lc.getJourneys().size();
-			for (int i = 0; i< j.getNOfContainers(); i++) {
-				int Cid = lc.getContainers().getIDfromContainerLocation(j.getOrigin());
-				
-				if (Cid != -1 && !lc.getContainers().getValueFromID(Cid).getOnJourney()) {
-					lc.getContainers().changeStartJourney(Cid,jid,j.getContent());
-					
-					containerList.add(lc.getContainers().getValueFromID(Cid));
+			for (int i = 0; i < j.getNOfContainers(); i++) {
+				int Cid = lc.getContainers().getIDfromEmptyContainerLocation(j.getOrigin());
+				if (Cid == -1) {
+					enoughContainers = false;
 					
 				}else {
-					enoughContainers = false;
+					lc.getContainers().changeStartJourney(Cid, jid, j.getContent());
+					containerList.add(lc.getContainers().getValueFromID(Cid));
+					
 				}
 				
 			}

@@ -20,8 +20,8 @@ import javax.swing.table.TableModel;
 
 import application.controller.AdminController;
 import application.model.Client;
-import application.model.ClientTable;
 import application.model.LogisticCompany;
+import application.model.tablemodel.ClientTable;
 
 
 public class AdminApplicationView extends JFrame{
@@ -174,7 +174,7 @@ public class AdminApplicationView extends JFrame{
         tablePanel.add(tableScrollPane, BorderLayout.CENTER);
         
         resultsTable = new JTable();
-        List<Client> clients = LogisticCompany.GetInstance().getDatabase().getAll();
+        List<Client> clients = LogisticCompany.GetInstance().getClientDatabase().getAll();
         resultsTable.setModel(new ClientTable(clients));
         tableScrollPane.setViewportView(resultsTable);
         resultsTable.getTableHeader().setBackground(Color.white);
@@ -207,7 +207,7 @@ public class AdminApplicationView extends JFrame{
         resetFilterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	 List<Client> clients = LogisticCompany.GetInstance().getDatabase().getAll();
+            	 List<Client> clients = LogisticCompany.GetInstance().getClientDatabase().getAll();
                  resultsTable.setModel(new ClientTable(clients));
             	
             }

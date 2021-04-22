@@ -1,11 +1,14 @@
 package application.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +19,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import application.controller.ClientController;
+import application.model.Client;
+import application.model.Journey;
+import application.model.LogisticCompany;
+import application.model.tablemodel.ClientTable;
+import application.model.tablemodel.JourneyTable;
 
 
 public class ClientApplicationView extends JFrame {
@@ -153,6 +161,10 @@ public class ClientApplicationView extends JFrame {
         final JScrollPane tableScrollPane = new JScrollPane();
         tablePanel.add(tableScrollPane, BorderLayout.CENTER);
         resultsTable = new JTable();
+        List<Journey> myjourneys = LogisticCompany.GetInstance().getJourneys().getMyJourneys(controller.getClientid());
+        resultsTable.setModel(new JourneyTable(myjourneys));
+        tableScrollPane.setViewportView(resultsTable);
+        resultsTable.getTableHeader().setBackground(Color.white);
         tableScrollPane.setViewportView(resultsTable);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -217,7 +229,8 @@ public class ClientApplicationView extends JFrame {
         resetFilterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            
+            	List<Journey> myjourneys = LogisticCompany.GetInstance().getJourneys().getMyJourneys(controller.getClientid());
+                resultsTable.setModel(new JourneyTable(myjourneys));
             }
         });
         registerJourneyButton.addActionListener(new ActionListener() {
@@ -239,6 +252,9 @@ public class ClientApplicationView extends JFrame {
             }
         });
     }
+	public JTable getResultTable() {
+		return resultsTable;
+	}
 
 
 }

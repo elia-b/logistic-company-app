@@ -1,10 +1,12 @@
-package application.model;
+package application.model.tablemodel;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import application.model.Client;
 
 public class ClientTable extends AbstractTableModel {
 	int size;

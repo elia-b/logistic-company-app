@@ -16,7 +16,6 @@ public class LocationPicker extends JPanel {
 	
 	// The font should be changed
 	private JComboBox combo = new JComboBox();
-	
 
     public LocationPicker() {
     	this.setPreferredSize(new Dimension(200,30));
@@ -34,5 +33,6 @@ public class LocationPicker extends JPanel {
     public String getSelectedLocation(){
         return (String) combo.getSelectedItem();
     }
+    
 
 }
