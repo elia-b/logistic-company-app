@@ -1,20 +1,29 @@
 package application.view;
 
-import javax.swing.*;
-
-import application.controller.AdminController;
-import application.controller.ClientController;
-import application.model.Client;
-import application.model.ClientTable;
-import application.model.LogisticCompany;
-
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegisterClientInput extends JFrame {
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import application.controller.AdminController;
+import application.model.Client;
+import application.model.ClientTable;
+import application.model.LogisticCompany;
+import application.utils.TimeNDatePicker;
+
+public class UpdateStatusInput extends JFrame {
     private  JPanel mainPanel;
     private  JButton Button;
     private  JPanel inputPanel;
@@ -28,7 +37,7 @@ public class RegisterClientInput extends JFrame {
     
     private AdminController controller;
 
-    public RegisterClientInput(AdminController controller) {
+    public UpdateStatusInput(AdminController controller) {
         
     	this.controller=controller;
     	
@@ -37,7 +46,7 @@ public class RegisterClientInput extends JFrame {
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Register Client");
+        Button.setText("Update Status");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -47,7 +56,7 @@ public class RegisterClientInput extends JFrame {
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("Name");
+        label1.setText("Container ID");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -75,7 +84,7 @@ public class RegisterClientInput extends JFrame {
 
         //label 2
         final JLabel label2 = new JLabel();
-        label2.setText("Email");
+        label2.setText("Humidity");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -102,7 +111,7 @@ public class RegisterClientInput extends JFrame {
 
         //label 3
         final JLabel label3 = new JLabel();
-        label3.setText("Address");
+        label3.setText("Temperature");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -128,7 +137,7 @@ public class RegisterClientInput extends JFrame {
         inputPanel.add(textField3, gbc);
         
         final JLabel label4 = new JLabel();
-        label4.setText("Contact Person");
+        label4.setText("Pressure");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -152,30 +161,60 @@ public class RegisterClientInput extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         inputPanel.add(textField4, gbc);
+        
+        final JLabel label5 = new JLabel();
+        label5.setText("Date");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        inputPanel.add(label5, gbc);
+
+        //horizontal spacer row 3
+        final JPanel spacer5 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        inputPanel.add(spacer4, gbc);
+
+        //textfield label 3
+
+        TimeNDatePicker tnd = new TimeNDatePicker();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        inputPanel.add(tnd, gbc);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.setResizable(false);
         this.pack();
+        
+        
 
 
         Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
            
-            	Client client = new Client(textField1.getText(),textField2.getText(),textField3.getText(),textField4.getText());
-        		
-        		String message = controller.getApp().register_new_client(client);
-        		if (message.equals("Registration Successful")) {
-        			controller.getView().showSuccess(message);
-        			
-        			 List<Client> clients = LogisticCompany.GetInstance().getDatabase().getAll();
-        		     controller.getView().setTableModel(new ClientTable(clients));
-        			
-        			
-        		}else {
-        			controller.getView().showError(message);
-        		}
+            	try {
+
+            		String message = controller.getApp().updateStatus(Integer.valueOf(textField1.getText()), Float.valueOf(textField2.getText()), 
+            														  Float.valueOf(textField3.getText()), Float.valueOf(textField4.getText()),
+            														  tnd.getDate());
+            		if (message.equals("Successful Update")) {
+            			controller.getView().showSuccess(message);
+            		}else {
+            			controller.getView().showError(message);
+            		}
+            		
+            	}catch(NumberFormatException err) {
+            		controller.getView().showError("Expected a Number");
+            	}
+            	
         		jframe.dispose();
         		
             }
@@ -183,7 +222,5 @@ public class RegisterClientInput extends JFrame {
     }
     
     
-    
-    //textFields.get(0).getText(),textFields.get(1).getText(),textFields.get(2).getText(),textFields.get(3).getText()
-    
+
 }

@@ -55,6 +55,8 @@ public class ClientTable extends AbstractTableModel {
 			return "Address";
 		}else if (columnIndex == 3) {
 			return "Contact Person";
+		}else if (columnIndex == 4) {
+			return "ID";
 		}
 		return null;
 	}

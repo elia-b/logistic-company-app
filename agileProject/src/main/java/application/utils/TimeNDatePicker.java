@@ -24,7 +24,7 @@ public class TimeNDatePicker extends JPanel{
 	private boolean leapYear = false;
 
     public TimeNDatePicker() {
-    	this.setPreferredSize(new Dimension(450,75));
+    	this.setPreferredSize(new Dimension(430, 30));
         setLayout(new FlowLayout());
         this.add(y);
         this.add(comboBoxYear);
@@ -72,7 +72,7 @@ public class TimeNDatePicker extends JPanel{
     }
     
     private void dayInitialise() {
-    	comboBoxYear.addItem("-");
+    	
     }
     
     private void dayCompute() {
@@ -127,11 +127,11 @@ public class TimeNDatePicker extends JPanel{
     	}
     }
     
-    public Date getDate() {
+    public long getDate() {
     	Calendar c = Calendar.getInstance();
-    	c.set((Integer) comboBoxYear.getSelectedItem(), (Integer) comboBoxMonth.getSelectedItem(), (Integer) comboBoxDay.getSelectedItem(), 
+    	c.set((Integer) comboBoxYear.getSelectedItem(), (Integer) comboBoxMonth.getSelectedItem() - 1, (Integer) comboBoxDay.getSelectedItem(), 
     		  (Integer)comboBoxHours.getSelectedItem(), (Integer)comboBoxMinute.getSelectedItem());
-    	return c.getTime();
+    	return c.getTime().getTime();
     }
 
 }

@@ -92,7 +92,7 @@ public class AdminApplication {
 		
 	}
 	
-	public String updateStatus(int containerid,float humidity,float temp,float press,String date) {
+	public String updateStatus(int containerid,float humidity,float temp,float press,long date) {
 		if (lc.getCic().checkDate(date)) {
 			if (lc.getContainers().getValueFromID(containerid) != null) {
 				int jId = lc.getContainers().getValueFromID(containerid).getJourneyID();

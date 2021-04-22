@@ -39,9 +39,9 @@ public class ContainerStatus implements IData{
 		return humidity;
 	}
 	
-	public ContainerStatus(String date, float temperature, float pressure, float humidity, int journeyId, int containerId) {
+	public ContainerStatus(long date, float temperature, float pressure, float humidity, int journeyId, int containerId) {
 		super();
-		this.date = convertDate(date);
+		this.date = date;
 		this.temperature = temperature;
 		this.pressure = pressure;
 		this.humidity = humidity;
@@ -57,9 +57,8 @@ public class ContainerStatus implements IData{
 		return c.getTime().getTime();
 	}
 	
-	public long getDifference(String requestedDate) {
-		long rDate = convertDate(requestedDate);
-		long diff = rDate - date;
+	public long getDifference(long date2) {
+		long diff = date2 - date;
 		return Math.abs(diff);
 	}
 

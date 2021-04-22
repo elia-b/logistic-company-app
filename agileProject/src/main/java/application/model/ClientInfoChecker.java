@@ -108,8 +108,8 @@ public class ClientInfoChecker {
        return false;
    }
 //Implement more
-	public boolean checkDate(String date) {
-		if (date.length()==16) {
+	public boolean checkDate(long date) {
+		if (date>0) {
 			return true;
 		}
 		return false;

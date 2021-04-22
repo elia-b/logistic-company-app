@@ -178,7 +178,7 @@ public class ClientController {
 		String jID = JOptionPane.showInputDialog("Please insert the JourneyID:");
 		int ijid = Integer.valueOf(jID);
 		String date = JOptionPane.showInputDialog("Please insert the Date:");
-		ArrayList<ContainerStatus> arraylist = app.getclosestStatus(ijid, date);
+		ArrayList<ContainerStatus> arraylist = app.getclosestStatus(ijid, 1);
 		if (arraylist.size() > 0){
 			String message = "";
 			for (int i = 0; i < arraylist.size(); i++){

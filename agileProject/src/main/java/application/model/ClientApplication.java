@@ -167,7 +167,7 @@ public class ClientApplication{
 	}
 	
 	
-	public ArrayList<ContainerStatus> getclosestStatus(int journeyid,String date){
+	public ArrayList<ContainerStatus> getclosestStatus(int journeyid,long date){
 		lc.getReport().getClientReport().increaseGetClosestStatus();
 		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
 		if (lc.getJourneys().containsKey(journeyid)&&lc.getCic().checkDate(date)) {

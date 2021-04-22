@@ -12,10 +12,13 @@ import application.model.LogisticCompany;
 import application.view.AddContainerInput;
 import application.view.AddLocationInput;
 import application.view.AdminApplicationView;
+import application.view.FinishJourneyInput;
+import application.view.GetContainerHistoryInput;
 import application.view.RegisterClientInput;
 import application.view.SearchEmailInput;
 import application.view.SearchNameInput;
 import application.view.UpdateJourneyInput;
+import application.view.UpdateStatusInput;
 
 public class AdminController {
 	private AdminApplicationView view;
@@ -29,6 +32,9 @@ public class AdminController {
 	private SearchNameInput nameInput;
 	private SearchEmailInput emailInput;
 	private UpdateJourneyInput updateJourneyInput;
+	private FinishJourneyInput finishjourneyInput;
+	private UpdateStatusInput updateStatusInput;
+	private GetContainerHistoryInput getContainerHistoryInput;
 	
 	public AdminController(ApplicationController controller) {
 		view = new AdminApplicationView(this);
@@ -86,33 +92,14 @@ public class AdminController {
 	}
 
 	public void finishJourney() {
-		String id = JOptionPane.showInputDialog("Please insert the Journey ID: ");
-		int idi = Integer.valueOf(id);
-		String message = app.finishJourney(idi);
-		if (message.equals("Journey finished")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		finishjourneyInput = new FinishJourneyInput(this);
+		finishjourneyInput.setVisible(true);
 		
 	}
 
 	public void updateStatus() {
-		String id = JOptionPane.showInputDialog("Please insert the Container ID: ");
-		int idi = Integer.valueOf(id);
-		String hum = JOptionPane.showInputDialog("Please insert the Humidity level: ");
-		float fhum = Float.valueOf(hum);
-		String temp = JOptionPane.showInputDialog("Please insert the Temperature: ");
-		float ftemp = Float.valueOf(temp);
-		String press = JOptionPane.showInputDialog("Please insert the Pressure: ");
-		float fpress = Float.valueOf(press);
-		String date = JOptionPane.showInputDialog("Please insert the Date: ");
-		String message = app.updateStatus(idi, fhum, ftemp, fpress, date);
-		if (message.equals("Successful Update")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		updateStatusInput = new UpdateStatusInput(this);
+		updateStatusInput.setVisible(true);
 		
 	}
 	
@@ -124,20 +111,8 @@ public class AdminController {
 	}
 	
 	public void getContainerHistory() {
-		String id = JOptionPane.showInputDialog("Please insert the Container ID: ");
-		int idi = Integer.valueOf(id);
-		
-		String message = "";
-		try {
-			ArrayList<ContainerStatus> arraylist = (ArrayList<ContainerStatus>) app.searchContainerHistory(idi);
-			for (int i = 0; i < arraylist.size(); i++){
-				message = message + "ContainerStatus "+ i + " date:" + arraylist.get(i).getDate();
-			}
-			view.showSuccess(message);
-		}
-		catch (Exception e) {
-			view.showError("ERROR 404");
-		}
+		getContainerHistoryInput = new GetContainerHistoryInput(this);
+		getContainerHistoryInput.setVisible(true);
 
 	}
 	

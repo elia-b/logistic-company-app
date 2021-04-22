@@ -123,13 +123,18 @@ public class UpdateJourneyInput extends JFrame{
             public void actionPerformed(ActionEvent e) {
            
             	
-        		
-            	String message = controller.getApp().updateJourney((Integer.valueOf(textField1.getText())), comboloc.getSelectedLocation());
-        		if (message.equals("Successful Journey Update")) {
-        			controller.getView().showSuccess(message);
-        		}else {
-        			controller.getView().showError(message);
+        		try {
+        			String message = controller.getApp().updateJourney((Integer.valueOf(textField1.getText())), comboloc.getSelectedLocation());
+            		if (message.equals("Successful Journey Update")) {
+            			controller.getView().showSuccess(message);
+            		}else {
+            			controller.getView().showError(message);
+            		}
         		}
+        		catch (NumberFormatException err) {
+        			controller.getView().showError("Expected a Number");
+        		}
+            	
         		jframe.dispose();
         		
             }
