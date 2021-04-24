@@ -11,12 +11,23 @@ import application.model.Journey;
 import application.model.LogisticCompany;
 import application.view.ClientApplicationView;
 import application.view.client_inputs.RegisterJourneyInput;
+import application.view.client_inputs.UpdateAdressInput;
+import application.view.client_inputs.UpdateContactPersonInput;
+import application.view.client_inputs.UpdateEmailInput;
+import application.view.client_inputs.UpdateNameInput;
+import application.view.client_inputs.UpdatePasswordInput;
 
 public class ClientController {
 	private ClientApplicationView view;
 	private ClientApplication app;
 	private ApplicationController controller;
 	private RegisterJourneyInput registerJourneyInput;
+	private UpdateEmailInput updateEmail;
+	private UpdateAdressInput updateAdress;
+	private UpdateNameInput	updateName;
+	private UpdateContactPersonInput updateContactPerson;
+	private UpdatePasswordInput passwordInput;
+	
 	public ClientApplicationView getView() {
 		return view;
 	}
@@ -52,61 +63,36 @@ public class ClientController {
 
 
 	public void update_address() {
-		String address = JOptionPane.showInputDialog("Please insert the New Address:");
-		String message = app.updateAdress(address);
-		if (message.equals("Successful Update")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		updateAdress = new UpdateAdressInput(this);
+		updateAdress.setVisible(true);
 	}
 
 
 
     public void update_password() {
-		String password = JOptionPane.showInputDialog("Please insert the New Password:");
-		String message = app.updatePassword(password);
-		if (message.equals("Successful Update")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		passwordInput = new UpdatePasswordInput(this);
+		passwordInput.setVisible(true);
     }
 
 
 
     public void update_email() {
-		String email = JOptionPane.showInputDialog("Please insert the New Email:");
-		String message = app.updateEmail(email);
-		if (message.equals("Successful Update")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		updateEmail = new UpdateEmailInput(this);
+		updateEmail.setVisible(true);
     }
 
 
 
     public void update_name() {
-		String name = JOptionPane.showInputDialog("Please insert the New Name:");
-		String message = app.updateName(name);
-		if (message.equals("Successful Update")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		updateName = new UpdateNameInput(this);
+		updateName.setVisible(true);
     }
 
 
 
     public void update_contact_person() {
-		String cp = JOptionPane.showInputDialog("Please insert the New Contact Person:");
-		String message = app.updateContactPerson(cp);
-		if (message.equals("Successful Update")) {
-			view.showSuccess(message);
-		}else {
-			view.showError(message);
-		}
+		updateContactPerson = new UpdateContactPersonInput(this);
+		updateContactPerson.setVisible(true);
     }
 
 
