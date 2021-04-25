@@ -11,6 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import application.model.Container;
+import application.model.Journey;
 
 import java.util.AbstractMap;
 import java.util.HashSet;
@@ -146,6 +147,15 @@ public class ContainerDatabase implements IDatabase<Container> {
         List<Container> al = query.list();
         session.getTransaction().commit();
         return al;
+	}
+
+	public List<Container> getMyContainers(int journeyid) {
+		session.beginTransaction();
+		Query q = session.createQuery("from Container where journeyID = :id");
+		q.setParameter("id", journeyid);
+		List<Container> al = q.list();
+		session.getTransaction().commit();
+		return al;
 	}
 }
 	

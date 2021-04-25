@@ -20,8 +20,12 @@ import javax.swing.table.TableModel;
 
 import application.controller.AdminController;
 import application.model.Client;
+import application.model.Container;
+import application.model.Journey;
 import application.model.LogisticCompany;
 import application.model.tablemodel.ClientTable;
+import application.model.tablemodel.ContainerTable;
+import application.model.tablemodel.JourneyTable;
 
 
 public class AdminApplicationView extends JFrame{
@@ -49,6 +53,8 @@ public class AdminApplicationView extends JFrame{
     private  JButton containerStatusHistoryButton;
     private  JButton containerJourneyHistoryButton;
     private  JButton containerJourneyStatusHistoryButton;
+    private  JButton allContainersButton;
+    private  JButton allJourneysButton;
     private  JPanel textPanel;
     private  JTable resultsTable;
 	
@@ -101,7 +107,8 @@ public class AdminApplicationView extends JFrame{
         navigationPanel.add(textPanel, BorderLayout.NORTH);
         textPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 12, 5, 0)));
         usernameLabel = new JLabel();
-        usernameLabel.setText("<html>" + "<B>" + "Username" + "</B>" + "</html>");
+        String username = LogisticCompany.GetInstance().getName();
+        usernameLabel.setText("<html>" + "<B>" + "Company: "+ username + "</B>" + "</html>");
         textPanel.add(usernameLabel, BorderLayout.NORTH);
         adminTerminalLabel = new JLabel();
         adminTerminalLabel.setText("<html>" + "<I>" + "Admin Terminal" + "</I>" + "</html>");
@@ -166,6 +173,17 @@ public class AdminApplicationView extends JFrame{
         containerJourneyStatusHistoryButton.setText("Container Journey Status History");
         containerJourneyStatusHistoryButton.setToolTipText("View the status history of a shipping container on a particular journey");
         controlPanel.add(containerJourneyStatusHistoryButton);
+        
+        allContainersButton = new JButton();
+        allContainersButton.setText("All Containers");
+        allContainersButton.setToolTipText("View all the registered containers");
+        controlPanel.add(allContainersButton);
+        
+        allJourneysButton = new JButton();
+        allJourneysButton.setText("All Journeys");
+        allJourneysButton.setToolTipText("View all the registered journeys");
+        controlPanel.add(allJourneysButton);
+        
         tablePanel = new JPanel();
         tablePanel.setLayout(new BorderLayout());
         toolsPanel.add(tablePanel, BorderLayout.CENTER);
@@ -267,6 +285,22 @@ public class AdminApplicationView extends JFrame{
             public void actionPerformed(ActionEvent e) {
             	controller.getContainerHistoryfromJourney();
             }
+        });
+        allContainersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+           	 List<Container> containers = LogisticCompany.GetInstance().getContainers().getAll();
+                resultsTable.setModel(new ContainerTable(containers));
+           	
+           }
+        });
+        allJourneysButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+           	 List<Journey> journeys = LogisticCompany.GetInstance().getJourneys().getAll();
+                resultsTable.setModel(new JourneyTable(journeys));
+           	
+           }
         });
     }
 	

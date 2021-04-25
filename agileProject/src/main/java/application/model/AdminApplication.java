@@ -121,7 +121,7 @@ public class AdminApplication {
     public ArrayList<Integer> getJourneyIDsfromContainerHistory(int containerid) throws Exception{
         ArrayList<Integer> journeys = new ArrayList<Integer>();
         if (lc.getContainers().containsKey(containerid)){
-	        for (ContainerStatus cs : lc.getContainersHistory().getContainerStatusfromContainer(containerid)) {
+	        for (ContainerStatus cs : lc.getContainersHistory().getContainerStatusfromContainerAlsoTimeNull(containerid)) {
 	        	if (!journeys.contains(cs.getJourneyId())) {
 	        		journeys.add(cs.getJourneyId());
 	        	}

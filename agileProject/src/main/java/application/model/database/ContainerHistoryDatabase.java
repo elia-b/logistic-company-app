@@ -65,10 +65,13 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 		List<ContainerStatus> al =  q.list();
 		Set<Entry<Integer, ContainerStatus>> set = new HashSet<Entry<Integer, ContainerStatus>>();
 		for(ContainerStatus c : al) {
-			Entry<Integer, ContainerStatus> entry = new AbstractMap.SimpleEntry<Integer, ContainerStatus>(c.getID(), c);
-			set.add(entry);
+			if (c.getDate() != 0) {
+				Entry<Integer, ContainerStatus> entry = new AbstractMap.SimpleEntry<Integer, ContainerStatus>(c.getID(), c);
+				set.add(entry);
+			}
 		}
 		session.getTransaction().commit();
+		
         return set;
 	}
 
@@ -97,7 +100,14 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 		q.setParameter("containerId", containerId);
 		List<ContainerStatus> al =  q.list();
 		session.getTransaction().commit();
-        return al;
+		List<ContainerStatus> newAl = new ArrayList<ContainerStatus>();
+        for(ContainerStatus cs : al) {
+        	if (cs.getDate() != 0) {
+        		newAl.add(cs);
+        	}
+        }
+		
+        return newAl;
 	}
 	
 	public List<ContainerStatus> getContainerStatusfromContainer(int containerId){
@@ -106,13 +116,35 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 		q.setParameter("containerId", containerId);
 		List<ContainerStatus> al =  q.list();
 		session.getTransaction().commit();
-        return al;
+		List<ContainerStatus> newAl = new ArrayList<ContainerStatus>();
+        for(ContainerStatus cs : al) {
+        	if (cs.getDate() != 0) {
+        		newAl.add(cs);
+        	}
+        }
+		
+        return newAl;
 	}
 	public List<ContainerStatus> getAll() {
 		session.beginTransaction();
         Query query = session.createQuery("from ContainerStatus");           
         List<ContainerStatus> al = query.list();
+        List<ContainerStatus> newAl = new ArrayList<ContainerStatus>();
         session.getTransaction().commit();
+        for(ContainerStatus cs : al) {
+        	if (cs.getDate() != 0) {
+        		newAl.add(cs);
+        	}
+        }
+        return newAl;
+	}
+
+	public List<ContainerStatus> getContainerStatusfromContainerAlsoTimeNull(int containerid) {
+		session.beginTransaction();
+		Query q = session.createQuery("from ContainerStatus where containerId = :containerId");
+		q.setParameter("containerId", containerid);
+		List<ContainerStatus> al =  q.list();
+		session.getTransaction().commit();
         return al;
 	}
 

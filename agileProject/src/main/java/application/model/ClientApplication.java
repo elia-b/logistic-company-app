@@ -133,6 +133,10 @@ public class ClientApplication{
 				}
 				return "Not enough containers";
 			}else {
+				for (Container c : containerList) {
+					lc.getContainersHistory().registerValue(new ContainerStatus(0, 0, 0, 0, jid, c.getID()));
+				
+				}
 				lc.getJourneys().registerValue(j);
 				return "Successful Registration";
 			}

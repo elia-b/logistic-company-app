@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.AbstractButton;
@@ -20,9 +21,11 @@ import javax.swing.JTable;
 
 import application.controller.ClientController;
 import application.model.Client;
+import application.model.Container;
 import application.model.Journey;
 import application.model.LogisticCompany;
 import application.model.tablemodel.ClientTable;
+import application.model.tablemodel.ContainerTable;
 import application.model.tablemodel.JourneyTable;
 
 
@@ -47,6 +50,10 @@ public class ClientApplicationView extends JFrame {
     private  JButton updateCompanyAddressButton;
     private  JButton updateContactPersonButton;
     private  JButton changePasswordButton;
+    
+    private  JButton myContainersButton;
+    private  JButton myJourneysButton;
+    
     private  JButton logOutButton;
     private  JPanel navigationBottomPanel;
     private  JPanel updateInfoPanel;
@@ -81,7 +88,8 @@ public class ClientApplicationView extends JFrame {
         navigationPanel.add(textPanel, BorderLayout.NORTH);
         textPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 12, 5, 0)));
         usernameLabel = new JLabel();
-        usernameLabel.setText("<html>" + "<B>" + "Username" + "</B>" + "</html>");
+        String username = LogisticCompany.GetInstance().getClientDatabase().getValueFromID(controller.getClientid()).getName();
+        usernameLabel.setText("<html>" + "<B>" + "Client: " + username + "</B>" + "</html>");
         textPanel.add(usernameLabel, BorderLayout.NORTH);
         clientTerminalLabel = new JLabel();
         clientTerminalLabel.setText("<html>" + "<I>" + "Client Terminal" + "</I>" + "</html>");
@@ -154,6 +162,16 @@ public class ClientApplicationView extends JFrame {
         getJourneyStatusByButton.setText("Journey Status by Date");
         getJourneyStatusByButton.setToolTipText("View status of a journey at a specific time");
         controlPanel.add(getJourneyStatusByButton);
+        
+        myJourneysButton = new JButton();
+        myJourneysButton.setText("My Journeys");
+        myJourneysButton.setToolTipText("View myjourneys, same as reset filter");
+        controlPanel.add(myJourneysButton);
+        myContainersButton = new JButton();
+        myContainersButton.setText("My Containers");
+        myContainersButton.setToolTipText("View content and location of my containers");
+        controlPanel.add(myContainersButton);
+        
         tablePanel = new JPanel();
         tablePanel.setLayout(new BorderLayout(0, 0));
         toolsPanel.add(tablePanel, BorderLayout.CENTER);
@@ -249,6 +267,28 @@ public class ClientApplicationView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	controller.get_closes_status();
+            }
+        });
+        myJourneysButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	List<Journey> myjourneys = LogisticCompany.GetInstance().getJourneys().getMyJourneys(controller.getClientid());
+                resultsTable.setModel(new JourneyTable(myjourneys));
+            }
+        });
+        myContainersButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	List<Journey> myjourneys = LogisticCompany.GetInstance().getJourneys().getMyJourneys(controller.getClientid());
+            	List<Container> mycontainers = new ArrayList<Container>();
+            	for (Journey j : myjourneys) {
+            		List<Container> containers = LogisticCompany.GetInstance().getContainers().getMyContainers(j.getID());
+            		for(Container c : containers) {
+            			mycontainers.add(c);
+            		}
+            		
+            	}
+                resultsTable.setModel(new ContainerTable(mycontainers));
             }
         });
     }
