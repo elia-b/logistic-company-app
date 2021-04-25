@@ -69,44 +69,45 @@ public class ClientApplication{
 			return "Unsuccessful Update";
 		}
 	}
+	
 
-	public ArrayList<Integer> filterJourneysbyContent(String content) {
+	public List<Journey> filterJourneysbyContent(String content) {
 		lc.getReport().getClientReport().increaseFilterJourneysbyContent();
-		ArrayList<Integer> results = new ArrayList<Integer>();
+		List<Journey> results = new ArrayList<Journey>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
 			if (lc.getJourneys().getValueFromID(i).getClientid()==clientID && 
 					lc.getJourneys().getValueFromID(i).getContent().equals(content)) {
-				results.add(i);
+				results.add(lc.getJourneys().getValueFromID(i));
 			}
 		}return results;
 	}
-	public ArrayList<Integer> filterJourneysbyDestination(String destination) {
+	public List<Journey> filterJourneysbyDestination(String destination) {
 		lc.getReport().getClientReport().increaseFilterJourneysbyDestination();
-		ArrayList<Integer> results = new ArrayList<Integer>();
+		List<Journey> results = new ArrayList<Journey>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
 			if (lc.getJourneys().getValueFromID(i).getClientid()==clientID && 
 					lc.getJourneys().getValueFromID(i).getDestination().equals(destination)) {
-				results.add(i);
+				results.add(lc.getJourneys().getValueFromID(i));
 			}
 		}return results;
 	}
 	
-	public ArrayList<Integer> filterJourneysbyOrigin(String origin) {
+	public List<Journey> filterJourneysbyOrigin(String origin) {
 		lc.getReport().getClientReport().increaseFilterJourneysbyOrigin();
-		ArrayList<Integer> results = new ArrayList<Integer>();
+		List<Journey> results = new ArrayList<Journey>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
 			if (lc.getJourneys().getValueFromID(i).getClientid()==clientID && 
 					lc.getJourneys().getValueFromID(i).getOrigin().equals(origin)) {
-				results.add(i);
+				results.add(lc.getJourneys().getValueFromID(i));
 			}
 		}return results;
 	}
 	
 	
-	
+	//TODO not enough container message is not displayed
 	public String registerJourney(Journey j) {
 		lc.getReport().getClientReport().increaseRegisterjourney();
 		if (lc.getCic().checkJourneyDetails(j.getOrigin(),j.getDestination(),j.getContent())) {
@@ -144,8 +145,8 @@ public class ClientApplication{
 	}
 	
 	
-	public ArrayList<ContainerStatus> getLatestStatus(int journeyid) {
-		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
+	public List<ContainerStatus> getLatestStatus(int journeyid) {
+		List<ContainerStatus> results = new ArrayList<ContainerStatus>();
 		if (lc.getJourneys().containsKey(journeyid)) {
 			lc.getReport().getClientReport().increaseGetLatestStatus();
 			
@@ -166,9 +167,9 @@ public class ClientApplication{
 	}
 	
 	
-	public ArrayList<ContainerStatus> getclosestStatus(int journeyid,long date){
+	public List<ContainerStatus> getclosestStatus(int journeyid,long date){
 		lc.getReport().getClientReport().increaseGetClosestStatus();
-		ArrayList<ContainerStatus> results = new ArrayList<ContainerStatus>();
+		List<ContainerStatus> results = new ArrayList<ContainerStatus>();
 		if (lc.getJourneys().containsKey(journeyid)&&lc.getCic().checkDate(date)) {
 			int count = 0;
 			int index = 0;

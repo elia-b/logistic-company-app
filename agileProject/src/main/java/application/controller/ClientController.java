@@ -10,6 +10,11 @@ import application.model.ContainerStatus;
 import application.model.Journey;
 import application.model.LogisticCompany;
 import application.view.ClientApplicationView;
+import application.view.client_inputs.FilterJourneyContentInput;
+import application.view.client_inputs.FilterJourneyDestinationInput;
+import application.view.client_inputs.FilterJourneyOriginInput;
+import application.view.client_inputs.GetClosestStatusInput;
+import application.view.client_inputs.GetLatestStatusInput;
 import application.view.client_inputs.RegisterJourneyInput;
 import application.view.client_inputs.UpdateAdressInput;
 import application.view.client_inputs.UpdateContactPersonInput;
@@ -27,6 +32,12 @@ public class ClientController {
 	private UpdateNameInput	updateName;
 	private UpdateContactPersonInput updateContactPerson;
 	private UpdatePasswordInput passwordInput;
+	private FilterJourneyContentInput filterJourneyContent;
+	private FilterJourneyDestinationInput filterJourneyDestination;
+	private FilterJourneyOriginInput filterJourneyOrigin;
+	private GetLatestStatusInput getLatestStatus;
+	private GetClosestStatusInput getClosestStatus;
+	
 	
 	public ClientApplicationView getView() {
 		return view;
@@ -98,49 +109,23 @@ public class ClientController {
 
 
     public void filter_journey_by_content() {
-		String content = JOptionPane.showInputDialog("Please insert the Content:");
-		ArrayList<Integer> arraylist = app.filterJourneysbyContent(content);
-		if (arraylist.size() > 0){
-			String message = "The Journeys with " + content + " are:\n";
-			for (int i = 0; i < arraylist.size(); i++){
-				message = message + arraylist.get(i) + " ";
-			}
-			view.showSuccess(message);
-		} else {
-			view.showSuccess("No Journey found");
-		}
+    	filterJourneyContent = new FilterJourneyContentInput(this);
+    	filterJourneyContent.setVisible(true);
+    			
     }
 
 
 
     public void filter_journey_by_destination() {
-		String destination = JOptionPane.showInputDialog("Please insert the Destination:");
-		ArrayList<Integer> arraylist = app.filterJourneysbyDestination(destination);
-		if (arraylist.size() > 0){
-			String message = "The Journeys with destination " + destination + " are:\n";
-			for (int i = 0; i < arraylist.size(); i++){
-				message = message + arraylist.get(i) + " ";
-			}
-			view.showSuccess(message);
-		} else {
-			view.showSuccess("No Journey found");
-		}
+    	filterJourneyDestination = new FilterJourneyDestinationInput(this);
+    	filterJourneyDestination.setVisible(true);
     }
 
 
 
     public void filter_journey_by_origin() {
-		String origin = JOptionPane.showInputDialog("Please insert the Origin:");
-		ArrayList<Integer> arraylist = app.filterJourneysbyOrigin(origin);
-		if (arraylist.size() > 0){
-			String message = "The Journeys with origin " + origin + " are:\n";
-			for (int i = 0; i < arraylist.size(); i++){
-				message = message + arraylist.get(i) + " ";
-			}
-			view.showSuccess(message);
-		} else {
-			view.showSuccess("No Journey found");
-		}
+    	filterJourneyOrigin = new FilterJourneyOriginInput(this);
+    	filterJourneyOrigin.setVisible(true);
     }
 
 
@@ -153,36 +138,16 @@ public class ClientController {
 
 
     public void get_latest_status() {
-		String jID = JOptionPane.showInputDialog("Please insert the JourneyID:");
-		int ijid = Integer.valueOf(jID);
-		ArrayList<ContainerStatus> arraylist = app.getLatestStatus(ijid);
-		if (arraylist.size() > 0){
-			String message = "";
-			for (int i = 0; i < arraylist.size(); i++){
-				message = message + "The Container "+ i + " has temp = " + arraylist.get(i).getTemperature() +  " at time " + arraylist.get(i).getDate() + "\n";
-			}
-			view.showSuccess(message);
-		} else {
-			view.showSuccess("ERROR 404");
-		}
+		getClosestStatus = new GetClosestStatusInput(this);
+		getClosestStatus.setVisible(true);
+		
     }
 
 
 
     public void get_closes_status() {
-		String jID = JOptionPane.showInputDialog("Please insert the JourneyID:");
-		int ijid = Integer.valueOf(jID);
-		String date = JOptionPane.showInputDialog("Please insert the Date:");
-		ArrayList<ContainerStatus> arraylist = app.getclosestStatus(ijid, 1);
-		if (arraylist.size() > 0){
-			String message = "";
-			for (int i = 0; i < arraylist.size(); i++){
-				message = message + "The Container "+ i + " has temp = " + arraylist.get(i).getTemperature() +  " at time " + arraylist.get(i).getDate() + "\n";
-			}
-			view.showSuccess(message);
-		} else {
-			view.showSuccess("ERROR 404");
-		}
+    	getLatestStatus = new GetLatestStatusInput(this);
+		getLatestStatus.setVisible(true);
     }
 
 	public void logOut() {
