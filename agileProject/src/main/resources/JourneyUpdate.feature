@@ -24,13 +24,14 @@ Feature: Journey update by logistics Company
    Scenario Outline: Journey Update
     Given a logistic company
     And a registered Journey with <origin> "Hamburg" "banana" 2
-    When updating the Journey to <newlocation>
-    Then the containers in the journey have <location>
+    And a new location <newlocation>
+    When updating the Journey
+    Then the containers in the journey have the <location> location
 
     Examples: 
       | origin  	|	 newlocation | location |
-      | "Lisboa"	|     "Roma" 	 | "Roma" 	|
-      | "Roma" 		|     "123123" | "Roma"   |
+      | "Lisboa"	|     "Roma" 	 | new     	|
+      | "Roma" 		|     "123123" | old      |
 
       
 	@tag2
@@ -38,4 +39,4 @@ Feature: Journey update by logistics Company
 		 Given a logistic company
 		 And a registered Journey with "Lisboa" "Hamburg" "banana" 2
 		 When updating the Journey as finished
-		 Then the containers in the journey have "Hamburg"
+		 Then the containers in the journey have the destination as location

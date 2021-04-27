@@ -26,7 +26,7 @@ public class ApplicationLogIn {
 			int clientID = lc.getClientDatabase().getIDfromClientName(username);
 			if (clientID != -1){
 				if(lc.getClientDatabase().getValueFromID(clientID).getPassword().equals(password)){
-					application.clientapplication(clientID);
+					application.clientapplication(clientID, username);
 					view.setVisible(false);
 					
 					

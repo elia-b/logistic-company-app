@@ -7,6 +7,12 @@ public class ClientApplication{
 	
 	
 	private int clientID;
+	
+	public int getClientID() {
+		return clientID;
+	}
+
+
 	private LogisticCompany lc;
 	public ClientApplication(int clientID,LogisticCompany lc) {
 		this.clientID = clientID;

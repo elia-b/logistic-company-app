@@ -13,8 +13,8 @@ public class ApplicationController {
 		app.display();
 	}
 
-	public void clientapplication(int clientID) {
-		ClientController clientcontroller = new ClientController(clientID, this);
+	public void clientapplication(int clientID, String username) {
+		ClientController clientcontroller = new ClientController(clientID, this, username);
 		clientcontroller.display();
 	}
 

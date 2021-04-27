@@ -57,8 +57,8 @@ public class ClientController {
 
 
 
-	public ClientController(int clientid, ApplicationController controller) {
-		view = new ClientApplicationView(this);
+	public ClientController(int clientid, ApplicationController controller, String username) {
+		view = new ClientApplicationView(this, username);
 		this.clientid = clientid;
 		this.app = new ClientApplication(clientid,LogisticCompany.GetInstance());
 		this.controller = controller;

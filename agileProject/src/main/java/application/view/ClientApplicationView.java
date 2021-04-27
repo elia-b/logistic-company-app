@@ -59,6 +59,8 @@ public class ClientApplicationView extends JFrame {
     private  JPanel updateInfoPanel;
     private  JTable resultsTable;
     private  JPanel tablePanel;
+    
+    private String username;
 
 	
 	private ClientController controller;
@@ -70,8 +72,9 @@ public class ClientApplicationView extends JFrame {
 		JOptionPane.showMessageDialog(this, string , "Admin Response", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	public ClientApplicationView(ClientController controller) {
+	public ClientApplicationView(ClientController controller, String username) {
 		this.controller = controller;
+		this.username = username;
 		initGUI();
 	}
 	
@@ -88,7 +91,6 @@ public class ClientApplicationView extends JFrame {
         navigationPanel.add(textPanel, BorderLayout.NORTH);
         textPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 12, 5, 0)));
         usernameLabel = new JLabel();
-        String username = LogisticCompany.GetInstance().getClientDatabase().getValueFromID(controller.getClientid()).getName();
         usernameLabel.setText("<html>" + "<B>" + "Client: " + username + "</B>" + "</html>");
         textPanel.add(usernameLabel, BorderLayout.NORTH);
         clientTerminalLabel = new JLabel();

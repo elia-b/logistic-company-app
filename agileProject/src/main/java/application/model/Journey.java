@@ -8,6 +8,14 @@ import application.model.database.IData;
 @Entity
 public class Journey implements IData{
 	
+	public boolean equals(Journey j) {
+		return this.getDestination().equals(j.getDestination()) && 
+			   this.getOrigin().equals(j.getOrigin()) &&
+			   this.getNOfContainers() == j.getNOfContainers() &&
+			   this.getContent().equals(j.getContent()) &&
+			   this.getClientid() == j.getClientid();
+	}
+
 	//Maybe add something for the current position
 	private String origin;
 	private String destination;

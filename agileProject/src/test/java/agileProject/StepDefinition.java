@@ -31,6 +31,7 @@ public class StepDefinition {
     Client c3;
 
     Journey j;
+    int jID;
 
     String response;
 
@@ -65,12 +66,12 @@ public class StepDefinition {
 
     @Then("the registration is successful")
     public void the_registration_is_successful() {
-        assertFalse(lc.getDatabase().getIDfromClientName(c1.getName()) == -1);
+        assertFalse(lc.getClientDatabase().getIDfromClientName(c1.getName()) == -1);
     }
 
     @Then("the registration is unsuccessful")
     public void the_registration_is_unsuccessful() {
-        assertTrue(lc.getDatabase().getIDfromClientName(c1.getName()) == -1);
+        assertTrue(lc.getClientDatabase().getIDfromClientName(c1.getName()) == -1);
     }
 
 
@@ -81,7 +82,6 @@ public class StepDefinition {
         c2.setEmail(email);
         c2.setContactPerson(contactPerson);
         aa.register_new_client(c2);
-        }
     }
     
     @Given("a logged-in registered client {string} {string} {string} {string}")
@@ -91,7 +91,7 @@ public class StepDefinition {
         c3.setEmail(email);
         c3.setContactPerson(contactPerson);
         aa.register_new_client(c3);
-        ca = new ClientApplication(lc.getDatabase().getIDfromClientName(c3.getName()), lc);
+        ca = new ClientApplication(lc.getClientDatabase().getIDfromClientName(c3.getName()), lc);
     }
 
     @When("the client updates {string} as name")
@@ -154,7 +154,7 @@ public class StepDefinition {
 
     @Then("successful search")
     public void successful_search() {
-        assertEquals(intResult, lc.getDatabase().getIDfromClientName(c2.getName()));
+        assertEquals(intResult, lc.getClientDatabase().getIDfromClientName(c2.getName()));
     }
 
  
@@ -174,7 +174,8 @@ public class StepDefinition {
 
     @Given("a Journey with {string} {string} {string} {int}")
     public void a_Journey_with(String origin, String destination, String content, int number) {
-        j = new Journey(origin, destination, content, number);
+        j = new Journey(origin, destination, content, number, ca.getClientID());
+        jID = lc.getJourneys().size();
 
     }
 
@@ -187,12 +188,12 @@ public class StepDefinition {
     //size is not SOLID
     @Then("the journey registration was succesful")
     public void the_journey_registration_was_succesful() {
-        assertTrue(lc.getJourneys().size() == 1);
+        assertTrue(lc.getJourneys().getValueFromID(jID).equals(j));
     }
 
     @Then("the journey registration was unsuccesful")
     public void the_journey_registration_was_unsuccesful() {
-        assertTrue(lc.getJourneys().size() == 0);
+        assertFalse(lc.getJourneys().getValueFromID(jID).equals(j));
     }
 
     @Given("{int} containers at {string}")
@@ -203,7 +204,8 @@ public class StepDefinition {
     
     @Given("a registered Journey with {string} {string} {string} {int}")
     public void a_registered_Journey_with(String origin, String destination, String content, int number) {
-        ca.registerJourney(origin, destination, content, number);
+    	j = new Journey(origin, destination, content, number, ca.getClientID());
+        ca.registerJourney(j);
     }
 
     @When("updating the Journey to {string}")

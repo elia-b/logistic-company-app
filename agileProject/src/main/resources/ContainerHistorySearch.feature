@@ -23,8 +23,11 @@ Feature: Title of your feature
   @tag1
  Scenario: Succesful search for container history
     Given a logistic company
-    And a registered container at "Chad"
-    When pass <id> as container history search
+    And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And 2 containers at <origin>
+    And a registered Journey with <origin> <destination> <Content> 2
+    And a registered Container Status <humidity> <temp> <press> at <time>
+    When container history search
     Then <status> search
 
     Examples: 
