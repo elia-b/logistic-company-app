@@ -44,6 +44,35 @@ Feature: Container Tracking
     When the client requests the latest status from journey
     Then the client sees container status
     
+  @tag7
+  Scenario: latest Container Status request by authorized client
+    Given a logistic company
+    And a logged-in registered client "UserCompany72" "newwmail72@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "Lisboa" "Hamburg" "banana" 1
+    And a registered Container Status 12.3 45.3 412.3 at 15102322 for a non existing Container
+    When the client requests the latest status from journey
+    Then the client doesnt see container status
+    
+ @tag5
+  Scenario: latest Container Status request by authorized client for non exsisting journey
+    Given a logistic company
+    And a logged-in registered client "UserCompany72" "newwmail72@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "Lisboa" "Hamburg" "banana" 1
+    And a registered Container Status 12.3 45.3 412.3 at 15102322
+    When the client requests the latest status from journey -2
+    Then the client doesnt see container status
+    
+ 
+    
+ @tag6
+  Scenario: closest Container Status request by authorized client for non exsisting journey
+    Given a logistic company
+    And a logged-in registered client "UserCompany72" "newwmail72@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "Lisboa" "Hamburg" "banana" 1
+    And a registered Container Status 12.3 45.3 412.3 at 15102322
+    When the client requests the status at the requested date 15102692 for journey -2
+    Then the client doesnt see container status
+    
   @tag3
   Scenario: Container Status request by unauthorized client
     Given a logistic company
@@ -64,4 +93,8 @@ Feature: Container Tracking
     And a registered Container Status 12.5 45.5 412.5 at 15102722
     And a registered Container Status 12.6 45.6 412.6 at 15102822
     When the client requests the status at the requested date 15102692 for journey
-    Then the client sees container status 15102722
+    Then the client sees container status 15102722 12.5 45.5 412.5 
+    
+    
+
+    

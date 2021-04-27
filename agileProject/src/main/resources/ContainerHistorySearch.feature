@@ -63,6 +63,61 @@ Feature: Title of your feature
    	When searching for Container Journey Status History 
    	Then we get 1 container Statuses
    	
+  @tag4
+ Scenario: Succesful search for container status history
+    Given a logistic company
+    And a logged-in registered client "UserCompany84" "newwmail84@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "SPAIN" "ITALIA" "PAELLA" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1510232 
+    And updating the Journey as finished 
+    And a registered Journey with "ITALIA" "SPAIN" "PIZZE" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511000  
+    And updating the Journey as finished 
+    And a registered Journey with "SPAIN" "ITALIA" "FISH" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511500  
+   	When searching for Container Status History of unknown container
+   	Then we get 0 container Statuses  	
+
+@tag5
+ Scenario: Succesful search for container journey history
+    Given a logistic company
+    And a logged-in registered client "UserCompany85" "newwmail85@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "SPAINA" "ITALIAA" "PAELLA" 1
+    And updating the Journey as finished 
+    And a registered Journey with "ITALIAA" "SPAINA" "PIZZE" 1
+    And updating the Journey as finished 
+    And a registered Journey with "SPAINA" "ITALIAA" "FISH" 1
+   	When searching for Container Journey History of unknown container
+   	Then we get 0 journey ids
    	
    	
+@tag6
+ Scenario: Succesful search for container journey status history
+    Given a logistic company
+    And a logged-in registered client "UserCompany86" "newwmail86@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "SPAINA" "ITALIAA" "PAELLA" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1510232 
+    And updating the Journey as finished 
+    And a registered Journey with "ITALIAA" "SPAINA" "PIZZE" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511000  
+    And updating the Journey as finished 
+    And a registered Journey with "SPAINA" "ITALIAA" "FISH" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511500  
+   	When searching for Container Journey Status History of unknown container
+   	Then we get 0 container Statuses
+   	
+@tag6
+ Scenario: Succesful search for container journey status history
+    Given a logistic company
+    And a logged-in registered client "UserCompany86" "newwmail86@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "SPAINA" "ITALIAA" "PAELLA" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1510232 
+    And updating the Journey as finished 
+    And a registered Journey with "ITALIAA" "SPAINA" "PIZZE" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511000  
+    And updating the Journey as finished 
+    And a registered Journey with "SPAINA" "ITALIAA" "FISH" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511500  
+   	When searching for Container Journey Status History of unknown journey
+   	Then we get 0 container Statuses
    	

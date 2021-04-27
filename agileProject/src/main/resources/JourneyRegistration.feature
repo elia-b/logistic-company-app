@@ -51,3 +51,16 @@ Feature: Journey Registrations
     And a Journey with "Hamburg" "Copenhagen" "banana" 3
     When register a Journey
     Then the journey registration was unsuccesful
+    
+    
+ @tag4
+ Scenario: Successful Location adding
+ Given a logistic company
+ When adding location "RIO"
+ Then "RIO" is in database
+ 
+ @tag5
+ Scenario: Unsuccessful Location adding
+ Given a logistic company
+ When adding location "123"
+ Then "123" is not in database

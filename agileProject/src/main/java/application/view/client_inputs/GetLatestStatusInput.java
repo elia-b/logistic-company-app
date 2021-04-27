@@ -31,10 +31,10 @@ public class GetLatestStatusInput extends JFrame{
     private  JButton Button;
     private  JPanel inputPanel;
     private final JTextField textField1;
-    private ClientTable table;
+    
 
     private JFrame jframe;
-
+ 
     
     private ClientController controller;
 
@@ -102,7 +102,7 @@ public class GetLatestStatusInput extends JFrame{
             			
             			
             		} else {
-            			controller.getView().showSuccess("ERROR 404");
+            			controller.getView().showError("No Container Status found");
             		}
             	}
         		catch (NumberFormatException err) {

@@ -78,7 +78,7 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
         	if (cs.getDate() != 0) {
         		newAl.add(cs);
         	}
-        }
+        } 
 		
         return newAl;
 	}
@@ -114,4 +114,4 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 		return null;
 	}
 
-}
+}  

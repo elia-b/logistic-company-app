@@ -220,7 +220,7 @@ public class ClientApplicationView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
             	controller.update_password();
-            }
+            } 
         });
         logOutButton.addActionListener(new ActionListener() {
             @Override

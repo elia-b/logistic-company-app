@@ -26,7 +26,7 @@ public class LogisticCompany implements User{
 	}
      
     private LogisticCompany(){
-	}
+	} 
     
 	public LocationDatabase getLocationDatabase() {
 		return locationDatabase;
@@ -42,7 +42,7 @@ public class LogisticCompany implements User{
 
 	private static final String logisticCompanyUsername = "LCU";
 	private static final String logisticCompanyPassword = "123";
-	private static final String logisticCompanyEmail = "logistic.company@gmail.com";
+
 	
 	public InputInfoChecker getCic() {
 		return cic;
@@ -63,7 +63,5 @@ public class LogisticCompany implements User{
 		return logisticCompanyUsername;
 	}
 
-	public String getEmail() {
-		return logisticCompanyEmail;
-	}
+
 }

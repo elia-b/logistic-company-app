@@ -92,7 +92,7 @@ public class AdminApplication {
 	
 	public String updateStatus(int containerid,float humidity,float temp,float press,long date) {
 		if (lc.getCic().checkDate(date)) {
-			if (lc.getContainers().getValueFromID(containerid) != null) {
+			if (lc.getContainers().containsKey(containerid)) {
 				int jId = lc.getContainers().getValueFromID(containerid).getJourneyID();
 				ContainerStatus cs = new ContainerStatus(date,temp,press,humidity, jId, containerid );
 				lc.getContainersHistory().registerValue(cs);
@@ -123,7 +123,7 @@ public class AdminApplication {
 	        	if (!journeys.contains(cs.getJourneyId())) {
 	        		journeys.add(cs.getJourneyId());
 	        	}
-	            
+	             
 	        }
         return journeys;
         } else {
@@ -155,4 +155,6 @@ public class AdminApplication {
     		return "Location not Valid";
     	}
     }
+    
+    
 }

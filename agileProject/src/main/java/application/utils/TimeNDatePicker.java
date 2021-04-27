@@ -23,9 +23,9 @@ public class TimeNDatePicker extends JPanel{
 	private boolean leapYear = false;
 
     public TimeNDatePicker() {
-    	this.setPreferredSize(new Dimension(430, 30));
+    	this.setPreferredSize(new Dimension(600, 30));
         setLayout(new FlowLayout());
-        this.add(y);
+        this.add(y); 
         this.add(comboBoxYear);
         this.add(m);
         this.add(comboBoxMonth);

@@ -138,16 +138,17 @@ public class ClientController {
 
 
     public void get_latest_status() {
-		getClosestStatus = new GetClosestStatusInput(this);
-		getClosestStatus.setVisible(true);
+    	getLatestStatus = new GetLatestStatusInput(this);
+		getLatestStatus.setVisible(true);
 		
     }
-
+ 
 
 
     public void get_closes_status() {
-    	getLatestStatus = new GetLatestStatusInput(this);
-		getLatestStatus.setVisible(true);
+    	getClosestStatus = new GetClosestStatusInput(this);
+		getClosestStatus.setVisible(true);
+    	
     }
 
 	public void logOut() {

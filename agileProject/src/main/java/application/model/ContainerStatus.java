@@ -23,9 +23,8 @@ public class ContainerStatus implements IData{
 	public int getJourneyId() {
 		return journeyId;
 	}
-
-	public int getContainerId() {
-		return containerId;
+	public ContainerStatus() {
+		
 	}
 	
 	public long getDate() {
@@ -68,6 +67,11 @@ public class ContainerStatus implements IData{
 	public void setID(int id) {
 		this.csId = id;
 		
+	}
+
+
+	public int getContainerId() {
+		return this.containerId;
 	}
 	
 }

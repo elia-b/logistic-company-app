@@ -63,12 +63,18 @@ Feature: Client Managment update functionalities
   @tag8
   Scenario: Successful reference person update
     Given a logistic company 
-    And a logged-in registered client "UserCompany28" "newwmail28@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a logged-in registered client "UserCompany28" "newwmail28@gmail.com" "Paul PaulsonB" "Lyngby 69 RoadStreet"
 
     When the client updates "Paul Paulson" as reference person
     Then the client has reference person "Paul Paulson"
     
+ @tag9
+  Scenario: Unsuccessful reference person update
+    Given a logistic company 
+    And a logged-in registered client "UserCompany281" "newwmail281@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
 
+    When the client updates "123" as reference person
+    Then the client has reference person "Paul Paulson"
   
   @tag10
   Scenario: Successful address update
@@ -103,4 +109,11 @@ Feature: Client Managment update functionalities
     When the client updates "123456789" as password
     Then the client has password "123456789"
     
+    
+ @tag14
+  Scenario: Unsuccessful password update
+    Given a logistic company 
+    And a logged-in registered client "UserCompany215" "newwmail215@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    When the client updates "ab" as password
+    Then the client has password "123"
   

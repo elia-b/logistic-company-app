@@ -41,3 +41,19 @@ Feature: Journey update by logistics Company
 		 And a registered Journey with "Lisboa" "Hamburg" "banana" 2
 		 When updating this Journey as finished
 		 Then the containers in the journey have the destination as location
+		 
+@tag3
+		Scenario: Unsuccessful Journey Update because journey doesnt exist
+		 Given a logistic company
+		 And a logged-in registered client "UserCompany52" "newwmail52@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+		 And a registered Journey with "Lisboa" "Hamburg" "banana" 2
+		 When updating a non existing Journey 
+		 Then the containers in the journey have location "Lisboa" 
+		 
+@tag4
+		Scenario: Unsuccessful Journey finish because journey doesnt exist
+		 Given a logistic company
+		 And a logged-in registered client "UserCompany52" "newwmail52@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+		 And a registered Journey with "Lisboa" "Hamburg" "banana" 2
+		 When updating a non existing Journey as finished
+		 Then the containers in the journey have location "Lisboa" 

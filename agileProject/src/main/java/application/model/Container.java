@@ -39,9 +39,7 @@ public class Container implements IData{
 		this.location = location;
 	}
  
-	public String getContent() {
-		return content;
-	}
+	
 
 	public void startJourney(String content, int journeyID) {
 		this.journeyID = journeyID;
@@ -67,5 +65,9 @@ public class Container implements IData{
 	public void setID(int id) {
 		this.containerId = id;
 		
+	}
+
+	public String getContent() {
+		return this.content;
 	}
 }

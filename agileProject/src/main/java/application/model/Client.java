@@ -56,9 +56,7 @@ public class Client implements User, IData{
 	public String getPassword() {
 		return password;
 	}
-	public String getUsername() {
-		return this.name;
-	}
+	
 	public void setPassword(String password) {
 		this.password= password;
 	}

@@ -159,12 +159,15 @@ public class ClientApplication{
 		List<ContainerStatus> results = new ArrayList<ContainerStatus>();
 		if (lc.getJourneys().containsKey(journeyid)) {
 
-			
+		
 			if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
+				
 				for (Container c : lc.getContainers().containerOnJourney(journeyid)) {
+					
 					List<ContainerStatus> lcs = lc.getContainersHistory().getContainerStatusfromJourney(journeyid, c.getID());
 					// if we have time we can check the most recent one, using date
 					if(lcs.size() > 0) {
+						System.out.print("container status");
 						results.add(lcs.get(lcs.size() - 1));
 					}
 					
@@ -174,7 +177,7 @@ public class ClientApplication{
 			return results;
 		}return results;
 		
-	}
+	} 
 	
 	
 	public List<ContainerStatus> getclosestStatus(int journeyid,long date){
