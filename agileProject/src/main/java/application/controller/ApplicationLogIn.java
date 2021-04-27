@@ -28,9 +28,7 @@ public class ApplicationLogIn {
 				if(lc.getClientDatabase().getValueFromID(clientID).getPassword().equals(password)){
 					application.clientapplication(clientID, username);
 					view.setVisible(false);
-					
-					
-					lc.getReport().getClientReport().increaseClientapp();
+				
 					
 				} else {
 					view.showError("wrong password");

@@ -26,10 +26,8 @@ public class AdminApplication {
             return "Invalid Info";
         }
     }
-	
-	public void getClientReport() {
-		System.out.print(lc.getReport().getClientReport().getClientapp());
-	}
+	 
+
 	
 	private String generatePassword() {
 		//for now it does not randomly generate the password, 
@@ -133,7 +131,7 @@ public class AdminApplication {
         }
     }
    
-    public List<ContainerStatus> getStatusesFromContainerHistory(int containerid, int journeyid) throws Exception{
+    public List<ContainerStatus> getStatusesFromContainerOnJourney(int containerid, int journeyid) throws Exception{
         if (lc.getContainers().containsKey(containerid)){
         	if (lc.getJourneys().containsKey(journeyid)){
                 

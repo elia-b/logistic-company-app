@@ -24,6 +24,7 @@ public class Client implements User, IData{
 	      this.email = email;
 	      this.address = address;
 	      this.contactPerson = contactPerson;
+	      this.clientID = -2;
 	  }
 
     public void setName(String name){

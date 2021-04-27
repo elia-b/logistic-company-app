@@ -30,19 +30,7 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 
 	@Override
 	public ContainerStatus getValueFromID(int id) {
-		if (this.containsKey(id)){
-    		
-    		session.beginTransaction();
-    		Query q = session.createQuery("from ContainerStatus where csId = :id");
-    		q.setParameter("id", id);
-    		ContainerStatus c = (ContainerStatus) q.uniqueResult();
-    		session.getTransaction().commit();
-    		return c;
-        }
-        else {
-        	session.getTransaction().commit();
-            return null;
-        }
+		return null;
 	}
 
 	@Override
@@ -59,20 +47,7 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 
 	@Override
 	public Set<Entry<Integer, ContainerStatus>> entrySet() {
-		session.beginTransaction();
-		Query q = session.createQuery("from ContainerStatus");
-		
-		List<ContainerStatus> al =  q.list();
-		Set<Entry<Integer, ContainerStatus>> set = new HashSet<Entry<Integer, ContainerStatus>>();
-		for(ContainerStatus c : al) {
-			if (c.getDate() != 0) {
-				Entry<Integer, ContainerStatus> entry = new AbstractMap.SimpleEntry<Integer, ContainerStatus>(c.getID(), c);
-				set.add(entry);
-			}
-		}
-		session.getTransaction().commit();
-		
-        return set;
+		return null;
 	}
 
 	@Override
@@ -125,19 +100,7 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 		
         return newAl;
 	}
-	public List<ContainerStatus> getAll() {
-		session.beginTransaction();
-        Query query = session.createQuery("from ContainerStatus");           
-        List<ContainerStatus> al = query.list();
-        List<ContainerStatus> newAl = new ArrayList<ContainerStatus>();
-        session.getTransaction().commit();
-        for(ContainerStatus cs : al) {
-        	if (cs.getDate() != 0) {
-        		newAl.add(cs);
-        	}
-        }
-        return newAl;
-	}
+	
 
 	public List<ContainerStatus> getContainerStatusfromContainerAlsoTimeNull(int containerid) {
 		session.beginTransaction();
@@ -146,6 +109,11 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 		List<ContainerStatus> al =  q.list();
 		session.getTransaction().commit();
         return al;
+	}
+
+	@Override
+	public List<ContainerStatus> getAll() {
+		return null;
 	}
 
 }

@@ -23,20 +23,21 @@ Feature: Journey update by logistics Company
   @tag1
    Scenario Outline: Journey Update
     Given a logistic company
+    And a logged-in registered client "UserCompany51" "newwmail51@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And a registered Journey with <origin> "Hamburg" "banana" 2
-    And a new location <newlocation>
-    When updating the Journey
-    Then the containers in the journey have the <location> location
+    When updating the Journey to <newlocation>
+    Then the containers in the journey have location <location> 
 
     Examples: 
       | origin  	|	 newlocation | location |
-      | "Lisboa"	|     "Roma" 	 | new     	|
-      | "Roma" 		|     "123123" | old      |
+      | "Lisboa"	|     "Roma" 	 | "Roma"     	|
+      | "Roma" 		|     "123123" | "Roma"      |
 
       
 	@tag2
 		Scenario: Successful Journey Finish
 		 Given a logistic company
+		 And a logged-in registered client "UserCompany52" "newwmail52@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
 		 And a registered Journey with "Lisboa" "Hamburg" "banana" 2
-		 When updating the Journey as finished
+		 When updating this Journey as finished
 		 Then the containers in the journey have the destination as location

@@ -27,24 +27,24 @@ Feature: Client Managment registration functionalities
     Then the registration is <status>
 
     Examples: 
-      | name              |       email                 | contactperson  |address                 | status       |
-      | "UserCompany"     |  "user.company@gmail.com"   | "Paul Paulson" | "Lyngby 69 RoadStreet" | successful   |
-      | "UserCompany"     |  "user.companygmail.com"    | "Paul Paulson" | "Lyngby 69 RoadStreet" | unsuccessful |
-      | "UserCompany"     |  "user.company@gmail.com"   | "Paul Paulson" | "Lyngby 69"            | unsuccessful |
+      | name               |       email                 | contactperson  |address                 | status       |
+      | "UserCompany"      |  "user.company@gmail.com"   | "Paul Paulson" | "Lyngby 69 RoadStreet" | successful   |
+      | "UserCompany1"     |  "user.companygmail.com"    | "Paul Paulson" | "Lyngby 69 RoadStreet" | unsuccessful |
+      | "UserCompany2"     |  "user.company@gmail.com"   | "Paul Paulson" | "Lyngby 69"            | unsuccessful |
 
     
   @tag2
   Scenario: Unsuccessful registration of a new client by a company because of already taken name
     Given a logistic company
-    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
-    And a client "UserCompany" "user.company@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered client "UserCompany3" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a client "UserCompany3" "user.company2@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     Then the registration is unsuccessful
     
   @tag3
   Scenario: Unsuccessful registration of a new client by a company because of already taken e-mail
     Given a logistic company
-    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
-    And a client "NewUserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered client "UserCompany4" "newwmail2@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a client "NewUserCompany" "newwmail2@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     Then the registration is unsuccessful
     
     

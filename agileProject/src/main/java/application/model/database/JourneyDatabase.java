@@ -39,7 +39,7 @@ public class JourneyDatabase implements IDatabase<Journey>{
     		return c;
         }
         else {
-        	session.getTransaction().commit();
+        	
             return null;
         }
 	}
@@ -58,17 +58,7 @@ public class JourneyDatabase implements IDatabase<Journey>{
 
 	@Override
 	public Set<Entry<Integer, Journey>> entrySet() {
-		session.beginTransaction();
-		Query q = session.createQuery("from Journey");
-		
-		List<Journey> al =  q.list();
-		Set<Entry<Integer, Journey>> set = new HashSet<Entry<Integer, Journey>>();
-		for(Journey c : al) {
-			Entry<Integer, Journey> entry = new AbstractMap.SimpleEntry<Integer, Journey>(c.getID(), c);
-			set.add(entry);
-		}
-		session.getTransaction().commit();
-        return set;
+		return null;
 	}
 
 	@Override

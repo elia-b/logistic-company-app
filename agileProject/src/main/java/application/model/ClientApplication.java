@@ -21,7 +21,7 @@ public class ClientApplication{
 	}	
 	
 	public String updateName(String name) {
-		 lc.getReport().getClientReport().increaseUpdateName();
+		
 		 if (lc.getCic().checkNameValid(name)) {
 			 lc.getClientDatabase().changeName(clientID, name);
 			 return "Successful Update";
@@ -31,7 +31,7 @@ public class ClientApplication{
 	}
 	
 	public String updateEmail(String email) {
-		lc.getReport().getClientReport().increaseUpdateEmail();
+		
 		if (lc.getCic().checkEmailValid(email)) {
 			 lc.getClientDatabase().changeEmail(clientID, email);
 			
@@ -43,7 +43,7 @@ public class ClientApplication{
 	
 	
 	public String updateAdress(String address) {
-		lc.getReport().getClientReport().increaseUpdateAdress();
+		
 		if (lc.getCic().checkAddressValid(address)) {
 			 lc.getClientDatabase().changeAddress(clientID, address);
 			 return "Successful Update";
@@ -55,7 +55,7 @@ public class ClientApplication{
 	
 	
 	public String updatePassword(String password) {
-		lc.getReport().getClientReport().increaseUpdatePassword();
+
 		// maybe have minimum size, required sign or Capital letter
 		if (lc.getCic().checkPassword(password)) {
 			 lc.getClientDatabase().changePassword(clientID, password);
@@ -66,7 +66,7 @@ public class ClientApplication{
 	}
  	
 	public String updateContactPerson(String rp) {
-		lc.getReport().getClientReport().increaseUpdateContactPerson();
+
 		if (lc.getCic().checkReferencePersonValid(rp)) {
 			 lc.getClientDatabase().changeContactPerson(clientID, rp);
 			 
@@ -78,7 +78,7 @@ public class ClientApplication{
 	
 
 	public List<Journey> filterJourneysbyContent(String content) {
-		lc.getReport().getClientReport().increaseFilterJourneysbyContent();
+
 		List<Journey> results = new ArrayList<Journey>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
@@ -89,7 +89,7 @@ public class ClientApplication{
 		}return results;
 	}
 	public List<Journey> filterJourneysbyDestination(String destination) {
-		lc.getReport().getClientReport().increaseFilterJourneysbyDestination();
+
 		List<Journey> results = new ArrayList<Journey>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
@@ -101,7 +101,7 @@ public class ClientApplication{
 	}
 	
 	public List<Journey> filterJourneysbyOrigin(String origin) {
-		lc.getReport().getClientReport().increaseFilterJourneysbyOrigin();
+
 		List<Journey> results = new ArrayList<Journey>();
 		for (int i = 0;i<lc.getJourneys().size();i++) {
 			
@@ -115,7 +115,7 @@ public class ClientApplication{
 	
 	//TODO not enough container message is not displayed
 	public String registerJourney(Journey j) {
-		lc.getReport().getClientReport().increaseRegisterjourney();
+
 		if (lc.getCic().checkJourneyDetails(j.getOrigin(),j.getDestination(),j.getContent())) {
 			ArrayList<Container> containerList = new ArrayList<Container>();
 			boolean enoughContainers = true;
@@ -158,7 +158,7 @@ public class ClientApplication{
 	public List<ContainerStatus> getLatestStatus(int journeyid) {
 		List<ContainerStatus> results = new ArrayList<ContainerStatus>();
 		if (lc.getJourneys().containsKey(journeyid)) {
-			lc.getReport().getClientReport().increaseGetLatestStatus();
+
 			
 			if (lc.getJourneys().getValueFromID(journeyid).getClientid()==clientID) {
 				for (Container c : lc.getContainers().containerOnJourney(journeyid)) {
@@ -178,7 +178,7 @@ public class ClientApplication{
 	
 	
 	public List<ContainerStatus> getclosestStatus(int journeyid,long date){
-		lc.getReport().getClientReport().increaseGetClosestStatus();
+
 		List<ContainerStatus> results = new ArrayList<ContainerStatus>();
 		if (lc.getJourneys().containsKey(journeyid)&&lc.getCic().checkDate(date)) {
 			int count = 0;

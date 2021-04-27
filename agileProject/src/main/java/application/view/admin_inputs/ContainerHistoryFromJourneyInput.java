@@ -122,7 +122,7 @@ public class ContainerHistoryFromJourneyInput extends JFrame{
             public void actionPerformed(ActionEvent e) {
 
         		try {
-        			List<ContainerStatus> arraylist = (List<ContainerStatus>) controller.getApp().getStatusesFromContainerHistory(Integer.valueOf(textField1.getText()), Integer.valueOf(textField2.getText()));
+        			List<ContainerStatus> arraylist = (List<ContainerStatus>) controller.getApp().getStatusesFromContainerOnJourney(Integer.valueOf(textField1.getText()), Integer.valueOf(textField2.getText()));
         			table = new ContainerStatusTable(arraylist);
         			controller.getView().setTableModel(table);
         		}

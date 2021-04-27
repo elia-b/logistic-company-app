@@ -15,8 +15,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import application.model.LocationS;
 import application.utils.LocationPicker;
+import application.utils.LocationS;
 
 public class LocationDatabase implements IDatabase<LocationS>{
 	private Configuration con = new Configuration().configure().addAnnotatedClass(LocationS.class);

@@ -52,12 +52,7 @@ public class ContainerStatus implements IData{
 	}
 	  
 	
-	private long convertDate(String date) {
-		String[] splitdate = date.split(":",5);
-		Calendar c = Calendar.getInstance();
-    	c.set(Integer.parseInt(splitdate[0]),Integer.parseInt(splitdate[1]),Integer.parseInt(splitdate[2]),Integer.parseInt(splitdate[3]),Integer.parseInt(splitdate[4]));	
-		return c.getTime().getTime();
-	}
+	
 	
 	public long getDifference(long date2) {
 		long diff = date2 - date;

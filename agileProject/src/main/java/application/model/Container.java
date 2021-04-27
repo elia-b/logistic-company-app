@@ -54,13 +54,7 @@ public class Container implements IData{
 		content = "empty";
 	}
 	
-	public boolean getOnJourney() {
-		if (journeyID == -1) {
-			return false;
-		}else {
-			return true;
-		}
-	}
+	
 
 
 	@Override

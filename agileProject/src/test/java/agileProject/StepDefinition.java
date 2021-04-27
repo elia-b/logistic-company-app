@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 import application.controller.ApplicationLogIn;
 import application.model.AdminApplication;
@@ -31,22 +31,24 @@ public class StepDefinition {
     Client c3;
 
     Journey j;
-    int jID;
+    //int jID;
 
     String response;
 
     AdminApplication aa = new AdminApplication(lc);
     ClientApplication ca;
 
-    ArrayList<ContainerStatus> resultsStatus;
+    List<ContainerStatus> resultsStatus;
 
-    ArrayList<Integer> results;
+    List<Journey> results;
 
     int intResult;
     
     Container C;
     
+    List<ContainerStatus> cs;
     
+    List<Integer> cj;
 
 	
     @Given("a logistic company")
@@ -71,25 +73,21 @@ public class StepDefinition {
 
     @Then("the registration is unsuccessful")
     public void the_registration_is_unsuccessful() {
-        assertTrue(lc.getClientDatabase().getIDfromClientName(c1.getName()) == -1);
+    	
+        assertEquals(c1.getID(), -2);
     }
 
 
     @Given("a registered client {string} {string} {string} {string}")
     public void a_registered_client(String name, String email, String contactPerson, String address ) {
-        c2.setName(name);
-        c2.setAddress(address);
-        c2.setEmail(email);
-        c2.setContactPerson(contactPerson);
+    	c2 = new Client(name,email,address,contactPerson);
+        
         aa.register_new_client(c2);
     }
     
     @Given("a logged-in registered client {string} {string} {string} {string}")
     public void a_logged_in_registered_client(String name, String email, String contactPerson, String address) {
-    	c3.setName(name);
-        c3.setAddress(address);
-        c3.setEmail(email);
-        c3.setContactPerson(contactPerson);
+    	c3 = new Client(name,email,address,contactPerson);
         aa.register_new_client(c3);
         ca = new ClientApplication(lc.getClientDatabase().getIDfromClientName(c3.getName()), lc);
     }
@@ -174,37 +172,47 @@ public class StepDefinition {
 
     @Given("a Journey with {string} {string} {string} {int}")
     public void a_Journey_with(String origin, String destination, String content, int number) {
-        j = new Journey(origin, destination, content, number, ca.getClientID());
-        jID = lc.getJourneys().size();
+        j = new Journey(content,origin, destination, number, ca.getClientID());
+     //   jID = lc.getJourneys().size();
 
     }
 
     @When("register a Journey")
     public void register_a_Journey() {
-        ca.registerJourney(j);
+    	ca.registerJourney(j);
+       
+        
 
     }
 
-    //size is not SOLID
+    
     @Then("the journey registration was succesful")
     public void the_journey_registration_was_succesful() {
-        assertTrue(lc.getJourneys().getValueFromID(jID).equals(j));
+    	
+        assertTrue(lc.getJourneys().getValueFromID(j.getID()).equals(j));
     }
 
     @Then("the journey registration was unsuccesful")
     public void the_journey_registration_was_unsuccesful() {
-        assertFalse(lc.getJourneys().getValueFromID(jID).equals(j));
+        assertFalse(lc.getJourneys().getValueFromID(j.getID()).equals(j));
     }
 
     @Given("{int} containers at {string}")
     public void containers_at(Integer numberOfContainers, String location) {
-    	C = new Container(location);
-        aa.registerContainer(C);
+    	for(int i = 0;i<numberOfContainers;i++) {
+    		C = new Container(location);
+            aa.registerContainer(C);
+    	}
+    	
     }
     
     @Given("a registered Journey with {string} {string} {string} {int}")
     public void a_registered_Journey_with(String origin, String destination, String content, int number) {
-    	j = new Journey(origin, destination, content, number, ca.getClientID());
+    	for(int i = 0;i<number;i++) {
+    		C = new Container(origin);
+            aa.registerContainer(C);
+    	}
+    	j = new Journey(content,origin, destination,  number, ca.getClientID());
         ca.registerJourney(j);
     }
 
@@ -213,9 +221,10 @@ public class StepDefinition {
         aa.updateJourney(j.getID(), newlocation);
     }
 
-    @Then("the containers in the journey have {string}")
-    public void the_containers_in_the_journey_have(String location) {
-        assertTrue(location.equals(lc.getJourneys().getValueFromID(0).getContainers().get(0).getLocation()));
+    @Then("the containers in the journey have location {string}")
+    public void the_containers_in_the_journey_have_location(String location) {
+    	
+        assertTrue(location.equals(lc.getContainers().containerOnJourney(j.getID()).get(0).getLocation()));
     }
  
     @When("filtering the Journey by Origin {string}")
@@ -223,9 +232,9 @@ public class StepDefinition {
         results = ca.filterJourneysbyOrigin(origin);
     }
 
-    @Then("the resulting JourneyID is {int}")
-    public void the_resulting_JourneyID_is(Integer id) {
-        assertTrue(results.get(0) == id);
+    @Then("we find {int} Journeys")
+    public void the_resulting_JourneyID_is(int size ) {
+        assertTrue(results.size() == size);
     }
 
 
@@ -240,76 +249,97 @@ public class StepDefinition {
     	results = ca.filterJourneysbyContent(content);
     }
 
-  
-
-    @Then("the filtering results in nothing")
-    public void the_filtering_results_in_nothing() {
-        assertTrue(results.isEmpty());
+    @When("updating this Journey as finished")
+    public void updating_this_Journey_as_finished() {
+        aa.finishJourney(j.getID());
     }
    
-    @When("updating the Journey as finished")
+    @Given("updating the Journey as finished")
     public void updating_the_Journey_as_finished() {
-        aa.finishJourney(0);
+        aa.finishJourney(j.getID());
+    }
+    
+    @Then("the containers in the journey have the destination as location")
+    public void the_containers_in_the_journey_have_the_destination_as_location() {
+
+    	assertTrue(j.getDestination().equals(C.getLocation()));
+    }
+//Journey feature done, now Container Status
+    @Given("a registered Container Status {double} {double} {double} at {int}")
+    public void a_registered_Container_Status_at(double hum, double temp, double press, int date) {
+        aa.updateStatus(lc.getContainers().containerOnJourney(j.getID()).get(0).getID(),(float) hum,(float) temp,(float) press,(long) date);
+       
     }
 
-    @When("updating the Status to {float} {float} {float} at {string}")
-    public void updating_the_Status_to_at(float hum, float temp, float press, String time) {
-        aa.updateStatus(0, hum, temp, press, time);
+
+    @Then("the client sees container status")
+    public void the_client_sees_container_status() {
+        assertTrue(cs.size()>0);
     }
 
 
-    @Then("the container measurements are updated successfully")
-    public void the_container_measurements_are_updated_successfully() {
-        assertFalse(lc.getJourneys().getValueFromID(0).getContainers().get(0).getStatus().isEmpty());
+
+    @Then("the client doesnt see container status")
+    public void the_client_doesnt_see_container_status() {
+    	assertTrue(cs.size()==0);
     }
 
-
-    @Then("the container measurements are updated unsuccessfully")
-    public void the_container_measurements_are_updated_unsuccessfully() {
-    	assertTrue(lc.getJourneys().getValueFromID(0).getContainers().get(0).getStatus().isEmpty());
-    }
 
     @When("the client requests the latest status from journey")
     public void the_client_requests_the_latest_status_from_journey() {
-        resultsStatus = ca.getLatestStatus(0);
-    }
-
-    @Then("the client sees container status {float} {float} {float} at {string}")
-    public void the_client_sees_container_status_at(float hum, float temp, float press, String time) {
-        assertTrue(hum == resultsStatus.get(0).getHumidity());
-        assertTrue(press == resultsStatus.get(0).getPressure());
-        assertTrue(temp == resultsStatus.get(0).getTemperature());
+        cs = ca.getLatestStatus(j.getID());
     }
 
 
-    @Then("the client doesnt see status")
-    public void the_client_doesnt_see_status() {
-    	System.out.println(lc.getDatabase().getValueFromID(0).getName());
-    	System.out.println(lc.getDatabase().getValueFromID(1).getName());
-        assertTrue(resultsStatus.isEmpty());
+    @When("the client requests the status at the requested date {int} for journey")
+    public void the_client_requests_the_status_at_the_requested_date_for_journey(int date) {
+        cs = ca.getclosestStatus(j.getID(),(long) date);
     }
-
-    @When("the client requests the status at {string} for journey")
-    public void the_client_requests_the_status_at_for_journey(String date) {
-        resultsStatus=ca.getclosestStatus(0, date);
+    @Then("the client sees container status {int}")
+    public void the_client_sees_container_status(Integer date) {
+    	assertEquals(cs.get(0).getDate(),(long) date);
     }
     
-    @Given("a new logged-in registered client {string} {string} {string} {string}")
-    public void a_new_logged_in_registered_client(String name, String email, String contactPerson, String address) {
-    	c2.setName(name);
-        c2.setAddress(address);
-        c2.setEmail(email);
-        c2.setContactPerson(contactPerson);
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            aa.register_new_client(c2);
-        }
-        al.logIn(c2.getUsername(), c2.getPassword());
-        if (al.getapp() instanceof ClientApplication){
-            ca = (ClientApplication) al.getapp();
-        }
+    @When("searching for Container Status History")
+    public void searching_for_Container_Status_History() {
+        try {
+			cs = aa.searchContainerHistory(lc.getContainers().containerOnJourney(j.getID()).get(0).getID());
+		} catch (Exception e) {
+			cs = new ArrayList<ContainerStatus>();
+		}
     }
-	
+
+    @Then("we get {int} container Statuses")
+    public void we_get_container_Statuses(int size) {
+        assertEquals(cs.size(),size);
+    }
+
+    @When("searching for Container Journey History")
+    public void searching_for_Container_Journey_History() {
+        try {
+			cj = aa.getJourneyIDsfromContainerHistory(lc.getContainers().containerOnJourney(j.getID()).get(0).getID());
+		} catch (Exception e) {
+			cj = new ArrayList<Integer>();
+		}
+    }
+
+    @Then("we get {int} journey ids")
+    public void we_get_journey_ids(int size) {
+    	assertEquals(cj.size(),size);
+    }
+
+    @When("searching for Container Journey Status History")
+    public void searching_for_Container_Journey_Status_History() {
+    	try {
+    		
+			cs = aa.getStatusesFromContainerOnJourney(lc.getContainers().containerOnJourney(j.getID()).get(0).getID(),j.getID());
+		} catch (Exception e) {
+			cs = new ArrayList<ContainerStatus>();
+		}
+    }
+
+
+
+
     
 }

@@ -9,7 +9,7 @@ import application.model.database.LocationDatabase;
 // Create an interface for any logistic company
 public class LogisticCompany implements User{
 	
-	private UsageReport report = new UsageReport();
+
     private ClientDatabase clients = new ClientDatabase();
     private JourneyDatabase journeys = new JourneyDatabase();
     private ContainerHistoryDatabase containersHistory = new ContainerHistoryDatabase();
@@ -24,7 +24,7 @@ public class LogisticCompany implements User{
     public static LogisticCompany GetInstance(){
 		return lc;
 	}
-    
+     
     private LogisticCompany(){
 	}
     
@@ -37,11 +37,6 @@ public class LogisticCompany implements User{
 
 	public ContainerHistoryDatabase getContainersHistory() {
 		return containersHistory;
-	}
-
-
-	public UsageReport getReport() {
-		return report;
 	}
 
 

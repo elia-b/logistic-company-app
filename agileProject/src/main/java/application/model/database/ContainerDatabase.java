@@ -37,7 +37,7 @@ public class ContainerDatabase implements IDatabase<Container> {
 		q.setParameter("empty", "empty");
 		List<Container> ls = q.list();
 		session.getTransaction().commit();
-		if(ls.size() < 0) {
+		if(ls.size() <= 0) {
 			return -1;
 		} else {
 			Container c = ls.get(0);
@@ -75,17 +75,7 @@ public class ContainerDatabase implements IDatabase<Container> {
 
 	@Override
 	public Set<Entry<Integer, Container>> entrySet() {
-		session.beginTransaction();
-		Query q = session.createQuery("from Container");
-		
-		List<Container> al =  q.list();
-		Set<Entry<Integer, Container>> set = new HashSet<Entry<Integer, Container>>();
-		for(Container c : al) {
-			Entry<Integer, Container> entry = new AbstractMap.SimpleEntry<Integer, Container>(c.getID(), c);
-			set.add(entry);
-		}
-		session.getTransaction().commit();
-        return set;
+		return null;
 	}
 
 	@Override

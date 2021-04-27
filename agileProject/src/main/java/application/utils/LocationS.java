@@ -1,4 +1,4 @@
-package application.model;
+package application.utils;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +14,7 @@ public class LocationS implements IData{
 	public String getName() {
 		return name;
 	}
-	
+	 
 	public LocationS() {
 		
 	}

@@ -21,16 +21,48 @@ Feature: Title of your feature
   I want to use this template for my feature file
 
   @tag1
- Scenario: Succesful search for container history
+ Scenario: Succesful search for container status history
     Given a logistic company
-    And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
-    And 2 containers at <origin>
-    And a registered Journey with <origin> <destination> <Content> 2
-    And a registered Container Status <humidity> <temp> <press> at <time>
-    When container history search
-    Then <status> search
+    And a logged-in registered client "UserCompany81" "newwmail82@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "SPAIN" "ITALIA" "PAELLA" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1510232 
+    And updating the Journey as finished 
+    And a registered Journey with "ITALIA" "SPAIN" "PIZZE" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511000  
+    And updating the Journey as finished 
+    And a registered Journey with "SPAIN" "ITALIA" "FISH" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511500  
+   	When searching for Container Status History
+   	Then we get 3 container Statuses
 
-    Examples: 
-      | id  | status       |
-      | 0   | successful   |
-      | 1   | unsuccessful |
+@tag2
+ Scenario: Succesful search for container journey history
+    Given a logistic company
+    And a logged-in registered client "UserCompany82" "newwmail82@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "SPAINA" "ITALIAA" "PAELLA" 1
+    And updating the Journey as finished 
+    And a registered Journey with "ITALIAA" "SPAINA" "PIZZE" 1
+    And updating the Journey as finished 
+    And a registered Journey with "SPAINA" "ITALIAA" "FISH" 1
+   	When searching for Container Journey History
+   	Then we get 3 journey ids
+   	
+   	
+@tag3
+ Scenario: Succesful search for container journey status history
+    Given a logistic company
+    And a logged-in registered client "UserCompany83" "newwmail83@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered Journey with "SPAINA" "ITALIAA" "PAELLA" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1510232 
+    And updating the Journey as finished 
+    And a registered Journey with "ITALIAA" "SPAINA" "PIZZE" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511000  
+    And updating the Journey as finished 
+    And a registered Journey with "SPAINA" "ITALIAA" "FISH" 1
+    And a registered Container Status 123.2 12.3 124.2 at 1511500  
+   	When searching for Container Journey Status History 
+   	Then we get 1 container Statuses
+   	
+   	
+   	
+   	

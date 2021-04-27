@@ -9,8 +9,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import application.model.LocationS;
-
 
 public class LocationPicker extends JPanel {
 	
