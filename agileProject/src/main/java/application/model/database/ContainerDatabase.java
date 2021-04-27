@@ -11,10 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import application.model.Container;
-import application.model.Journey;
 
-import java.util.AbstractMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
