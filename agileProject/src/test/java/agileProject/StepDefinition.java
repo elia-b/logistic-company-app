@@ -210,7 +210,7 @@ public class StepDefinition {
 
     @When("updating the Journey to {string}")
     public void updating_the_Journey_to(String newlocation) {
-        aa.updateJourney(0, newlocation);
+        aa.updateJourney(j.getID(), newlocation);
     }
 
     @Then("the containers in the journey have {string}")
