@@ -100,9 +100,9 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 	}
 	
 
-	public List<ContainerStatus> getContainerStatusfromContainerAlsoTimeNull(int containerid) {
+	public List<ContainerStatus> getContainerStatusfromContainerAtTimeNull(int containerid) {
 		session.beginTransaction();
-		Query q = session.createQuery("from ContainerStatus where containerId = :containerId");
+		Query q = session.createQuery("from ContainerStatus where containerId = :containerId and date = 0");
 		q.setParameter("containerId", containerid);
 		List<ContainerStatus> al =  q.list();
 		session.getTransaction().commit();
