@@ -36,13 +36,15 @@ public class SearchEmailInput extends JFrame{
     public SearchEmailInput(AdminController controller) {
         
     	this.controller=controller;
+
+		setTitle("Search by Email");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Search Email");
+        Button.setText("Search");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -98,7 +100,7 @@ public class SearchEmailInput extends JFrame{
         			
         		
         		}else {
-        			controller.getView().showError("No Client with that Email");
+        			controller.getView().showError("No client found with that email address. Please try again.");
         		}
         		jframe.dispose();
         		

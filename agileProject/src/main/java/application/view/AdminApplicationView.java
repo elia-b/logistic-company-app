@@ -76,16 +76,17 @@ public class AdminApplicationView extends JFrame{
 	public AdminApplicationView(AdminController controller) {
 		this.controller = controller;
 		initGUI();
+		setTitle("YARCMS");
 	}
     
 
 	
 	
 	public void showError(String string) {
-		JOptionPane.showMessageDialog(this, string , "Admin Response", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, string , "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	public void showSuccess(String string) {
-		JOptionPane.showMessageDialog(this, string , "Admin Response", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, string , "Success", JOptionPane.INFORMATION_MESSAGE);
 	}
 	public void setTableModel(TableModel model) {
 		resultsTable.setModel(model);
@@ -108,41 +109,41 @@ public class AdminApplicationView extends JFrame{
         textPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 12, 5, 0)));
         usernameLabel = new JLabel();
         String username = LogisticCompany.GetInstance().getName();
-        usernameLabel.setText("<html>" + "<B>" + "Company: "+ username + "</B>" + "</html>");
+        usernameLabel.setText("<html>" + "<B>" + username + "</B>" + "</html>");
         textPanel.add(usernameLabel, BorderLayout.NORTH);
         adminTerminalLabel = new JLabel();
-        adminTerminalLabel.setText("<html>" + "<I>" + "Admin Terminal" + "</I>" + "</html>");
+        adminTerminalLabel.setText("<html>" + "<I>" + "Admin Application" + "</I>" + "</html>");
         textPanel.add(adminTerminalLabel, BorderLayout.SOUTH);
         toolsPanel = new JPanel();
         toolsPanel.setLayout(new BorderLayout());
-        toolsPanel.setPreferredSize(new Dimension(840, 600));
+        toolsPanel.setPreferredSize(new Dimension(780, 600));
         mainPanel.add(toolsPanel, BorderLayout.CENTER);
         toolsPanel.setBorder(BorderFactory.createTitledBorder("Client Management Tools"));
         filterPanel = new JPanel();
         filterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 5));
         toolsPanel.add(filterPanel, BorderLayout.NORTH);
         filterByNameButton = new JButton();
-        filterByNameButton.setText("Filter by Name");
-        filterByNameButton.setToolTipText("Filter clients by name");
+        filterByNameButton.setText("Search by Name");
+        filterByNameButton.setToolTipText("Search clients by name");
         filterPanel.add(filterByNameButton);
         filterByEmailButton = new JButton();
-        filterByEmailButton.setText("Filter by Email");
-        filterByEmailButton.setToolTipText("Filter clients by email address");
+        filterByEmailButton.setText("Search by Email");
+        filterByEmailButton.setToolTipText("Search clients by email address");
         filterPanel.add(filterByEmailButton);
         resetFilterButton = new JButton();
-        resetFilterButton.setText("Reset Filter");
+        resetFilterButton.setText("Reset Results Table");
         resetFilterButton.setToolTipText("Reset client search filter");
         filterPanel.add(resetFilterButton);
         controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 5));
-        controlPanel.setPreferredSize(new Dimension(860, 72));
+        controlPanel.setPreferredSize(new Dimension(860, 106));
         toolsPanel.add(controlPanel, BorderLayout.SOUTH);
         registerNewClientButton = new JButton();
-        registerNewClientButton.setText("New Client");
+        registerNewClientButton.setText("Register Client");
         registerNewClientButton.setToolTipText("Register a new client");
         controlPanel.add(registerNewClientButton);
         registerNewContainerButton = new JButton();
-        registerNewContainerButton.setText("New Container");
+        registerNewContainerButton.setText("Register Container");
         registerNewContainerButton.setToolTipText("Register a new shipping container");
         controlPanel.add(registerNewContainerButton);
         updateContainerStatusButton = new JButton();
@@ -158,39 +159,35 @@ public class AdminApplicationView extends JFrame{
         finishJourneyButton.setToolTipText("Mark all containers on a journey as empty");
         controlPanel.add(finishJourneyButton);
         addLocationButton = new JButton();
-        addLocationButton.setText("New Port");
-        addLocationButton.setToolTipText("Add a new shipping port option");
+        addLocationButton.setText("Add Port Location");
+        addLocationButton.setToolTipText("Register a new shipping port option");
         controlPanel.add(addLocationButton);
         containerStatusHistoryButton = new JButton();
-        containerStatusHistoryButton.setText("Container Status History");
+        containerStatusHistoryButton.setText("View Container Status History");
         containerStatusHistoryButton.setToolTipText("View the status history of a shipping container");
         controlPanel.add(containerStatusHistoryButton);
         containerJourneyHistoryButton = new JButton();
-        containerJourneyHistoryButton.setText("Container Journey History");
+        containerJourneyHistoryButton.setText("View Container Journey History");
         containerJourneyHistoryButton.setToolTipText("View the journey history of a shipping container");
         controlPanel.add(containerJourneyHistoryButton);
         containerJourneyStatusHistoryButton = new JButton();
-        containerJourneyStatusHistoryButton.setText("Container Journey Status History");
+        containerJourneyStatusHistoryButton.setText("View Container Journey Status History");
         containerJourneyStatusHistoryButton.setToolTipText("View the status history of a shipping container on a particular journey");
         controlPanel.add(containerJourneyStatusHistoryButton);
-        
         allContainersButton = new JButton();
-        allContainersButton.setText("All Containers");
-        allContainersButton.setToolTipText("View all the registered containers");
+        allContainersButton.setText("View All Containers");
+        allContainersButton.setToolTipText("View all registered containers");
         controlPanel.add(allContainersButton);
-        
         allJourneysButton = new JButton();
-        allJourneysButton.setText("All Journeys");
-        allJourneysButton.setToolTipText("View all the registered journeys");
+        allJourneysButton.setText("View All Journeys");
+        allJourneysButton.setToolTipText("View all registered journeys");
         controlPanel.add(allJourneysButton);
-        
         tablePanel = new JPanel();
         tablePanel.setLayout(new BorderLayout());
         toolsPanel.add(tablePanel, BorderLayout.CENTER);
         tablePanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2)));
         final JScrollPane tableScrollPane = new JScrollPane();
         tablePanel.add(tableScrollPane, BorderLayout.CENTER);
-        
         resultsTable = new JTable();
         List<Client> clients = LogisticCompany.GetInstance().getClientDatabase().getAll();
         resultsTable.setModel(new ClientTable(clients));

@@ -20,10 +20,10 @@ public class AdminApplication {
         if (lc.getCic().checkAllInfo(c1)) {
 				c1.setPassword(generatePassword());
                 lc.getClientDatabase().registerValue(c1);;
-                return "Registration Successful";
+                return "Client successfully registered.";
             }
         else{
-            return "Invalid Info";
+            return "Invalid information. Please try again.";
         }
     }
 	 
@@ -55,8 +55,8 @@ public class AdminApplication {
 	public String registerContainer(Container C) {
 		if (lc.getCic().checkLocation(C.getLocation())) {
 			lc.getContainers().registerValue(C);
-			return "Container registered";
-		}return "Location invalid";
+			return "Container successfully registered.";
+		}return "Invalid Location. Please try again.";
 		
 		
 	}
@@ -68,11 +68,11 @@ public class AdminApplication {
 				for (Container c : containers) {
 					lc.getContainers().changeLocation(c.getID(), newlocation);
 				}
-				return "Successful Journey Update";
+				return "Journey successfully updated.";
 				}else {
-					return "Unsuccessful Journey Update";
+					return "Invalid information. Please try again.";
 				}
-		}return "Journey not found";
+		}return "Journey not found. Please try again.";
 		
 		
 	}
@@ -85,8 +85,8 @@ public class AdminApplication {
 				lc.getContainers().changeFinishJourney(c.getID());
 				lc.getContainers().changeLocation(c.getID(), newlocation);
 			}
-			return "Journey finished";
-		}return "Journey not found";
+			return "Journey succesfully marked as finished.";
+		}return "Invalid information. Please try again.";
 		
 	}
 	
@@ -96,13 +96,13 @@ public class AdminApplication {
 				int jId = lc.getContainers().getValueFromID(containerid).getJourneyID();
 				ContainerStatus cs = new ContainerStatus(date,temp,press,humidity, jId, containerid );
 				lc.getContainersHistory().registerValue(cs);
-				return "Successful Update";
+				return "Container successfully updated.";
 			} else {
-				return "Invalid Container ID";
+				return "Invalid information. Please try again.";
 			}
 			
 		}else {
-			return "Invalid Date";
+			return "Invalid information. Please try again.";
 		}
 	}
 
@@ -149,12 +149,14 @@ public class AdminApplication {
     public String addLocation(String location){
     	if(lc.getCic().checkLocation(location)) {
     		lc.getLocationDatabase().addLocation(location);
-    		return "Location Added";
+    		return "Port location succesfully added.";
     	}
     	else {
-    		return "Location not Valid";
+    		return "Invalid information. Please try again.";
     	}
     }
+    
+    
     
     
 }

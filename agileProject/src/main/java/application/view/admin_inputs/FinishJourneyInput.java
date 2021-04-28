@@ -38,13 +38,15 @@ public class FinishJourneyInput extends JFrame{
     public FinishJourneyInput(AdminController controller) {
         
     	this.controller=controller;
+
+		setTitle("Finish Journey");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Finish Journey");
+        Button.setText("Finish");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -93,14 +95,14 @@ public class FinishJourneyInput extends JFrame{
             	try {
             		int idi = Integer.valueOf(textField1.getText());
             		String message = controller.getApp().finishJourney(idi);
-            		if (message.equals("Journey finished")) {
+            		if (message.equals("Journey succesfully marked as finished.")) {
             			controller.getView().showSuccess(message);
             		}else {
             			controller.getView().showError(message);
             		}
             	}
         		catch (NumberFormatException err) {
-        			controller.getView().showError("Expected a Number");
+        			controller.getView().showError("Invalid information. Please try again.");
         		}
         		
             	jframe.dispose();

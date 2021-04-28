@@ -1,13 +1,12 @@
 package application.controller;
 
-
 public class ApplicationController {
-	
+
 	public static void main(String[] args) {
 		ApplicationController app = new ApplicationController();
 		app.login();
 	}
-	
+
 	public void login() {
 		ApplicationLogIn app = new ApplicationLogIn(this);
 		app.display();
@@ -21,9 +20,7 @@ public class ApplicationController {
 	public void adminapplication() {
 		AdminController controller = new AdminController(this);
 		controller.display();
-		
+
 	}
-
-
 
 }

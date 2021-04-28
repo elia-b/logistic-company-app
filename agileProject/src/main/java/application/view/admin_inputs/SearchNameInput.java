@@ -37,13 +37,15 @@ public class SearchNameInput extends JFrame{
     public SearchNameInput(AdminController controller) {
         
     	this.controller=controller;
+
+		setTitle("Search by Name");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Search Name");
+        Button.setText("Search");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -99,7 +101,7 @@ public class SearchNameInput extends JFrame{
         			
         		
         		}else {
-        			controller.getView().showError("No Client with that Name");
+        			controller.getView().showError("No client found with that name. Please try again.");
         		}
         		jframe.dispose();
         		

@@ -34,13 +34,16 @@ public class UpdatePasswordInput extends JFrame{
     public UpdatePasswordInput(ClientController controller) {
         
     	this.controller=controller;
+
+
+		setTitle("Change Password");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Update Password");
+        Button.setText("Change");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -50,7 +53,7 @@ public class UpdatePasswordInput extends JFrame{
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("New Password");
+        label1.setText("Password");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -116,13 +119,13 @@ public class UpdatePasswordInput extends JFrame{
             public void actionPerformed(ActionEvent e) {
             	if (String.valueOf(passwordField.getPassword()).equals(String.valueOf(passwordField1.getPassword()))) {
             		String message = controller.getApp().updatePassword( String.valueOf(passwordField.getPassword()));
-            		if (message.equals("Successful Update")) {
+            		if (message.equals("Password succesfully updated.")) {
             			controller.getView().showSuccess(message);
             		}else {
             			controller.getView().showError(message);
             		}
             	}else {
-            		controller.getView().showError("Passwords dont match");
+            		controller.getView().showError("Passwords don't match. Please try again.");
             	}
             	
         		

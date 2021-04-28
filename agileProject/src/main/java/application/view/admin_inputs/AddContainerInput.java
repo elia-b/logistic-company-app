@@ -33,13 +33,15 @@ public class AddContainerInput extends JFrame {
     public AddContainerInput(AdminController controller) {
         
     	this.controller=controller;
+
+		setTitle("Register Container");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Add Container");
+        Button.setText("Register");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -86,7 +88,7 @@ public class AddContainerInput extends JFrame {
             public void actionPerformed(ActionEvent e) {
  
         		String message = controller.getApp().registerContainer(new Container(comboloc.getSelectedLocation()));
-        		if (message.equals("Container registered")) {
+        		if (message.equals("Container successfully registered.")) {
         			controller.getView().showSuccess(message);
         		}else {
         			controller.getView().showError(message);

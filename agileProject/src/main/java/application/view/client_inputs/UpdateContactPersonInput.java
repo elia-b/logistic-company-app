@@ -32,13 +32,15 @@ public class UpdateContactPersonInput extends JFrame{
     public UpdateContactPersonInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("Update Contact Person");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Update contact Person");
+        Button.setText("Update");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -48,7 +50,7 @@ public class UpdateContactPersonInput extends JFrame{
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("New contact Person");
+        label1.setText("Contact Person");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -87,7 +89,7 @@ public class UpdateContactPersonInput extends JFrame{
  
             	
         		String message = controller.getApp().updateContactPerson(textField1.getText());
-        		if (message.equals("Successful Update")) {
+        		if (message.equals("Company contact person succesfully updated.")) {
         			controller.getView().showSuccess(message);
         		}else {
         			controller.getView().showError(message);

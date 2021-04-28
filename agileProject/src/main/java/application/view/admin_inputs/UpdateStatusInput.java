@@ -40,13 +40,15 @@ public class UpdateStatusInput extends JFrame {
     public UpdateStatusInput(AdminController controller) {
         
     	this.controller=controller;
+
+		setTitle("Update Container Status");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Update Status");
+        Button.setText("Update");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -205,14 +207,14 @@ public class UpdateStatusInput extends JFrame {
             		String message = controller.getApp().updateStatus(Integer.valueOf(textField1.getText()), Float.valueOf(textField2.getText()), 
             														  Float.valueOf(textField3.getText()), Float.valueOf(textField4.getText()),
             														  tnd.getDate());
-            		if (message.equals("Successful Update")) {
+            		if (message.equals("Container successfully updated.")) {
             			controller.getView().showSuccess(message);
             		}else {
             			controller.getView().showError(message);
             		}
             		
             	}catch(NumberFormatException err) {
-            		controller.getView().showError("Expected a Number");
+            		controller.getView().showError("Invalid information. Please try again.");
             	}
             	
         		jframe.dispose();
