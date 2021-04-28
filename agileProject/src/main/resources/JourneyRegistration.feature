@@ -21,19 +21,21 @@ Feature: Journey Registrations
   
 
   @tag1
-  Scenario: Succesful Joruney Registration
+  Scenario: Succesful Journey Registration
     Given a logistic company
-    And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a logged-in registered client "UserCompany41" "newwmail41@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And 3 containers at "Hamburg"
-    When register a Journey with "Hamburg" "Copenhagen" "banana" 3
+    And a Journey with "Hamburg" "Copenhagen" "banana" 3
+    When register a Journey
     Then the journey registration was succesful
 
   @tag2
   Scenario Outline: Unsuccesful Journey Registration
     Given a logistic company
-    And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a logged-in registered client "UserCompany42" "newwmail42@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And 2 containers at <origin>
-    When register a Journey with <origin> <destination> <Content> 2
+    And a Journey with <origin> <destination> <Content> 2
+    When register a Journey
     Then the journey registration was unsuccesful
 
     Examples: 
@@ -44,7 +46,21 @@ Feature: Journey Registrations
   @tag3
   Scenario: Unsuccesful Journey Registration not enough Containers
   	Given a logistic company
-    And a logged-in registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a logged-in registered client "UserCompany43" "newwmail43@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     And 2 containers at "Hamburg"
-    When register a Journey with "Hamburg" "Copenhagen" "banana" 3
+    And a Journey with "Hamburg" "Copenhagen" "banana" 3
+    When register a Journey
     Then the journey registration was unsuccesful
+    
+    
+ @tag4
+ Scenario: Successful Location adding
+ Given a logistic company
+ When adding location "RIO"
+ Then "RIO" is in database
+ 
+ @tag5
+ Scenario: Unsuccessful Location adding
+ Given a logistic company
+ When adding location "123"
+ Then "123" is not in database

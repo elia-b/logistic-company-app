@@ -6,121 +6,95 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import agileProjectMainJava.AdminApplication;
-import agileProjectMainJava.ApplicationLogIn;
-import agileProjectMainJava.Client;
-import agileProjectMainJava.ClientApplication;
-import agileProjectMainJava.ContainerStatus;
-import agileProjectMainJava.Journey;
-import agileProjectMainJava.LogisticCompany;
+import application.controller.ApplicationLogIn;
+import application.model.AdminApplication;
+import application.model.Client;
+import application.model.ClientApplication;
+import application.model.Container;
+import application.model.ContainerStatus;
+import application.model.Journey;
+import application.model.LogisticCompany;
+import application.utils.LocationS;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class StepDefinition {
 	
-    LogisticCompany lc = new LogisticCompany();
+    LogisticCompany lc = LogisticCompany.GetInstance();
+    //c1 is always the new client
     Client c1 = new Client();
-    ApplicationLogIn al = new ApplicationLogIn(lc);
-    Client c2 = new Client();
-    Client c5 = new Client();
-    int search;
-    ClientApplication ca;
-    String email;
-    String name;
-    String rp;
-    String address;
-    ArrayList<ContainerStatus> resultsStatus;
+    //c2 is always the already registered client
+    Client c2;
+    //c3 is always the logged-in and registered client
+    Client c3;
 
-    ArrayList<Integer> results;
+    Journey j = new Journey();
+    //int jID;
+
+    String response;
+
+    AdminApplication aa = new AdminApplication(lc);
+    ClientApplication ca;
+
+    List<ContainerStatus> resultsStatus;
+
+    List<Journey> results;
+
+    int intResult;
     
+    Container C = new Container();
     
+    ContainerStatus css = new ContainerStatus();
+    
+    List<ContainerStatus> cs;
+    
+    List<Integer> cj;
 
 	
     @Given("a logistic company")
     public void a_logistic_company() {
         assertNotEquals(null, lc);
+        assertEquals("LCU", lc.getName());
+        assertEquals("123", lc.getPassword());
     }
     
-    @Given("a client")
-    public void a_client() {
-        c1.unregister();
-        c1.setAddress(null);
-        c1.setContactPerson(null);
-        c1.setEmail(null);
-        c1.setName(null);
-    }
-
-    @Given("pass {string} as name")
-    public void pass_as_name(String name) {
-        c1.setName(name);
-    }
-
-    @Given("pass {string} as e-mail")
-    public void pass_as_e_mail(String email) {
-        c1.setEmail(email);
-    }
-
-    @Given("pass {string} as reference person")
-    public void pass_as_reference_person(String contactPerson) {
-        c1.setContactPerson(contactPerson);
-    }
-
-    @Given("pass {string} as address")
-    public void pass_as_address(String address) {
-        c1.setAddress(address);
+    @Given("a client {string} {string} {string} {string}")
+    public void a_client(String name, String email, String contactPerson, String address) {
+        c1 = new Client(name, email, address, contactPerson);
     }
 
     @When("register new client")
     public void register_new_client() {
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            aa.register_new_client(c1);
-        }
+        aa.register_new_client(c1);
     }
 
     @Then("the registration is successful")
     public void the_registration_is_successful() {
-        assertTrue(c1.getRegistered());
+        assertFalse(lc.getClientDatabase().getIDfromClientName(c1.getName()) == -1);
     }
 
     @Then("the registration is unsuccessful")
     public void the_registration_is_unsuccessful() {
-        assertFalse(c1.getRegistered());
+    	
+        assertEquals(c1.getID(), -2);
     }
 
 
     @Given("a registered client {string} {string} {string} {string}")
     public void a_registered_client(String name, String email, String contactPerson, String address ) {
-        c2.setName(name);
-        c2.setAddress(address);
-        c2.setEmail(email);
-        c2.setContactPerson(contactPerson);
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            aa.register_new_client(c2);
-        }
+    	c2 = new Client(name,email,address,contactPerson);
+        
+        aa.register_new_client(c2);
     }
     
     @Given("a logged-in registered client {string} {string} {string} {string}")
     public void a_logged_in_registered_client(String name, String email, String contactPerson, String address) {
-    	c5.setName(name);
-        c5.setAddress(address);
-        c5.setEmail(email);
-        c5.setContactPerson(contactPerson);
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            aa.register_new_client(c5);
-        }
-        al.logIn(c5.getUsername(), c5.getPassword());
-        if (al.getapp() instanceof ClientApplication){
-            ca = (ClientApplication) al.getapp();
-        }
-        
+    	c3 = new Client(name,email,address,contactPerson);
+        aa.register_new_client(c3);
+        ca = new ClientApplication(lc.getClientDatabase().getIDfromClientName(c3.getName()), lc);
     }
 
     @When("the client updates {string} as name")
@@ -130,8 +104,7 @@ public class StepDefinition {
 
     @Then("the client has name {string}")
     public void the_client_has_name(String name) {
-    	//c5 is always the logged-in client
-        assertEquals(c5.getName(),name);
+        assertEquals(c3.getName(),name);
     }
 
     @When("the client updates {string} as e-mail")
@@ -141,7 +114,7 @@ public class StepDefinition {
 
     @Then("the client has email {string}")
     public void the_client_has_email(String email) {
-    	assertEquals(c5.getEmail(),email);
+    	assertEquals(c3.getEmail(),email);
     }
     
 
@@ -152,7 +125,7 @@ public class StepDefinition {
 
     @Then("the client has reference person {string}")
     public void the_client_has_reference_person(String rp) {
-        assertEquals(c5.getReferencePerson(), rp);
+        assertEquals(c3.getReferencePerson(), rp);
     }	
 
     @When("the client updates {string} as address")
@@ -162,7 +135,7 @@ public class StepDefinition {
  
     @Then("the client has address {string}")
     public void the_client_has_address(String address) {
-        assertEquals(c5.getAddress(),address);
+        assertEquals(c3.getAddress(),address);
     }
     
     @When("the client updates {string} as password")
@@ -172,111 +145,102 @@ public class StepDefinition {
 
     @Then("the client has password {string}")
     public void the_client_has_password(String password) {
-    	 assertEquals(c5.getPassword(),password);
+    	 assertEquals(c3.getPassword(),password);
     }
 
     
     @When("pass {string} as name search")
     public void pass_as_name_search(String name) {
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            search = aa.searchName(name);
-        }
+        intResult = aa.searchName(name);
         
     }
 
     @Then("successful search")
     public void successful_search() {
-        assertEquals(search,lc.getDatabase().getIDfromClientName(c2.getName()));
+        assertEquals(intResult, lc.getClientDatabase().getIDfromClientName(c2.getName()));
     }
 
  
 
     @Then("unsuccessful search")
     public void unsuccessful_search() {
-        assertEquals(-1,search);
+        assertEquals(-1, intResult);
     }
 
     @When("pass {string} as e-mail search")
     public void pass_as_e_mail_search(String email) {
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            search = aa.searchEmail(email);
-        }
-        
+        intResult = aa.searchEmail(email);
     }
+
+
 //M2 Journey Registration
-    
 
+    @Given("a Journey with {string} {string} {string} {int}")
+    public void a_Journey_with(String origin, String destination, String content, int number) {
+        j = new Journey(content,origin, destination, number, ca.getClientID());
+     //   jID = lc.getJourneys().size();
 
+    }
 
-    @When("register a Journey with {string} {string} {string} {int}")
-    public void register_a_Journey_with(String origin, String destination, String content, int number) {
-        ca.registerJourney(origin, destination, content, number);
+    @When("register a Journey")
+    public void register_a_Journey() {
+    	ca.registerJourney(j);
+       
         
 
     }
 
+    
     @Then("the journey registration was succesful")
     public void the_journey_registration_was_succesful() {
     	
-    	
-        assertTrue(lc.getJourneys().size()==1);
+        assertTrue(lc.getJourneys().getValueFromID(j.getID()).equals(j));
     }
-
-    
 
     @Then("the journey registration was unsuccesful")
     public void the_journey_registration_was_unsuccesful() {
-        assertTrue(lc.getJourneys().size()==0);
+        assertFalse(lc.getJourneys().getValueFromID(j.getID()).equals(j));
     }
 
     @Given("{int} containers at {string}")
     public void containers_at(Integer numberOfContainers, String location) {
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            for (int i = 0;i<numberOfContainers;i++) {
-                aa.registerContainer(location);
-            }
-        }
-        
-        
+    	for(int i = 0;i<numberOfContainers;i++) {
+    		C = new Container(location);
+    		C.getContent();
+            aa.registerContainer(C);
+    	}
     	
     }
     
     @Given("a registered Journey with {string} {string} {string} {int}")
     public void a_registered_Journey_with(String origin, String destination, String content, int number) {
-    	 al.logIn(lc.getUsername(), lc.getPassword());
-         if (al.getapp() instanceof AdminApplication){
-             AdminApplication aa = (AdminApplication) al.getapp();
-	    	for (int i = 0;i<number;i++) {
-	        	aa.registerContainer(origin);
-	        }
-	    	c5.setName("UserCompany");
-	        c5.setAddress("Lyngby 69 RoadStreet");
-	        c5.setEmail("newwmail@gmail.com");
-	        c5.setContactPerson("Paul Paulson");
-	        aa.register_new_client(c5);
-	        ca = new ClientApplication(lc.getDatabase().getIDfromClientName(c5.getName()), lc);
-	    	ca.registerJourney(origin, destination, content, number);
-         }
+    	for(int i = 0;i<number;i++) {
+    		C = new Container(origin);
+            aa.registerContainer(C);
+    	}
+    	j = new Journey(content,origin, destination,  number, ca.getClientID());
+        ca.registerJourney(j);
     }
 
+    @When("updating a non existing Journey")
+    public void updating_a_non_existing_Journey() {
+        aa.updateJourney(-2, "thisdoesntmatter");
+    }
+    
+    @When("updating a non existing Journey as finished")
+    public void updating_a_non_existing_Journey_as_finished() {
+        aa.finishJourney(-2);
+    }
+    
     @When("updating the Journey to {string}")
     public void updating_the_Journey_to(String newlocation) {
-    	 al.logIn(lc.getUsername(), lc.getPassword());
-         if (al.getapp() instanceof AdminApplication){
-             AdminApplication aa = (AdminApplication) al.getapp();
-             aa.updateJourney(0, newlocation);
-         }
+        aa.updateJourney(j.getID(), newlocation);
     }
 
-    @Then("the containers in the journey have {string}")
-    public void the_containers_in_the_journey_have(String location) {
-        assertTrue(location.equals(lc.getJourneys().getValueFromID(0).getContainers().get(0).getLocation()));
+    @Then("the containers in the journey have location {string}")
+    public void the_containers_in_the_journey_have_location(String location) {
+    	
+        assertTrue(location.equals(lc.getContainers().containerOnJourney(j.getID()).get(0).getLocation()));
     }
  
     @When("filtering the Journey by Origin {string}")
@@ -284,9 +248,9 @@ public class StepDefinition {
         results = ca.filterJourneysbyOrigin(origin);
     }
 
-    @Then("the resulting JourneyID is {int}")
-    public void the_resulting_JourneyID_is(Integer id) {
-        assertTrue(results.get(0)==id);
+    @Then("we find {int} Journeys")
+    public void the_resulting_JourneyID_is(int size ) {
+        assertTrue(results.size() == size);
     }
 
 
@@ -301,84 +265,178 @@ public class StepDefinition {
     	results = ca.filterJourneysbyContent(content);
     }
 
-  
-
-    @Then("the filtering results in nothing")
-    public void the_filtering_results_in_nothing() {
-        assertTrue(results.isEmpty());
+    @When("updating this Journey as finished")
+    public void updating_this_Journey_as_finished() {
+        aa.finishJourney(j.getID());
     }
    
-    @When("updating the Journey as finished")
+    @Given("updating the Journey as finished")
     public void updating_the_Journey_as_finished() {
-    	 al.logIn(lc.getUsername(), lc.getPassword());
-         if (al.getapp() instanceof AdminApplication){
-             AdminApplication aa = (AdminApplication) al.getapp();
-             aa.finishJourney(0);
-         }
+        aa.finishJourney(j.getID());
+    }
+    
+    @Then("the containers in the journey have the destination as location")
+    public void the_containers_in_the_journey_have_the_destination_as_location() {
+
+    	assertTrue(j.getDestination().equals(C.getLocation()));
+    }
+//Journey feature done, now Container Status
+    @Given("a registered Container Status {double} {double} {double} at {int}")
+    public void a_registered_Container_Status_at(double hum, double temp, double press, int date) {
+        aa.updateStatus(lc.getContainers().containerOnJourney(j.getID()).get(0).getID(),(float) hum,(float) temp,(float) press,(long) date);
+       
+    }
+    
+    @Given("a registered Container Status {double} {double} {double} at {int} for a non existing Container")
+    public void a_registered_Container_Status_at_for_a_non_existing_Container(double hum, double temp, double press, int date) {
+        aa.updateStatus(-1,(float) hum,(float) temp,(float) press,(long) date);
+       
     }
 
-    @When("updating the Status to {float} {float} {float} at {string}")
-    public void updating_the_Status_to_at(float hum, float temp, float press, String time) {
-    	 al.logIn(lc.getUsername(), lc.getPassword());
-         if (al.getapp() instanceof AdminApplication){
-             AdminApplication aa = (AdminApplication) al.getapp();
-             aa.updateStatus(0, hum, temp, press, time);
-         }
+
+    @Then("the client sees container status")
+    public void the_client_sees_container_status() {
+        assertTrue(cs.size()>0);
     }
 
 
-    @Then("the container measurements are updated successfully")
-    public void the_container_measurements_are_updated_successfully() {
-        assertFalse(lc.getJourneys().getValueFromID(0).getContainers().get(0).getStatus().isEmpty());
+
+    @Then("the client doesnt see container status")
+    public void the_client_doesnt_see_container_status() {
+    	assertTrue(cs.size()==0);
     }
 
-
-    @Then("the container measurements are updated unsuccessfully")
-    public void the_container_measurements_are_updated_unsuccessfully() {
-    	assertTrue(lc.getJourneys().getValueFromID(0).getContainers().get(0).getStatus().isEmpty());
-    }
 
     @When("the client requests the latest status from journey")
     public void the_client_requests_the_latest_status_from_journey() {
-        resultsStatus = ca.getLatestStatus(0);
-    }
-
-    @Then("the client sees container status {float} {float} {float} at {string}")
-    public void the_client_sees_container_status_at(float hum, float temp, float press, String time) {
-        assertTrue(hum == resultsStatus.get(0).getHumidity());
-        assertTrue(press == resultsStatus.get(0).getPressure());
-        assertTrue(temp == resultsStatus.get(0).getTemperature());
-    }
-
-
-    @Then("the client doesnt see status")
-    public void the_client_doesnt_see_status() {
-    	System.out.println(lc.getDatabase().getValueFromID(0).getName());
-    	System.out.println(lc.getDatabase().getValueFromID(1).getName());
-        assertTrue(resultsStatus.isEmpty());
-    }
-
-    @When("the client requests the status at {string} for journey")
-    public void the_client_requests_the_status_at_for_journey(String date) {
-        resultsStatus=ca.getclosestStatus(0, date);
+        cs = ca.getLatestStatus(j.getID());
     }
     
-    @Given("a new logged-in registered client {string} {string} {string} {string}")
-    public void a_new_logged_in_registered_client(String name, String email, String contactPerson, String address) {
-    	c2.setName(name);
-        c2.setAddress(address);
-        c2.setEmail(email);
-        c2.setContactPerson(contactPerson);
-        al.logIn(lc.getUsername(), lc.getPassword());
-        if (al.getapp() instanceof AdminApplication){
-            AdminApplication aa = (AdminApplication) al.getapp();
-            aa.register_new_client(c2);
-        }
-        al.logIn(c2.getUsername(), c2.getPassword());
-        if (al.getapp() instanceof ClientApplication){
-            ca = (ClientApplication) al.getapp();
-        }
+    @When("the client requests the latest status from journey {int}")
+    public void the_client_requests_the_latest_status_from_journey(int id) {
+        cs = ca.getLatestStatus(id);
     }
-	
+    @When("the client requests the status at the requested date {int} for journey {int}")
+    public void the_client_requests_the_status_at_the_requested_date_for_journey(int date,int id) {
+        cs = ca.getclosestStatus(id,(long) date);
+    }
+
+    @When("the client requests the status at the requested date {int} for journey")
+    public void the_client_requests_the_status_at_the_requested_date_for_journey(int date) {
+        cs = ca.getclosestStatus(j.getID(),(long) date);
+    }
+    @Then("the client sees container status {int} {double} {double} {double}")
+    public void the_client_sees_container_status(Integer date,double hum,double temp,double press) {
+    	assertNotEquals(cs.get(0).getID(),-1);
+    	assertEquals(cs.get(0).getContainerId(),C.getID());
+    	assertEquals(cs.get(0).getDate(),(long) date); 
+    	assertTrue(cs.get(0).getHumidity()==(float) hum);
+    	assertTrue(cs.get(0).getPressure()==(float) press);
+    	assertTrue(cs.get(0).getTemperature()==(float) temp);
+    } 
+    
+    @When("searching for Container Status History")
+    public void searching_for_Container_Status_History() {
+        try {
+			cs = aa.searchContainerHistory(lc.getContainers().containerOnJourney(j.getID()).get(0).getID());
+		} catch (Exception e) {
+			cs = new ArrayList<ContainerStatus>();
+		}
+    }
+    
+    @When("searching for Container Status History of unknown container")
+    public void searching_for_Container_Status_History_of_unknown_container() {
+        try {
+			cs = aa.searchContainerHistory(-1);
+		} catch (Exception e) {
+			cs = new ArrayList<ContainerStatus>();
+		}
+    }
+
+    @Then("we get {int} container Statuses")
+    public void we_get_container_Statuses(int size) {
+        assertEquals(cs.size(),size);
+    }
+
+    @When("searching for Container Journey History")
+    public void searching_for_Container_Journey_History() {
+        try {
+			cj = aa.getJourneyIDsfromContainerHistory(lc.getContainers().containerOnJourney(j.getID()).get(0).getID());
+		} catch (Exception e) {
+			cj = new ArrayList<Integer>();
+		}
+    } 
+    
+    @When("searching for Container Journey History of unknown container")
+    public void searching_for_Container_Journey_History_of_unknown_container() {
+        try {
+			cj = aa.getJourneyIDsfromContainerHistory(-1);
+		} catch (Exception e) {
+			cj = new ArrayList<Integer>();
+		}
+    }  
+
+    @Then("we get {int} journey ids")
+    public void we_get_journey_ids(int size) {
+    	assertEquals(cj.size(),size);
+    }
+
+    @When("searching for Container Journey Status History")
+    public void searching_for_Container_Journey_Status_History() {
+    	try {
+    		
+			cs = aa.getStatusesFromContainerOnJourney(lc.getContainers().containerOnJourney(j.getID()).get(0).getID(),j.getID());
+		} catch (Exception e) {
+			cs = new ArrayList<ContainerStatus>();
+		}
+    }
+    
+    @When("searching for Container Journey Status History of unknown container")
+    public void searching_for_Container_Journey_Status_History_of_unknown_container() {
+    	try {
+    		
+			cs = aa.getStatusesFromContainerOnJourney(-1,j.getID());
+		} catch (Exception e) {
+			cs = new ArrayList<ContainerStatus>();
+		}
+    }
+    
+    @When("searching for Container Journey Status History of unknown journey")
+    public void searching_for_Container_Journey_Status_History_of_unknown_journey() {
+    	try {
+    		
+			cs = aa.getStatusesFromContainerOnJourney(lc.getContainers().containerOnJourney(j.getID()).get(0).getID(),-1);
+		} catch (Exception e) {
+			cs = new ArrayList<ContainerStatus>();
+		}
+    }
+
+    @When("adding location {string}")
+    public void adding_location(String location) {
+        aa.addLocation(location);
+    }
+
+    @Then("{string} is in database")
+    public void is_in_database(String location) {
+    	Boolean test = false;
+        for(LocationS l : lc.getLocationDatabase().getAll()) {
+        	if (l.getName().equals(location)){
+        		test = true;
+        	}
+        }assertTrue(test);
+    }
+
+   
+
+    @Then("{string} is not in database")
+    public void is_not_in_database(String location) {
+    	Boolean test = false;
+        for(LocationS l : lc.getLocationDatabase().getAll()) {
+        	if (l.getName().equals(location)){
+        		test = true;
+        	}
+        }assertFalse(test);
+    }
+
     
 }

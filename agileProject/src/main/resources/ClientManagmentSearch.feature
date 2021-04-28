@@ -22,25 +22,25 @@ Feature: Client Managment search functionalities
   @tag1
   Scenario Outline: Name search
     Given a logistic company
-    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered client "UserCompany31" "newwmail31@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When pass <name> as name search
     Then <status> search
     
     Examples: 
       | name              | status       |
-      | "UserCompany"     | successful   |
+      | "UserCompany31"   | successful   |
       | "NotUserCompany"  | unsuccessful |
     
   @tag2
   Scenario Outline: E-mail search
     Given a logistic company
-    And a registered client "UserCompany" "newwmail@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
+    And a registered client "UserCompany32" "newwmail32@gmail.com" "Paul Paulson" "Lyngby 69 RoadStreet"
     When pass <e-mail> as e-mail search
     Then <status> search
     
     Examples: 
       | e-mail                 | status       |
-      | "newwmail@gmail.com"   | successful   |
+      | "newwmail32@gmail.com" | successful   |
       | "Notnewwmail@gmail.com"| unsuccessful |
 
 
