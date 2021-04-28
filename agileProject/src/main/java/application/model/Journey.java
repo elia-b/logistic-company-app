@@ -14,7 +14,7 @@ public class Journey implements IData{
 			   this.getNOfContainers() == j.getNOfContainers() &&
 			   this.getContent().equals(j.getContent()) &&
 			   this.getClientid() == j.getClientid();
-	}
+	} 
 
 	//Maybe add something for the current position
 	private String origin;

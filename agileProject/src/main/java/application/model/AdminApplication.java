@@ -82,7 +82,7 @@ public class AdminApplication {
 			List<Container> containers = lc.getContainers().containerOnJourney(journeyid);
 			String newlocation = lc.getJourneys().getValueFromID(journeyid).getDestination();
 			for (Container c : containers) {
-				lc.getContainers().changeFinishJourney(c.getID());
+				lc.getContainers().finishJourney(c.getID());
 				lc.getContainers().changeLocation(c.getID(), newlocation);
 			}
 			return "Journey finished";

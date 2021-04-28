@@ -23,7 +23,7 @@ public class ContainerDatabase implements IDatabase<Container> {
 	
 	private SessionFactory sf = con.buildSessionFactory(reg);
 	
-	private Session session = sf.openSession();
+	private Session session = sf.openSession(); 
 	
 	//CHange the return type
 	public int getIDfromEmptyContainerLocation(String location) {
@@ -101,7 +101,7 @@ public class ContainerDatabase implements IDatabase<Container> {
 		session.getTransaction().commit();
 	}
 
-	public void changeStartJourney(int containerId, int journeyId, String content) {
+	public void startJourney(int containerId, int journeyId, String content) {
 		session.beginTransaction();
 		Container c = (Container) session.get(Container.class, containerId); 
 		c.startJourney(content, journeyId);
@@ -109,7 +109,7 @@ public class ContainerDatabase implements IDatabase<Container> {
 		session.getTransaction().commit();
 	}
 	
-	public void changeFinishJourney(int containerId) {
+	public void finishJourney(int containerId) {
 		session.beginTransaction();
 		Container c = (Container) session.get(Container.class, containerId); 
 		c.endJourney();

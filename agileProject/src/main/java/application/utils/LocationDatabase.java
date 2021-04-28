@@ -1,4 +1,4 @@
-package application.model.database;
+package application.utils;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -15,8 +15,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import application.utils.LocationPicker;
-import application.utils.LocationS;
+import application.model.database.IDatabase;
 
 public class LocationDatabase implements IDatabase<LocationS>{
 	private Configuration con = new Configuration().configure().addAnnotatedClass(LocationS.class);

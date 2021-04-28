@@ -126,7 +126,7 @@ public class ClientApplication{
 					enoughContainers = false;
 					
 				}else {
-					lc.getContainers().changeStartJourney(Cid, jid, j.getContent());
+					lc.getContainers().startJourney(Cid, jid, j.getContent());
 					containerList.add(lc.getContainers().getValueFromID(Cid));
 					
 				}
@@ -134,7 +134,7 @@ public class ClientApplication{
 			}
 			if (!enoughContainers) {
 				for (Container c : containerList) {
-					lc.getContainers().changeFinishJourney(c.getID());
+					lc.getContainers().finishJourney(c.getID());
 				
 				}
 				return "Not enough containers";

@@ -56,7 +56,7 @@ public class ClientDatabase implements IDatabase<Client> {
         	session.getTransaction().commit();
             return null;
         }
-    }
+    } 
     
     public void registerValue(Client c) {
     	int id = this.size();

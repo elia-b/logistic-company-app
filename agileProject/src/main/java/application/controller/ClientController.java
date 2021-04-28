@@ -127,7 +127,7 @@ public class ClientController {
     	filterJourneyOrigin = new FilterJourneyOriginInput(this);
     	filterJourneyOrigin.setVisible(true);
     }
-
+ 
 
 
     public void register_journey() {
