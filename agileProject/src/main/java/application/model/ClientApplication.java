@@ -167,7 +167,7 @@ public class ClientApplication{
 					List<ContainerStatus> lcs = lc.getContainersHistory().getContainerStatusfromJourney(journeyid, c.getID());
 					// if we have time we can check the most recent one, using date
 					if(lcs.size() > 0) {
-						System.out.print("container status");
+						
 						results.add(lcs.get(lcs.size() - 1));
 					}
 					

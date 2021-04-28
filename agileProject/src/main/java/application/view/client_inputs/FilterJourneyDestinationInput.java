@@ -99,7 +99,7 @@ public class FilterJourneyDestinationInput extends JFrame{
         		}
         		jframe.dispose();
         		
-            }
+            } 
         });
     }
 }
