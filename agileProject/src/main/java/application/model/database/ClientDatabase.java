@@ -44,24 +44,6 @@ public class ClientDatabase implements IDatabase<Client> {
 	}
 
 	public Client getValueFromID(int id) {
-<<<<<<< HEAD
-		if (this.containsKey(id)) {
-
-			session.beginTransaction();
-			Query q = session.createQuery("from Client where clientID = :id");
-			q.setParameter("id", id);
-			Client c = (Client) q.uniqueResult();
-			session.getTransaction().commit();
-			return c;
-		} else {
-			session.getTransaction().commit();
-			return null;
-		}
-	}
-
-	public void registerValue(Client c) {
-		int id = this.size();
-=======
         if (this.containsKey(id)){
     		
     		session.beginTransaction();
@@ -79,7 +61,6 @@ public class ClientDatabase implements IDatabase<Client> {
     
     public void registerValue(Client c) {
     	int id = this.size();
->>>>>>> refs/remotes/origin/date-and-location
 		Transaction tx = session.beginTransaction();
 
 		c.setID(id);

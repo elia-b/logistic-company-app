@@ -137,7 +137,7 @@ public class ClientApplication{
 					lc.getContainers().finishJourney(c.getID());
 				
 				}
-				return "Not enough containers.";
+				return "Not enough containers. Please try again.";
 			}else {
 				for (Container c : containerList) {
 					lc.getContainersHistory().registerValue(new ContainerStatus(0, 0, 0, 0, jid, c.getID()));

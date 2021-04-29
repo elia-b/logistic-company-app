@@ -23,17 +23,11 @@ public class ContainerDatabase implements IDatabase<Container> {
 			.buildServiceRegistry();
 
 	private SessionFactory sf = con.buildSessionFactory(reg);
-<<<<<<< HEAD
 
-	private Session session = sf.openSession();
-
-	// CHange the return type
-=======
 	
 	private Session session = sf.openSession(); 
 	
 	//CHange the return type
->>>>>>> refs/remotes/origin/date-and-location
 	public int getIDfromEmptyContainerLocation(String location) {
 
 		session.beginTransaction();
@@ -115,13 +109,9 @@ public class ContainerDatabase implements IDatabase<Container> {
 		session.saveOrUpdate(c);
 		session.getTransaction().commit();
 	}
-<<<<<<< HEAD
 
-	public void changeFinishJourney(int containerId) {
-=======
 	
 	public void finishJourney(int containerId) {
->>>>>>> refs/remotes/origin/date-and-location
 		session.beginTransaction();
 		Container c = (Container) session.get(Container.class, containerId);
 		c.endJourney();

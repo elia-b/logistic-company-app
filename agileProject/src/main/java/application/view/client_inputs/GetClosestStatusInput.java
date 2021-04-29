@@ -133,7 +133,7 @@ public class GetClosestStatusInput extends JFrame{
             			
             			
             		} else {
-            			controller.getView().showSuccess("ERROR 404");
+            			controller.getView().showSuccess("No registered status found. Please try again.");
             		}
             	}
         		catch (NumberFormatException err) {

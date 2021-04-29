@@ -104,7 +104,7 @@ public class JourneysOfContainerInput extends JFrame{
         			controller.getView().setTableModel(table);
         		}
         		catch (Exception err) {
-        			controller.getView().showError(err.getMessage());
+        			controller.getView().showError("Invalid information. Please try again.");
         		}
         		
             	jframe.dispose();
