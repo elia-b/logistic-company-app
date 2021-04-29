@@ -24,9 +24,9 @@ public class ClientApplication{
 		
 		 if (lc.getCic().checkNameValid(name)) {
 			 lc.getClientDatabase().changeName(clientID, name);
-			 return "Successful Update";
+			 return "Company name succesfully updated.";
 	     } else {
-			return "Unsuccessful Update";
+			return "Invalid information. Please try again.";
 		 }
 	}
 	
@@ -35,9 +35,9 @@ public class ClientApplication{
 		if (lc.getCic().checkEmailValid(email)) {
 			 lc.getClientDatabase().changeEmail(clientID, email);
 			
-			return "Successful Update";
+			return "Company email address succesfully updated.";
 		} else {
-			return "Unsuccessful Update";
+			return "Invalid information. Please try again.";
 		} 
 	}
 	
@@ -46,9 +46,9 @@ public class ClientApplication{
 		
 		if (lc.getCic().checkAddressValid(address)) {
 			 lc.getClientDatabase().changeAddress(clientID, address);
-			 return "Successful Update";
+			 return "Company address succesfully updated.";
 	    } else {
-			return "Unsuccessful Update";
+			return "Invalid information. Please try again.";
 		}
         
 	}
@@ -59,9 +59,9 @@ public class ClientApplication{
 		// maybe have minimum size, required sign or Capital letter
 		if (lc.getCic().checkPassword(password)) {
 			 lc.getClientDatabase().changePassword(clientID, password);
-			return "Successful Update";
+			return "Password succesfully updated.";
 		} else {
-			return "Unsuccessful Update";
+			return "Passwords don't match. Please try again.";
 		}
 	}
  	
@@ -70,9 +70,9 @@ public class ClientApplication{
 		if (lc.getCic().checkReferencePersonValid(rp)) {
 			 lc.getClientDatabase().changeContactPerson(clientID, rp);
 			 
-			return "Successful Update";
+			return "Company contact person succesfully updated.";
 		} else {
-			return "Unsuccessful Update";
+			return "Invalid information. Please try again.";
 		}
 	}
 	
@@ -137,14 +137,14 @@ public class ClientApplication{
 					lc.getContainers().finishJourney(c.getID());
 				
 				}
-				return "Not enough containers";
+				return "Not enough containers. Please try again.";
 			}else {
 				for (Container c : containerList) {
 					lc.getContainersHistory().registerValue(new ContainerStatus(0, 0, 0, 0, jid, c.getID()));
 				
 				}
 				lc.getJourneys().registerValue(j);
-				return "Successful Registration";
+				return "Journey registered successfully.";
 			}
 			
 			

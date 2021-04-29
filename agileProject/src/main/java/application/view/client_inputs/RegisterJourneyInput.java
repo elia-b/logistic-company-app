@@ -43,13 +43,15 @@ public class RegisterJourneyInput extends JFrame{
     public RegisterJourneyInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("Register Journey");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Register Journey");
+        Button.setText("Register");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -59,7 +61,7 @@ public class RegisterJourneyInput extends JFrame{
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("Content");
+        label1.setText("Container Content");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -146,7 +148,7 @@ public class RegisterJourneyInput extends JFrame{
       //label 1
         final JLabel label4 = new JLabel();
         label4.setRequestFocusEnabled(false);
-        label4.setText("N of Containers");
+        label4.setText("Number of Containers");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -187,7 +189,7 @@ public class RegisterJourneyInput extends JFrame{
             	
 	        		Journey j = new Journey(textField1.getText(), comboloc.getSelectedLocation(), comboloc2.getSelectedLocation(), Integer.valueOf(textField2.getText()), controller.getClientid());
 	        		String message = controller.getApp().registerJourney(j);
-	        		if (message.equals("Successful Registration")) {
+	        		if (message.equals("Journey registered successfully.")) {
 	        			List<Journey> myjourneys = LogisticCompany.GetInstance().getJourneys().getMyJourneys(controller.getClientid());
 	                    controller.getView().getResultTable().setModel(new JourneyTable(myjourneys));
 	        			controller.getView().showSuccess(message);
@@ -195,7 +197,7 @@ public class RegisterJourneyInput extends JFrame{
 	        			controller.getView().showError(message);
 	        		}
             	} catch (NumberFormatException err) {
-            		controller.getView().showError("Expected a Number");
+            		controller.getView().showError("Invalid information. Please try again.");
             	}
             	
         		jframe.dispose();

@@ -32,13 +32,15 @@ public class UpdateNameInput extends JFrame{
     public UpdateNameInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("Update Company Name");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Update Name");
+        Button.setText("Update");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -48,7 +50,7 @@ public class UpdateNameInput extends JFrame{
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("New Name");
+        label1.setText("Company Name");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -87,7 +89,7 @@ public class UpdateNameInput extends JFrame{
  
             	
         		String message = controller.getApp().updateName(textField1.getText());
-        		if (message.equals("Successful Update")) {
+        		if (message.equals("Company name succesfully updated.")) {
         			controller.getView().showSuccess(message);
         		}else {
         			controller.getView().showError(message);

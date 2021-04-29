@@ -66,15 +66,16 @@ public class ClientApplicationView extends JFrame {
 	private ClientController controller;
 
 	public void showError(String string) {
-		JOptionPane.showMessageDialog(this, string , "Admin Response", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(this, string , "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	public void showSuccess(String string) {
-		JOptionPane.showMessageDialog(this, string , "Admin Response", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, string , "Success", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public ClientApplicationView(ClientController controller, String username) {
 		this.controller = controller;
 		this.username = username;
+		setTitle("YARCMS");
 		initGUI();
 	}
 	
@@ -91,10 +92,10 @@ public class ClientApplicationView extends JFrame {
         navigationPanel.add(textPanel, BorderLayout.NORTH);
         textPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 12, 5, 0)));
         usernameLabel = new JLabel();
-        usernameLabel.setText("<html>" + "<B>" + "Client: " + username + "</B>" + "</html>");
+        usernameLabel.setText("<html>" + "<B>" + username + "</B>" + "</html>");
         textPanel.add(usernameLabel, BorderLayout.NORTH);
         clientTerminalLabel = new JLabel();
-        clientTerminalLabel.setText("<html>" + "<I>" + "Client Terminal" + "</I>" + "</html>");
+        clientTerminalLabel.setText("<html>" + "<I>" + "Client Application" + "</I>" + "</html>");
         textPanel.add(clientTerminalLabel, BorderLayout.CENTER);
         updateInfoPanel = new JPanel();
         updateInfoPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -126,7 +127,7 @@ public class ClientApplicationView extends JFrame {
         navigationBottomPanel.add(logOutButton, BorderLayout.SOUTH);
         toolsPanel = new JPanel();
         toolsPanel.setLayout(new BorderLayout(0, 0));
-        toolsPanel.setPreferredSize(new Dimension(840, 600));
+        toolsPanel.setPreferredSize(new Dimension(780, 600));
         mainPanel.add(toolsPanel, BorderLayout.CENTER);
         toolsPanel.setBorder(BorderFactory.createTitledBorder(null, "Journey and Container Management Tools"));
         filterPanel = new JPanel();
@@ -150,27 +151,28 @@ public class ClientApplicationView extends JFrame {
         filterPanel.add(resetFilterButton);
         controlPanel = new JPanel();
         controlPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 5));
+        controlPanel.setPreferredSize(new Dimension(860, 72));
         controlPanel.setRequestFocusEnabled(true);
         toolsPanel.add(controlPanel, BorderLayout.SOUTH);
         registerJourneyButton = new JButton();
-        registerJourneyButton.setText("New Journey");
+        registerJourneyButton.setText("Register Journey");
         registerJourneyButton.setToolTipText("Register a new journey");
         controlPanel.add(registerJourneyButton);
         getLatestJourneyStatusButton = new JButton();
-        getLatestJourneyStatusButton.setText("Latest Journey Status");
+        getLatestJourneyStatusButton.setText("View Latest Journey Status");
         getLatestJourneyStatusButton.setToolTipText("View the latest status of a journey");
         controlPanel.add(getLatestJourneyStatusButton);
         getJourneyStatusByButton = new JButton();
-        getJourneyStatusByButton.setText("Journey Status by Date");
+        getJourneyStatusByButton.setText("View Journey Status by Date");
         getJourneyStatusByButton.setToolTipText("View status of a journey at a specific time");
         controlPanel.add(getJourneyStatusByButton);
         
         myJourneysButton = new JButton();
-        myJourneysButton.setText("My Journeys");
+        myJourneysButton.setText("View My Journeys");
         myJourneysButton.setToolTipText("View myjourneys, same as reset filter");
         controlPanel.add(myJourneysButton);
         myContainersButton = new JButton();
-        myContainersButton.setText("My Containers");
+        myContainersButton.setText("View My Containers");
         myContainersButton.setToolTipText("View content and location of my containers");
         controlPanel.add(myContainersButton);
         
