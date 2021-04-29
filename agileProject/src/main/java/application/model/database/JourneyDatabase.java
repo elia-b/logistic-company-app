@@ -38,7 +38,7 @@ public class JourneyDatabase implements IDatabase<Journey>{
     		session.getTransaction().commit();
     		return c;
         }
-        else {
+        else { 
         	
             return null;
         }

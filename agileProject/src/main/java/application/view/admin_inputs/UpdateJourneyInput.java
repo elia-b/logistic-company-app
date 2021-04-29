@@ -36,13 +36,16 @@ public class UpdateJourneyInput extends JFrame{
     public UpdateJourneyInput(AdminController controller) {
         
     	this.controller=controller;
+
+
+		setTitle("Update Journey");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Update Journey");
+        Button.setText("Update");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -91,7 +94,7 @@ public class UpdateJourneyInput extends JFrame{
         gbc.anchor = GridBagConstraints.WEST;
         inputPanel.add(label2, gbc);
 
-        //horizontal spacer row 1
+        //horizontal spacer row 2
         final JPanel spacer2 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -99,13 +102,13 @@ public class UpdateJourneyInput extends JFrame{
         gbc.fill = GridBagConstraints.HORIZONTAL;
         inputPanel.add(spacer2, gbc);
 
-        //textfield label 1
+        //textfield label 2
         LocationPicker comboloc = LogisticCompany.GetInstance().getLocationDatabase().getLocationPicker();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        //gbc.fill = GridBagConstraints.HORIZONTAL;
         inputPanel.add(comboloc, gbc);
 
 
@@ -123,7 +126,7 @@ public class UpdateJourneyInput extends JFrame{
             	
         		try {
         			String message = controller.getApp().updateJourney((Integer.valueOf(textField1.getText())), comboloc.getSelectedLocation());
-            		if (message.equals("Successful Journey Update")) {
+            		if (message.equals("Journey successfully updated.")) {
             			controller.getView().showSuccess(message);
             			
             		}else {
@@ -131,7 +134,7 @@ public class UpdateJourneyInput extends JFrame{
             		}
         		}
         		catch (NumberFormatException err) {
-        			controller.getView().showError("Expected a Number");
+        			controller.getView().showError("Invalid information. Please try again.");
         		}
             	
         		jframe.dispose();

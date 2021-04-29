@@ -37,13 +37,15 @@ public class FilterJourneyDestinationInput extends JFrame{
     public FilterJourneyDestinationInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("Filter by Destination");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Filter Journey by Destination");
+        Button.setText("Filter");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -95,11 +97,11 @@ public class FilterJourneyDestinationInput extends JFrame{
         			
         			controller.getView().getResultTable().setModel(new JourneyTable(results));
         		}else {
-        			controller.getView().showError("No Journey with that Destination");
+        			controller.getView().showError("No such journeys found. Please try again.");
         		}
         		jframe.dispose();
         		
-            }
+            } 
         });
     }
 }

@@ -42,13 +42,15 @@ public class GetClosestStatusInput extends JFrame{
     public GetClosestStatusInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("View Journey Status by Date");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Get Closest Status");
+        Button.setText("View");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -131,11 +133,11 @@ public class GetClosestStatusInput extends JFrame{
             			
             			
             		} else {
-            			controller.getView().showSuccess("ERROR 404");
+            			controller.getView().showSuccess("No registered status found. Please try again.");
             		}
             	}
         		catch (NumberFormatException err) {
-        			controller.getView().showError("Expected a Number");
+        			controller.getView().showError("Invalid information. Please try again.");
         		}
         		
             	jframe.dispose();

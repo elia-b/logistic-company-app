@@ -32,13 +32,15 @@ public class UpdateAdressInput extends JFrame{
     public UpdateAdressInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("Update Company Address");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Update Adress");
+        Button.setText("Update");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -48,7 +50,7 @@ public class UpdateAdressInput extends JFrame{
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("New Adress");
+        label1.setText("Company Address");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -87,7 +89,7 @@ public class UpdateAdressInput extends JFrame{
  
             	
         		String message = controller.getApp().updateAdress(textField1.getText());
-        		if (message.equals("Successful Update")) {
+        		if (message.equals("Company address succesfully updated.")) {
         			controller.getView().showSuccess(message);
         		}else {
         			controller.getView().showError(message);

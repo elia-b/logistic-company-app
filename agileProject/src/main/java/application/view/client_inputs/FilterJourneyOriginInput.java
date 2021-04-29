@@ -37,13 +37,15 @@ public class FilterJourneyOriginInput extends JFrame{
     public FilterJourneyOriginInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("Filter by Origin");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Filter Journey by Origin");
+        Button.setText("Filter");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -95,7 +97,7 @@ public class FilterJourneyOriginInput extends JFrame{
         			
         			controller.getView().getResultTable().setModel(new JourneyTable(results));
         		}else {
-        			controller.getView().showError("No Journey with that Origin");
+        			controller.getView().showError("No such journeys found. Please try again.");
         		}
         		jframe.dispose();
         		

@@ -41,13 +41,15 @@ public class GetLatestStatusInput extends JFrame{
     public GetLatestStatusInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("View Latest Journey Status");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Get Latest Status");
+        Button.setText("View");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -102,11 +104,11 @@ public class GetLatestStatusInput extends JFrame{
             			
             			
             		} else {
-            			controller.getView().showError("No Container Status found");
+            			controller.getView().showError("No such container status found. Please try again.");
             		}
             	}
         		catch (NumberFormatException err) {
-        			controller.getView().showError("Expected a Number");
+        			controller.getView().showError("Invalid information. Please try again.");
         		}
         		
             	jframe.dispose();

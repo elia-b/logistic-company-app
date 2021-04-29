@@ -33,13 +33,15 @@ public class AddLocationInput extends JFrame {
     public AddLocationInput(AdminController controller) {
         
     	this.controller=controller;
+
+		setTitle("Add Port Location");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Add Location");
+        Button.setText("Add");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -49,7 +51,7 @@ public class AddLocationInput extends JFrame {
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("Location");
+        label1.setText("Port Location");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -87,7 +89,7 @@ public class AddLocationInput extends JFrame {
             public void actionPerformed(ActionEvent e) {
  
         		String message = controller.getApp().addLocation(textField1.getText());
-        		if (message.equals("Location Added")) {
+        		if (message.equals("Port location succesfully added.")) {
         			controller.getView().showSuccess(message);
         		}else {
         			controller.getView().showError(message);

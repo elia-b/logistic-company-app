@@ -38,13 +38,15 @@ public class UpdateEmailInput extends JFrame{
     public UpdateEmailInput(ClientController controller) {
         
     	this.controller=controller;
+
+		setTitle("Update Company Email");
     	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Update Email");
+        Button.setText("Update");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -54,7 +56,7 @@ public class UpdateEmailInput extends JFrame{
         //label 1
         final JLabel label1 = new JLabel();
         label1.setRequestFocusEnabled(false);
-        label1.setText("New Email");
+        label1.setText("Email Address");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -93,7 +95,7 @@ public class UpdateEmailInput extends JFrame{
  
             	
         		String message = controller.getApp().updateEmail(textField1.getText());
-        		if (message.equals("Successful Update")) {
+        		if (message.equals("Company email address succesfully updated.")) {
         			controller.getView().showSuccess(message);
         		}else {
         			controller.getView().showError(message);

@@ -10,15 +10,15 @@ import java.util.Calendar;
 public class TimeNDatePicker extends JPanel{
 	
 	// The font should be changed
-	private JLabel y = new JLabel("YEAR");
+	private JLabel y = new JLabel("Year");
 	private JComboBox comboBoxYear = new JComboBox();
-	private JLabel m = new JLabel("MONTH");
+	private JLabel m = new JLabel("Month");
 	private JComboBox comboBoxMonth = new JComboBox();
-	private JLabel d = new JLabel("DAY");
+	private JLabel d = new JLabel("Day");
 	private JComboBox comboBoxDay = new JComboBox();
-	private JLabel min = new JLabel("MIN");
+	private JLabel min = new JLabel("Min");
 	private JComboBox comboBoxMinute = new JComboBox();
-	private JLabel h = new JLabel("HOUR");
+	private JLabel h = new JLabel("Hour");
 	private JComboBox comboBoxHours = new JComboBox();
 	private boolean leapYear = false;
 

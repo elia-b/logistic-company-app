@@ -40,12 +40,14 @@ public class GetContainerHistoryInput extends JFrame{
         
     	this.controller=controller;
     	
+		setTitle("Container Status History");
+    	
     	jframe = this;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout(0, 0));
         mainPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         Button = new JButton();
-        Button.setText("Show Container History");
+        Button.setText("View");
         mainPanel.add(Button, BorderLayout.SOUTH);
         inputPanel = new JPanel();
         inputPanel.setLayout(new GridBagLayout());
@@ -98,7 +100,7 @@ public class GetContainerHistoryInput extends JFrame{
         			controller.getView().setTableModel(table);
         		}
         		catch (Exception err) {
-        			controller.getView().showError(err.getMessage());
+        			controller.getView().showError("Invalid information. Please try again.");
         		}
         		
             	jframe.dispose();
