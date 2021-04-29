@@ -4,7 +4,7 @@ import application.model.database.ClientDatabase;
 import application.model.database.ContainerDatabase;
 import application.model.database.ContainerHistoryDatabase;
 import application.model.database.JourneyDatabase;
-import application.model.database.LocationDatabase;
+import application.utils.LocationDatabase;
 
 // Create an interface for any logistic company
 public class LogisticCompany implements User{

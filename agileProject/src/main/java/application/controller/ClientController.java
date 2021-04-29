@@ -120,9 +120,35 @@ public class ClientController {
 		registerJourneyInput.setVisible(true);
 	}
 
+<<<<<<< HEAD
 	public void get_latest_status() {
 		getLatestStatus = new GetLatestStatusInput(this);
 		getLatestStatus.setLocationRelativeTo(null);
+=======
+    public void filter_journey_by_destination() {
+    	filterJourneyDestination = new FilterJourneyDestinationInput(this);
+    	filterJourneyDestination.setVisible(true);
+    }
+
+
+
+    public void filter_journey_by_origin() {
+    	filterJourneyOrigin = new FilterJourneyOriginInput(this);
+    	filterJourneyOrigin.setVisible(true);
+    }
+ 
+
+
+    public void register_journey() {
+    	registerJourneyInput = new RegisterJourneyInput(this);
+    	registerJourneyInput.setVisible(true);
+    }
+
+
+
+    public void get_latest_status() {
+    	getLatestStatus = new GetLatestStatusInput(this);
+>>>>>>> refs/remotes/origin/date-and-location
 		getLatestStatus.setVisible(true);
 
 	}
