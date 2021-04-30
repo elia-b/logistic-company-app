@@ -26,7 +26,7 @@ public class AdminApplication {
             return "Invalid information. Please try again.";
         }
     }
-	 
+	  
 
 	
 	private String generatePassword() {

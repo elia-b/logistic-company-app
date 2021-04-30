@@ -10,7 +10,9 @@ import javax.persistence.OneToOne;
 import application.model.database.IData;
 
 @Entity
-public class ContainerStatus implements IData{
+public class ContainerStatus implements IData {
+
+	// class members describing a status
 	private long date;
 	private float temperature;
 	private float pressure;
@@ -19,28 +21,16 @@ public class ContainerStatus implements IData{
 	private int csId;
 	private int journeyId;
 	private int containerId;
-	
-	public int getJourneyId() {
-		return journeyId;
+
+	// method to get the time difference between two statuses, used for the
+	// getclosestStatus method
+	public long getDifference(long date2) {
+		long diff = date2 - date;
+		return Math.abs(diff);
 	}
-	public ContainerStatus() {
-		
-	}
-	
-	public long getDate() {
-		return date;
-	}
-	public float getTemperature() {
-		return temperature;
-	}
-	public float getPressure() {
-		return pressure;
-	}
-	public float getHumidity() {
-		return humidity;
-	}
-	
-	public ContainerStatus(long date, float temperature, float pressure, float humidity, int journeyId, int containerId) {
+
+	public ContainerStatus(long date, float temperature, float pressure, float humidity, int journeyId,
+			int containerId) {
 		super();
 		this.date = date;
 		this.temperature = temperature;
@@ -49,13 +39,31 @@ public class ContainerStatus implements IData{
 		this.journeyId = journeyId;
 		this.containerId = containerId;
 	}
-	  
-	
-	
-	
-	public long getDifference(long date2) {
-		long diff = date2 - date;
-		return Math.abs(diff);
+
+	// Default Constructor for MySql
+	public ContainerStatus() {
+
+	}
+
+	// Getters and Setters
+	public int getJourneyId() {
+		return journeyId;
+	}
+
+	public long getDate() {
+		return date;
+	}
+
+	public float getTemperature() {
+		return temperature;
+	}
+
+	public float getPressure() {
+		return pressure;
+	}
+
+	public float getHumidity() {
+		return humidity;
 	}
 
 	@Override
@@ -66,12 +74,11 @@ public class ContainerStatus implements IData{
 	@Override
 	public void setID(int id) {
 		this.csId = id;
-		
-	}
 
+	}
 
 	public int getContainerId() {
 		return this.containerId;
 	}
-	
+
 }

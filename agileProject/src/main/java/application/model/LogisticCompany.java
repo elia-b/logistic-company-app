@@ -7,30 +7,36 @@ import application.model.database.JourneyDatabase;
 import application.utils.LocationDatabase;
 
 // Create an interface for any logistic company
-public class LogisticCompany implements User{
-	
+public class LogisticCompany implements User {
 
-    private ClientDatabase clients = new ClientDatabase();
-    private JourneyDatabase journeys = new JourneyDatabase();
-    private ContainerHistoryDatabase containersHistory = new ContainerHistoryDatabase();
-    private ContainerDatabase containers = new ContainerDatabase();
+	// Default Username and Password
+	private static final String logisticCompanyUsername = "LCU";
+	private static final String logisticCompanyPassword = "123";
+
+	// references to databases
+	private ClientDatabase clients = new ClientDatabase();
+	private JourneyDatabase journeys = new JourneyDatabase();
+	private ContainerHistoryDatabase containersHistory = new ContainerHistoryDatabase();
+	private ContainerDatabase containers = new ContainerDatabase();
 	private LocationDatabase locationDatabase = new LocationDatabase();
-
+	// reference to InputInfoChecker
 	private InputInfoChecker cic = new InputInfoChecker(this);
 
-    //This will be used for singleton pattern
-    private static LogisticCompany lc = new LogisticCompany();
-    
-    public static LogisticCompany GetInstance(){
+	// Singleton pattern
+	private static LogisticCompany lc = new LogisticCompany();
+
+	public static LogisticCompany GetInstance() {
 		return lc;
 	}
-     
-    private LogisticCompany(){
-	} 
-    
+
+	private LogisticCompany() {
+	}
+
+	// Getteres
 	public LocationDatabase getLocationDatabase() {
 		return locationDatabase;
 	}
+
 	public ContainerDatabase getContainers() {
 		return containers;
 	}
@@ -39,21 +45,17 @@ public class LogisticCompany implements User{
 		return containersHistory;
 	}
 
-
-	private static final String logisticCompanyUsername = "LCU";
-	private static final String logisticCompanyPassword = "123";
-
-	
 	public InputInfoChecker getCic() {
 		return cic;
 	}
-	
-    public ClientDatabase getClientDatabase() {
+
+	public ClientDatabase getClientDatabase() {
 		return clients;
 	}
-    public JourneyDatabase getJourneys() {
-    	return journeys;
-    }
+
+	public JourneyDatabase getJourneys() {
+		return journeys;
+	}
 
 	public String getPassword() {
 		return logisticCompanyPassword;
@@ -62,6 +64,5 @@ public class LogisticCompany implements User{
 	public String getName() {
 		return logisticCompanyUsername;
 	}
-
 
 }
