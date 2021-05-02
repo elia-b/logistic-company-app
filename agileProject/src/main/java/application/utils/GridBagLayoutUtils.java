@@ -9,6 +9,7 @@ public class GridBagLayoutUtils {
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = x;
 		c.gridy = y;
+		//Specifies the component's external padding, the minimum amount of space between the component and the edges of its display area.
 		c.insets = new Insets(inset, inset, inset, inset);
 		return c;
 	}

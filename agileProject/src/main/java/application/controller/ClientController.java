@@ -39,7 +39,7 @@ public class ClientController {
 	private FilterJourneyOriginInput filterJourneyOrigin;
 	private GetLatestStatusInput getLatestStatus;
 	private GetClosestStatusInput getClosestStatus;
-
+	// line 43 to line 55 getters for view, App and ClientId
 	public ClientApplicationView getView() {
 		return view;
 	}
@@ -53,20 +53,26 @@ public class ClientController {
 	public int getClientid() {
 		return clientid;
 	}
-
+// constructor for initialise the ClientController 
 	public ClientController(int clientid, ApplicationController controller, String username) {
+		// set the clientApplicationView for current client
 		view = new ClientApplicationView(this, username);
+		// initialise the clientID
 		this.clientid = clientid;
+		// initialise the App
 		this.app = new ClientApplication(clientid, LogisticCompany.GetInstance());
+		// initialise the controller to clientController
 		this.controller = controller;
 	}
 
 	public void display() {
+		// set window to the centre on the screen.
 		view.setLocationRelativeTo(null);
+		// display the window
 		view.setVisible(true);
 
 	}
-
+	// line 76 to 100 : update address, password, email, name and contact_person
 	public void update_address() {
 		updateAdress = new UpdateAdressInput(this);
 		updateAdress.setLocationRelativeTo(null);
@@ -96,7 +102,7 @@ public class ClientController {
 		updateContactPerson.setLocationRelativeTo(null);
 		updateContactPerson.setVisible(true);
 	}
-
+	// line 106 to line 122 filter journey by content, destination or origin
 	public void filter_journey_by_content() {
 		filterJourneyContent = new FilterJourneyContentInput(this);
 		filterJourneyContent.setLocationRelativeTo(null);
@@ -115,20 +121,20 @@ public class ClientController {
 		filterJourneyOrigin.setLocationRelativeTo(null);
 		filterJourneyOrigin.setVisible(true);
 	}
-
+	// register journey
 	public void register_journey() {
 		registerJourneyInput = new RegisterJourneyInput(this);
 		registerJourneyInput.setLocationRelativeTo(null);
 		registerJourneyInput.setVisible(true);
 	}
-
+	// get the latest status
 	public void get_latest_status() {
 		getLatestStatus = new GetLatestStatusInput(this);
 		getLatestStatus.setLocationRelativeTo(null);
 		getLatestStatus.setVisible(true);
 
 	}
-
+	// 
 	public void get_closes_status() {
 		getClosestStatus = new GetClosestStatusInput(this);
 		getClosestStatus.setLocationRelativeTo(null);
@@ -137,7 +143,9 @@ public class ClientController {
 	}
 
 	public void logOut() {
+		// close the window
 		view.setVisible(false);
+		// back to login dialogue
 		controller.login();
 	}
 

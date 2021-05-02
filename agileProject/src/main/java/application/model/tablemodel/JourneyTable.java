@@ -9,27 +9,32 @@ import application.model.Journey;
 public class JourneyTable extends AbstractTableModel {
 	int size;
 	List<Journey> journeys;
-	
+	// constructor for initialise journeys
 	public JourneyTable(List<Journey> journeys) {
+		// number of the journeys
 		size = journeys.size();
+		// initialise the journey in the list
 		this.journeys = journeys;
 	}
 
 
 	@Override
 	public int getRowCount() {
+		// initialise the number of row with size 
 		// TODO Auto-generated method stub
 		return size;
 	}
 
 	@Override
 	public int getColumnCount() {
+		// 7 column for getID,getClientid,getOrigin,getDestination,getContent,getNOfContainers
 		// TODO Auto-generated method stub
 		return 6;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
+		//get the below value  with columnIndex
 		if (columnIndex == 0) {
 			return journeys.get(rowIndex).getID();
 		} else if (columnIndex == 1) {
@@ -47,6 +52,7 @@ public class JourneyTable extends AbstractTableModel {
 	}
 	@Override
 	public String getColumnName(int columnIndex) {
+		// initialise the columnName
 		if (columnIndex == 0) {
 			return "Journey ID";
 		} else if (columnIndex == 1) {

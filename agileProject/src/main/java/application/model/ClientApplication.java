@@ -170,6 +170,7 @@ public class ClientApplication {
 				// If enough containers got found, loop through the containerlist and create the
 				// mock-up container status for them
 				for (Container c : containerList) {
+					
 					lc.getContainersHistory().registerValue(new ContainerStatus(0, 0, 0, 0, jid, c.getID()));
 
 				}

@@ -10,9 +10,11 @@ import application.model.ContainerStatus;
 public class ContainerStatusTable extends AbstractTableModel {
 	int size;
 	List<ContainerStatus> cslist;
-	
+	// constructor for initialise the containerStatus
 	public ContainerStatusTable(List<ContainerStatus> cslist) {
+		// number of the containerStatus
 		size = cslist.size();
+		// initialise the container status in the list
 		this.cslist = cslist;
 	}
 	
@@ -21,18 +23,21 @@ public class ContainerStatusTable extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
+		// initialise the number of row with size 
 		// TODO Auto-generated method stub
 		return size;
 	}
 
 	@Override
 	public int getColumnCount() {
+		// 7 column for getID, getjourneyId, getContainerID, getPressure,getTemperature,getHumidity,getDate
 		// TODO Auto-generated method stub
 		return 7;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
+		//get the below value  with columnIndex
 		if (columnIndex == 0) {
 			return cslist.get(rowIndex).getID();
 		} else if (columnIndex == 1) {
@@ -46,6 +51,7 @@ public class ContainerStatusTable extends AbstractTableModel {
 		}else if (columnIndex == 5) {
 			return cslist.get(rowIndex).getHumidity();
 		}else if (columnIndex == 6) {
+			// get the date 
 			long date = cslist.get(rowIndex).getDate();
 			Date d = new Date(date);
 			return d.toString();
@@ -53,6 +59,7 @@ public class ContainerStatusTable extends AbstractTableModel {
 		return null;
 	}
 	@Override
+	// initialise the columnName
 	public String getColumnName(int columnIndex) {
 		if (columnIndex == 0) {
 			return "Container Status ID";

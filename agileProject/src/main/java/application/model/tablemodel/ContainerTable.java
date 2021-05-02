@@ -12,9 +12,11 @@ import application.model.Container;
 public class ContainerTable extends AbstractTableModel {
 	int size;
 	List<Container> containers;
-	
+	// constructor for initialise the container
 	public ContainerTable(List<Container> containers) {
+		// number of the container
 		size = containers.size();
+		// initialise the container object in the list
 		this.containers = containers;
 	}
 	
@@ -23,17 +25,20 @@ public class ContainerTable extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
+		// initialise the number of row with size 
 		// TODO Auto-generated method stub
 		return size;
 	}
 
 	@Override
 	public int getColumnCount() {
+		//4 column for getID, getjourneyId,getLocation and getContent
 		// TODO Auto-generated method stub
 		return 4;
 	}
 
 	@Override
+	//get the below value  with columnIndex
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (columnIndex == 0) {
 			return containers.get(rowIndex).getID();
@@ -47,6 +52,7 @@ public class ContainerTable extends AbstractTableModel {
 		return null;
 	}
 	@Override
+	// Initialise the columnName
 	public String getColumnName(int columnIndex) {
 		if (columnIndex == 0) {
 			return "Container ID";
