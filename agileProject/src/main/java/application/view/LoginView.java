@@ -17,7 +17,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import application.controller.ApplicationLogIn;
-import application.utils.GridBagLayoutUtils;
+
 
 public class LoginView extends JFrame {
 
