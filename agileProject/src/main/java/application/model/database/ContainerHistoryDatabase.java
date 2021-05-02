@@ -121,7 +121,7 @@ public class ContainerHistoryDatabase implements IDatabase<ContainerStatus> {
 
 		return newAl;
 	}
-
+	//This methods returns a list of all mock-up statuses registered to a container
 	public List<ContainerStatus> getContainerStatusfromContainerAtTimeNull(int containerid) {
 		session.beginTransaction();
 		Query q = session.createQuery("from ContainerStatus where containerId = :containerId and date = 0");

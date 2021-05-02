@@ -153,12 +153,11 @@ public class AdminApplication {
     	ArrayList<Integer> journeys = new ArrayList<Integer>();
         // if the container id exist
     	if (lc.getContainers().containsKey(containerid)){
-	        // loop through all the container status of the container with the input container id at time null
+	        // loop through all the mock-up container status of the container with the input container id 
     		for (ContainerStatus cs : lc.getContainersHistory().getContainerStatusfromContainerAtTimeNull(containerid)) {
-	        	
-    			if (!journeys.contains(cs.getJourneyId())) {
-	        		journeys.add(cs.getJourneyId());
-	        	}
+    			// and add the journey id saved in each mock-up status to journeys
+    			journeys.add(cs.getJourneyId());
+    			
 	             
 	        }
         return journeys;
